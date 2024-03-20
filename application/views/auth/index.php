@@ -9,11 +9,11 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="<?= ASSETS ?>adminlte/plugins/fontawesome-free/css/all.min.css">
   <!-- icheck bootstrap -->
-  <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
+  <link rel="stylesheet" href="<?= ASSETS ?>adminlte/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
   <!-- Theme style -->
-  <link rel="stylesheet" href="<?= base_url() ?>assets/adminlte/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="<?= ASSETS ?>adminlte/dist/css/adminlte.min.css">
 </head>
 
 <body class="hold-transition login-page">
@@ -25,8 +25,7 @@
     <div class="card">
       <div class="card-body login-card-body">
         <p class="login-box-msg">Sign in to start your session</p>
-
-        <form action="#" method="post">
+        <form action="<?php echo BASE_URL?>/auth/login" method="post">
           <div class="input-group mb-3">
             <input type="email" name="email" class="form-control" placeholder="Email">
             <div class="input-group-append">
@@ -60,11 +59,11 @@
   <!-- /.login-box -->
 
   <!-- jQuery -->
-  <script src="<?= base_url() ?>assets/adminlte/plugins/jquery/jquery.min.js"></script>
+  <script src="<?= ASSETS ?>adminlte/plugins/jquery/jquery.min.js"></script>
   <!-- Bootstrap 4 -->
-  <script src="<?= base_url() ?>assets/adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="<?= ASSETS ?>adminlte/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
   <!-- AdminLTE App -->
-  <script src="<?= base_url() ?>assets/adminlte/dist/js/adminlte.min.js"></script>
+  <script src="<?= ASSETS ?>adminlte/dist/js/adminlte.min.js"></script>
 </body>
 
 </html>
