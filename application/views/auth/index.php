@@ -26,6 +26,13 @@
       <div class="card-body login-card-body">
         <p class="login-box-msg">Sign in to start your session</p>
         <form action="<?php echo BASE_URL?>/auth/login" method="post">
+          <div class="form-group">
+            <select class="form-control" name="login_as">
+              <option value="">Select login as</option>
+              <option value="1">Admin</option>
+              <option value="2">Sales Manager</option>
+            </select>
+          </div>
           <div class="input-group mb-3">
             <input type="email" name="email" class="form-control" placeholder="Email">
             <div class="input-group-append">

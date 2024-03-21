@@ -1,5 +1,5 @@
-<?php require_once(APPPATH . 'views/inc/header.php'); ?>
-<?php require_once(APPPATH . 'views/inc/sidebar.php'); ?>
+<?php require_once(APPPATH . 'views/admin_dashboard/inc/header.php'); ?>
+<?php require_once(APPPATH . 'views/admin_dashboard/inc/sidebar.php'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -95,4 +95,4 @@
 </div>
 <!-- ./wrapper -->
 
-<?php require_once(APPPATH . 'views/inc/footer.php'); ?>
+<?php require_once(APPPATH . 'views/admin_dashboard/inc/footer.php'); ?>

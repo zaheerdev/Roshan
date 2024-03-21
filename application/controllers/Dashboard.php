@@ -19,6 +19,11 @@ class Dashboard extends CI_Controller
 
 	public function index()
 	{
-		$this->load->view('dashboard/index');
+		$user_role = $this->session->userdata('user_session')->role_id;
+		if($user_role == 1):
+			$this->load->view('admin_dashboard/index');
+		else:
+			$this->load->view('sales_dashboard/index');
+		endif;
 	}
 }

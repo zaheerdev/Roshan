@@ -28,4 +28,13 @@ class Auth_model extends CI_Model
         return $results;
     } // function ends
 
+    public function check_user_role($email, $role_id) {
+        $this->db->select('role_id');
+        $this->db->from('users');
+        $this->db->where('email', $email);
+        $this->db->where('role_id', $role_id);
+        $query = $this->db->get();
+        return $query->num_rows() > 0;
+    }
+
 }//class end here
