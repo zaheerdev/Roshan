@@ -24,6 +24,7 @@
     <script src="<?= ASSETS ?>adminlte/plugins/summernote/summernote-bs4.min.js"></script>
     <!-- overlayScrollbars -->
     <script src="<?= ASSETS ?>adminlte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js"></script>
+    <script src="<?= ASSETS ?>adminlte/plugins/toastr/toastr.min.js"></script>
     <!-- AdminLTE App -->
     <script src="<?= ASSETS ?>adminlte/dist/js/adminlte.js"></script>
 </body>

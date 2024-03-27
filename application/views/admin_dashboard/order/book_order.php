@@ -35,20 +35,17 @@
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
-                        <form id="book_order_form">
+                        <form id="book_order_form" action="#" method="post">
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>Vendor</label>
-                                    <select class="form-control">
-                                        <option>Select Vendor</option>
-                                        <option>option 2</option>
-                                        <option>option 3</option>
-                                        <option>option 4</option>
-                                        <option>option 5</option>
+                                    <select class="form-control" name="vendor_id" required>
+                                        <option value="">Select Vendor</option>
+                                        <?php foreach ($vendors as $vendor) : ?>
+                                            <option value="<?php echo $vendor['id']; ?>"><?php echo $vendor['name']; ?></option>
+                                        <?php endforeach; ?>
                                     </select>
                                 </div>
-
-                                <!-- Your HTML structure using AdminLTE and Bootstrap -->
 
                                 <table id="items-table" class="table">
                                     <thead>
@@ -61,8 +58,23 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input type="text" class="form-control"></td>
-                                            <td><input type="number" class="form-control"></td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <select class="form-control" id="item_select" required>
+                                                        <option value="">Select Item</option>
+                                                        <?php foreach ($product_items as $item) : ?>
+                                                            <option value="<?php echo $item['id']; ?>" data-price="<?php echo $item['price']; ?>">
+                                                                <?php echo $item['product_name']; ?>
+                                                            </option>
+                                                        <?php endforeach; ?>
+                                                    </select>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="form-group">
+                                                    <input type="text" class="form-control price_input" readonly>
+                                                </div>
+                                            </td>
                                             <td>
                                                 <input type="number" class="form-control quantity">
                                             </td>
@@ -102,12 +114,19 @@
 
 <script>
     $(document).ready(function() {
+
         $('#add-row').click(function(event) {
             event.preventDefault();
             var lastRow = $('#items-table tbody tr:last');
             var newRow = lastRow.clone();
             newRow.find('input').val('');
+            newRow.find('.total input').val('0');
             lastRow.after(newRow);
+        });
+
+        $(document).on('change', '#item_select', function() {
+            var selectedPrice = $(this).find('option:selected').data('price');
+            $(this).closest('tr').find('.price_input').val(selectedPrice);
         });
 
         $('#items-table').on('change', 'input.quantity', function() {
@@ -121,5 +140,69 @@
             $('#book_order_form')[0].reset();
             $('#items-table tbody tr:not(:first)').remove();
         });
+
+        // Initialize Toastr
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        // Function to trigger a toast message
+        function showToast(message, type) {
+            toastr[type](message);
+        }
+
+        // Submit form
+        $('#book_order_form').submit(function(event) {
+            event.preventDefault();
+
+            var vendorId = $('select[name="vendor_id"]').val();
+            var productItems = [];
+
+            $('#items-table tbody tr').each(function() {
+                var productId = $(this).find('td:nth-child(1) select').val();
+                var quantity = $(this).find('td:nth-child(3) input').val();
+                var total = $(this).find('td:nth-child(4) input').val();
+                productItems.push({
+                    productId: productId,
+                    quantity: quantity,
+                    total: total
+                });
+            });
+
+            var formData = {
+                vendorId: vendorId,
+                productItems: productItems
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: 'save_order',
+                data: JSON.stringify(formData),
+                contentType: 'application/json',
+                success: function(response) {
+                    console.log(response);
+                    showToast('Order booked successfully!', 'success');
+                },
+                error: function(xhr, status, error) {
+                    console.error(error);
+                    showToast('Order booking failed!', 'error');
+                }
+            });
+        });
+
     });
 </script>
