@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
-class Order_management extends CI_Controller
+class Order extends CI_Controller
 {
 
 	/**
@@ -36,7 +36,13 @@ class Order_management extends CI_Controller
 
 			$formData = json_decode($post_data, true);
 
-			$result = $this->order_model->processOrder($formData['vendorId'], $formData['productItems']);
+			$order_id = sprintf('%04d', mt_rand(1, 9999));
+
+			while ($this->order_model->isOrderIdExists($order_id)) {
+				$order_id = sprintf('%04d', mt_rand(1, 9999));
+			}
+
+			$result = $this->order_model->processOrder($formData['vendorId'], $formData['productItems'], $order_id);
 
 			if ($result) {
 				echo json_encode(array('success' => true, 'message' => 'Order processed successfully'));
@@ -47,4 +53,23 @@ class Order_management extends CI_Controller
 			echo json_encode(array('success' => false, 'error' => 'Invalid request method'));
 		}
 	}
+
+	public function deliver_order()
+	{
+		$this->load->view('admin_dashboard/order/deliver_order');
+	}
+
+	public function get_order_details() {
+        $order_id = $this->input->post('order_id');
+        $order_details = $this->order_model->getOrderDetails($order_id);
+
+        if ($order_details) {
+            $data = array(
+                'order_details' => $order_details,
+            );
+            $this->load->view('admin_dashboard/order/order_details', $data);
+        } else {
+            echo "No order found with the given ID.";
+        }
+    }
 }

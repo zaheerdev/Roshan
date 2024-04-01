@@ -194,7 +194,6 @@
                 data: JSON.stringify(formData),
                 contentType: 'application/json',
                 success: function(response) {
-                    console.log(response);
                     showToast('Order booked successfully!', 'success');
                 },
                 error: function(xhr, status, error) {
