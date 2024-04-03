@@ -42,7 +42,7 @@
                                     <label>Order ID</label>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <input type="search" class="form-control" id="order_id" name="order_id">
+                                            <input type="search" class="form-control" id="order_id" name="order_id" placeholder="Enter Order ID">
                                         </div>
                                         <div class="col-md-4">
                                             <input type="submit" class="btn btn-primary" value="Search">
@@ -52,7 +52,7 @@
                             </form>
                         </div>
 
-                        <form action="iygi.php" method="post">
+                        <form action="<?= BASE_URL ?>order/save_deliver_order" method="post" id="deliver_order_form">
                             <div id="order_details"></div>
                         </form>
 
@@ -91,11 +91,6 @@
             });
         });
 
-        $('#cancel-button').click(function() {
-            $('#book_order_form')[0].reset();
-            $('#items-table tbody tr:not(:first)').remove();
-        });
-
         // Initialize Toastr
         toastr.options = {
             "closeButton": true,
@@ -122,3 +117,16 @@
 
     });
 </script>
+
+<?php if ($this->session->flashdata('toast_message')) : ?>
+    <script>
+        $(document).ready(function() {
+            var message = "<?php echo $this->session->flashdata('toast_message'); ?>";
+            showToast(message, 'success');
+        });
+
+        function showToast(message, type) {
+            toastr[type](message);
+        }
+    </script>
+<?php endif; ?>

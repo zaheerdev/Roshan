@@ -16,7 +16,7 @@ class Order_model extends CI_Model
      * @param  mixed $productItems
      * @return void
      */
-    public function processOrder($vendor_id, $productItems, $order_id)
+    public function process_order($vendor_id, $productItems, $order_id)
     {
         $orders_data = array();
 
@@ -35,10 +35,20 @@ class Order_model extends CI_Model
         $this->db->insert_batch('orders', $orders_data);
 
         if ($this->db->affected_rows() > 0) {
-            return true;
+            $response = [
+                'order_id' => $order_id,
+                'status' => true,
+                "data" => null,
+                'message' => "order created successfully."
+            ];
         } else {
-            return false;
+            $response = [
+                'status' => false,
+                "data" => null,
+                'message' => "Some error occurred during order Creation. Please try again."
+            ];
         }
+        return $response;
     } // function ends
 
     public function isOrderIdExists($order_id)
@@ -47,7 +57,7 @@ class Order_model extends CI_Model
         return ($query->num_rows() > 0);
     }
 
-    public function getOrderDetails($order_id)
+    public function get_order_details($order_id)
     {
         $this->db->select("*");
         $this->db->from("orders or");
@@ -63,6 +73,10 @@ class Order_model extends CI_Model
             $result = null;
         }
         return $result;
-
     } //function ends
+
+    public function save_deliver_order($data) {
+        $this->db->insert('orders_delivered', $data);
+        return $this->db->insert_id();
+    }
 }

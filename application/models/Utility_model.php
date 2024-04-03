@@ -35,4 +35,10 @@ class Utility_model extends CI_Model
         }
         return $result;
     } // function ends
+
+    public function is_order_delivered($order_id) {
+        $this->db->where('order_id', $order_id);
+        $query = $this->db->get('orders_delivered');
+        return $query->num_rows() > 0;
+    }
 }

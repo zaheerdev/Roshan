@@ -27,7 +27,7 @@ class Auth extends CI_Controller
 		}
 		//end
 
-		$data['page_title'] = "Login";
+		$data['page_title'] = "Roshan | Login";
 
 		$this->form_validation->set_rules('login_as', 'Login As', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'required');

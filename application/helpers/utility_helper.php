@@ -96,60 +96,13 @@ if (!function_exists('generate_random_string')) {
     }
 } //function end
 
-if (!function_exists('implode_data')) {
+if (!function_exists('is_order_delivered')) {
+    function is_order_delivered($order_id) {
 
-    /**
-     * implode_data
-     *
-     * @param  mixed $data
-     * @return void
-     */
-    function implode_data($data)
-    {
+        $CI =& get_instance();
+        
+        $is_delivered = $CI->utility_model->is_order_delivered($order_id);
 
-        if ($data) {
-            $result = implode(',', $data);
-        } else {
-            $result = "";
-        }
-
-        return $result;
+        return $is_delivered;
     }
-} //function ends
-
-if (!function_exists('explode_data')) {
-
-    /**
-     * implode_data
-     *
-     * @param  mixed $data
-     * @return void
-     */
-    function explode_data($data)
-    {
-
-        if ($data) {
-            $result = explode(',', $data);
-        } else {
-            $result = "";
-        }
-
-        return $result;
-    }
-} //function ends
-
-if (!function_exists('redirect_session')) {
-    function redirect_session()
-    {
-        $_SESSION['REQUEST_URI'] = $_SERVER['REQUEST_URI'];
-        redirect(BASE_URL . 'auth/login');
-    }
-} //function ends
-
-if (!function_exists('beautify_implode')) {
-    function beautify_implode($data)
-    {
-        $data = explode(',', $data);
-        return implode(', ', $data);
-    }
-} //function ends
+}

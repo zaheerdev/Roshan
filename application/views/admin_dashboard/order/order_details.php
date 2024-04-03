@@ -1,6 +1,8 @@
 <div class="card-body">
-    <h2>Order Information</h2><br>
+    <h2 class="mb-3">Order Information</h2>
     <?php if ($order_details) : ?>
+        <p>Order ID: <?= $order_details[0]->order_id; ?></p>
+        <input type="hidden" name="order_id" value="<?= $order_details[0]->order_id; ?>">
         <div class="row">
             <div class="col-md-6">
                 <h4 class="mb-3">Product Details</h4>
@@ -61,12 +63,17 @@
             </div>
         </div>
     </div>
-   
+
 </div>
 
 <div class="card-footer">
-    <button type="submit" class="btn btn-primary">Deliver Order</button>
-    <button type="button" id="cancel-button" class="btn btn-default">Cancel</button>
+    <?php
+    $order_id = $order_details[0]->order_id;
+    if (is_order_delivered($order_id)) : ?>
+        <button type="button" class="btn btn-danger" disabled>Delivered</button>
+    <?php else : ?>
+        <button type="submit" class="btn btn-primary">Deliver Order</button>
+    <?php endif; ?>
 </div>
 
 
@@ -107,4 +114,3 @@
         updateTotals();
     });
 </script>
-

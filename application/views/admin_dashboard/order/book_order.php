@@ -111,7 +111,9 @@
 <!-- ./wrapper -->
 
 <?php require_once(APPPATH . 'views/admin_dashboard/inc/footer.php'); ?>
-
+<script>
+    let BASE_URL = "<?php echo BASE_URL; ?>";
+</script>
 <script>
     $(document).ready(function() {
 
@@ -125,8 +127,10 @@
         });
 
         $(document).on('change', '#item_select', function() {
-            var selectedPrice = $(this).find('option:selected').data('price');
+            var selectedPrice = parseFloat($(this).find('option:selected').data('price'));
             $(this).closest('tr').find('.price_input').val(selectedPrice);
+            var total = selectedPrice;
+            $(this).closest('tr').find('.total input').val(total);
         });
 
         $('#items-table').on('change', 'input.quantity', function() {
@@ -174,7 +178,8 @@
 
             $('#items-table tbody tr').each(function() {
                 var productId = $(this).find('td:nth-child(1) select').val();
-                var quantity = $(this).find('td:nth-child(3) input').val();
+                var quantityInput = $(this).find('td:nth-child(3) input');
+                var quantity = quantityInput.val() ? parseInt(quantityInput.val()) : 1;
                 var total = $(this).find('td:nth-child(4) input').val();
                 productItems.push({
                     productId: productId,
@@ -194,7 +199,16 @@
                 data: JSON.stringify(formData),
                 contentType: 'application/json',
                 success: function(response) {
-                    showToast('Order booked successfully!', 'success');
+                    var responseData = JSON.parse(response);
+                    if (responseData.success) {
+                        var orderId = responseData.order_id;
+                        showToast(responseData.message, 'success');
+                        setTimeout(function() {
+                            window.location.href = BASE_URL + 'order/preview_order/' + orderId;
+                        }, 1500);
+                    } else {
+                        showToast(responseData.message, 'error');
+                    }
                 },
                 error: function(xhr, status, error) {
                     console.error(error);
