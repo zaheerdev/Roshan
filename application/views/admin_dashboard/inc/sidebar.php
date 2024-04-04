@@ -48,10 +48,18 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a href="#" class="nav-link">
+                     <a href="<?=BASE_URL.'/vendor/addvendor'?>" class="nav-link">
                          <i class="nav-icon fas fa-edit"></i>
                          <p>
                              Add Vendor
+                         </p>
+                     </a>
+                 </li>
+                 <li class="nav-item">
+                     <a href="<?=BASE_URL.'/vendor/allvendors'?>" class="nav-link">
+                         <i class="nav-icon fas fa-edit"></i>
+                         <p>
+                            Vendors List
                          </p>
                      </a>
                  </li>
