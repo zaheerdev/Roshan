@@ -16,102 +16,90 @@ class Vendor extends CI_Controller
 		if (!$this->session->userdata('user_session')->logged_in) {
 			redirect(BASE_URL . 'auth/login');
 		}
-
-		$this->load->model('order_model');
-		$this->load->model('vendor_model');
 	} //end function 
 
-	public function addvendor()
+	public function add_vendor()
 	{
-		$this->load->view('admin_dashboard/vendor/addvendor');
+		$data['page_title'] = "Roshan | Add Vendor";
+		$this->load->view('admin_dashboard/vendor/add_vendor', $data);
 	}
 
-	public function savevendor()
+	public function save_vendor()
 	{
-		$this->load->library('form_validation');
-		// $request = $this->input->post('submit',TRUE);
-
 		$this->form_validation->set_rules('name', 'Name', 'required');
-		$this->form_validation->set_rules('bussiness','Bussiness Name','required');
+		$this->form_validation->set_rules('bussiness', 'Bussiness Name', 'required');
 		$this->form_validation->set_rules('address', 'Address', 'required');
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
 
-		if($this->form_validation->run() == FALSE){
-			$this->load->view('admin_dashboard/vendor/addvendor');
-		}else{
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('admin_dashboard/vendor/add_vendor');
+		} else {
 			$vendor = array(
-				"name"=> $this->input->post('name',TRUE),
-				"business_name" => $this->input->post('bussiness',TRUE),
-				"Address" => $this->input->post('address',TRUE),
-				"Phone" => $this->input->post('phone',TRUE)
+				"name" => $this->input->post('name', TRUE),
+				"business_name" => $this->input->post('bussiness', TRUE),
+				"address" => $this->input->post('address', TRUE),
+				"phone_no" => $this->input->post('phone', TRUE)
 			);
-			if($this->vendor_model->save($vendor)){
-				$this->session->set_flashdata('success',"vendor added successfully.");
-				return redirect(BASE_URL."vendor/allvendors");
+			if ($this->vendor_model->save($vendor)) {
+				$this->session->set_flashdata('success', "Vendor added successfully.");
+				return redirect(BASE_URL . "vendor/all_vendors");
 			}
 		}
-
 	}
 
-	public function allvendors()
+	public function all_vendors()
 	{
+		$data['page_title'] = "Roshan | All Vendors";
 		$data['vendors'] = $this->vendor_model->get_vendors();
-		$this->load->view('admin_dashboard/vendor/vendors',$data);
+		$this->load->view('admin_dashboard/vendor/all_vendors', $data);
 	}
 
-	public function editvendor($id){
-		// $this->load->view('admin_dashboard/vendor/editvendor',$id);
-		$vendor['vendor'] = $this->vendor_model->edit($id);
-		if($vendor['vendor'] == false){
-			$this->session->set_flashdata('vendor404',"Vendor not found");
-			return redirect(BASE_URL.'/vendor/allvendors');
-		}else{
-			$this->load->view("admin_dashboard/vendor/editvendor",$vendor);
+	public function edit_vendor($id)
+	{
+		$data['page_title'] = "Roshan | Edit Vendor";
+		$data['vendor'] = $this->vendor_model->edit($id);
+		if ($data['vendor'] == false) {
+			$this->session->set_flashdata('vendor404', "Vendor not found");
+			return redirect(BASE_URL . '/vendor/all_vendors');
+		} else {
+			$this->load->view("admin_dashboard/vendor/edit_vendor", $data);
 		}
 	}
-	public function updatevendor($id){
-		$this->load->library('form_validation');
+
+	public function update_vendor($id)
+	{
 		$this->form_validation->set_rules('name', 'Name', 'required');
-		$this->form_validation->set_rules('bussiness','Bussiness Name','required');
+		$this->form_validation->set_rules('bussiness', 'Bussiness Name', 'required');
 		$this->form_validation->set_rules('address', 'Address', 'required');
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
 
-		if($this->form_validation->run() == FALSE){
+		if ($this->form_validation->run() == FALSE) {
 			$errors['errors'] = validation_errors();
 			$this->session->set_flashdata($errors);
-			return redirect(BASE_URL.'vendor/editvendor/'.$id);
-		}else{
+			return redirect(BASE_URL . 'vendor/edit_vendor/' . $id);
+		} else {
 			$vendor = array(
-				"name"=> $this->input->post('name',TRUE),
-				"business_name" => $this->input->post('bussiness',TRUE),
-				"Address" => $this->input->post('address',TRUE),
-				"Phone" => $this->input->post('phone',TRUE)
+				"name" => $this->input->post('name', TRUE),
+				"business_name" => $this->input->post('bussiness', TRUE),
+				"address" => $this->input->post('address', TRUE),
+				"phone_no" => $this->input->post('phone', TRUE)
 			);
-			if($this->vendor_model->update($vendor,$id)){
-				$this->session->set_flashdata('updated',"Vendor Updated Successfully");
-				return redirect(BASE_URL."vendor/allvendors");
+			if ($this->vendor_model->update($vendor, $id)) {
+				$this->session->set_flashdata('updated', "Vendor Updated Successfully");
+				return redirect(BASE_URL . "vendor/all_vendors");
 			}
 		}
-
 	}
-	public function deletevendor($id){
-		// dd($id);
-		// $this->load->view('admin_dashboard/vendor/editvendor',$id);
 
+	public function delete_vendor($id)
+	{
 		$vendor['vendor'] = $this->vendor_model->delete($id);
-		if($vendor['vendor'] == false){
-			$this->session->set_flashdata('delete',"Vendor delete error ");
-			return redirect(BASE_URL.'/vendor/allvendors');
-		}else{
-			$this->session->set_flashdata('delete',"Vendor deleted successfully ");
-			return redirect(BASE_URL.'/vendor/allvendors');
+		if ($vendor['vendor'] == false) {
+			$this->session->set_flashdata('delete', "Vendor delete error ");
+			return redirect(BASE_URL . '/vendor/all_vendors');
+		} else {
+			$this->session->set_flashdata('delete', "Vendor deleted successfully ");
+			return redirect(BASE_URL . '/vendor/all_vendors');
 		}
-		
 	}
-
-	
-
-	
-
-	
 }
