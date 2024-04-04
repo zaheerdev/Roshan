@@ -28,6 +28,16 @@
 			<div class="row">
 				<!-- left column -->
 				<div class="col-lg-12">
+
+					<?php if (validation_errors()) : ?>
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<?php echo validation_errors(); ?>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					<?php endif; ?>
+
 					<!-- vendor added successfully -->
 					<?php if ($this->session->flashdata('success')) : ?>
 						<div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -89,14 +99,14 @@
 
 									<?php foreach ($vendors as $vendor) : ?>
 										<tr>
-											<td><?= $vendor['id'] ?></td>
-											<td><?= $vendor['name'] ?></td>
-											<td><?= $vendor['business_name'] ?></td>
-											<td><?= $vendor['address'] ?></td>
-											<td><?= $vendor['phone_no'] ?></td>
+											<td><?= $vendor->id ?></td>
+											<td><?= $vendor->name ?></td>
+											<td><?= $vendor->business_name ?></td>
+											<td><?= $vendor->address ?></td>
+											<td><?= $vendor->phone_no ?></td>
 											<td>
-												<a class="btn btn-primary " href="<?= BASE_URL . "vendor/edit_vendor/" . $vendor["id"] ?>">Edit</a>
-												<a class="btn btn-danger " href="<?= BASE_URL . "vendor/delete_vendor/" . $vendor["id"] ?>" onclick="return confirm('are you sure to delete <?= $vendor['name'] ?>')">Delete</a>
+												<a class="btn btn-primary " href="<?= BASE_URL . "vendor/edit_vendor/" . $vendor->id ?>">Edit</a>
+												<a class="btn btn-danger " href="<?= BASE_URL . "vendor/delete_vendor/" . $vendor->id ?>" onclick="return confirm('are you sure to delete <?= $vendor->name ?>')">Delete</a>
 											</td>
 										</tr>
 									<?php endforeach; ?>
@@ -107,7 +117,6 @@
 						<?php else : ?>
 							<div class="p-3 text-center">No Record Found</div>
 						<?php endif; ?>
-						<?php echo validation_errors(); ?>
 
 					</div>
 					<!-- /.card -->

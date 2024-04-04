@@ -6,7 +6,7 @@ class Vendor_model extends CI_Model
 	// Getting vendors
 	public function get_vendors()
 	{
-		return $this->db->get('vendors')->result_array();
+		return $this->db->get('vendors')->result();
 	} // function ends
 
 	public function save($vendor)

@@ -26,13 +26,14 @@ class Vendor extends CI_Controller
 
 	public function save_vendor()
 	{
+		$data['page_title'] = "Roshan | Add Vendor";
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('bussiness', 'Bussiness Name', 'required');
 		$this->form_validation->set_rules('address', 'Address', 'required');
 		$this->form_validation->set_rules('phone', 'Phone', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('admin_dashboard/vendor/add_vendor');
+			$this->load->view('admin_dashboard/vendor/add_vendor', $data);
 		} else {
 			$vendor = array(
 				"name" => $this->input->post('name', TRUE),
