@@ -63,12 +63,14 @@ class Order_model extends CI_Model
         $this->db->from("orders or");
         $this->db->join('vendors ve', 'or.vendor_id = ve.id');
         $this->db->join('product_items pr', 'or.product_id = pr.id');
+        $this->db->join('orders_delivered od', 'or.order_id = od.order_id');
         $this->db->where("or.order_id", $order_id);
         $query = $this->db->get();
         // print_r($this->db->last_query());
         // exit;
         if ($query->num_rows() > 0) {
             $result = $query->result();
+            // dd($result);
         } else {
             $result = null;
         }

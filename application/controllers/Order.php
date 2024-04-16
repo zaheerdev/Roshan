@@ -141,7 +141,7 @@ class Order extends CI_Controller
 			);
 			$this->load->view('admin_dashboard/order/order_details', $data);
 		} else {
-			echo "No order found with the given ID.";
+			echo "<p class='p-3'>No order found with the given order ID.</p>";
 		}
 	}
 
