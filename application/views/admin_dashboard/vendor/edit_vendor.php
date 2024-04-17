@@ -48,7 +48,7 @@
 						<form class="p-4" action="<?= BASE_URL . "vendor/update_vendor/$vendor->id" ?>" method="post">
 							<div class="form-group w-sm-100 w-lg-50">
 								<label for="exampleInputEmail1">Name</label>
-								<input type="text" name="name" value="<?= $vendor->name ?>" class="form-control" placeholder="Enter Name">
+								<input type="text" name="name" value="<?= $vendor->vendor_name ?>" class="form-control" placeholder="Enter Name">
 
 							</div>
 							<div class="form-group w-sm-100 w-lg-50">

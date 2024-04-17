@@ -63,7 +63,7 @@ class Order_model extends CI_Model
         $this->db->from("orders or");
         $this->db->join('vendors ve', 'or.vendor_id = ve.id');
         $this->db->join('product_items pr', 'or.product_id = pr.id');
-        $this->db->join('orders_delivered od', 'or.order_id = od.order_id');
+        // $this->db->join('orders_delivered od', 'or.order_id = od.order_id');
         $this->db->where("or.order_id", $order_id);
         $query = $this->db->get();
         // print_r($this->db->last_query());
@@ -81,4 +81,26 @@ class Order_model extends CI_Model
         $this->db->insert('orders_delivered', $data);
         return $this->db->insert_id();
     }
+
+	public function get_records(){
+		// return $this->db->select('*')->from('orders')
+		// 		// ->join('users','users.id = orders.user_id','right')
+		// 		// ->join('vendors','vendors.id = orders.vendor_id','right')
+		// 		->get()->result();
+		$this->db->select('or.order_id,users.name,ven.vendor_name,pi.product_name,od.sub_total,od.discount,od.paid_amount,od.due_amount');
+		$this->db->from('orders or');
+		$this->db->join('users','users.id = or.user_id');
+		$this->db->join('vendors ven','ven.id = or.vendor_id');
+		$this->db->join('product_items pi','pi.id = or.product_id');
+		$this->db->join('orders_delivered od','or.order_id = od.order_id');
+		$query = $this->db->get();
+		if ($query->num_rows() > 0) {
+			$result = $query->result();
+            // dd($result);
+        } else {
+            $result = null;
+        }
+        return $result;
+
+	}
 }

@@ -63,7 +63,7 @@ class Order extends CI_Controller
 	public function preview_order($order_id)
 	{
 		$order_details = $this->order_model->get_order_details($order_id);
-
+		// dd($order_details);
 		if ($order_details) {
 			$data = array(
 				'page_title' => "Roshan | Preview Order",
@@ -132,9 +132,9 @@ class Order extends CI_Controller
 	// Function for getting order details 
 	public function get_order_details()
 	{
-		$order_id = $this->input->post('order_id');
+		$order_id = trim($this->input->post('order_id'));
 		$order_details = $this->order_model->get_order_details($order_id);
-
+		// dd($order_details);
 		if ($order_details) {
 			$data = array(
 				'order_details' => $order_details,

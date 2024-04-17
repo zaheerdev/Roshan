@@ -36,7 +36,7 @@ class Vendor extends CI_Controller
 			$this->load->view('admin_dashboard/vendor/add_vendor', $data);
 		} else {
 			$vendor = array(
-				"name" => $this->input->post('name', TRUE),
+				"vendor_name" => $this->input->post('name', TRUE),
 				"business_name" => $this->input->post('bussiness', TRUE),
 				"address" => $this->input->post('address', TRUE),
 				"phone_no" => $this->input->post('phone', TRUE)
@@ -80,7 +80,7 @@ class Vendor extends CI_Controller
 			return redirect(BASE_URL . 'vendor/edit_vendor/' . $id);
 		} else {
 			$vendor = array(
-				"name" => $this->input->post('name', TRUE),
+				"vendor_name" => $this->input->post('name', TRUE),
 				"business_name" => $this->input->post('bussiness', TRUE),
 				"address" => $this->input->post('address', TRUE),
 				"phone_no" => $this->input->post('phone', TRUE)

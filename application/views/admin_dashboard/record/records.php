@@ -26,7 +26,7 @@
           <div class="col-12">
             
             <!-- /.card -->
-
+						
             <div class="card">
               <!-- /.card-header -->
               <div class="card-body">
@@ -36,7 +36,7 @@
                     <th>Order ID</th>
                     <th>User</th>
                     <th>Vendor</th>
-                    <th>Products</th>
+                    <th>Product</th>
                     <th>Sub Total</th>
                     <th>Discount</th>
                     <th>Paid Amount</th>
@@ -44,90 +44,20 @@
                   </tr>
                   </thead>
                   <tbody>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                    </tr>
-                    <tr>
-                      <td>Trident</td>
-                      <td>Internet
-                        Explorer 4.0
-                      </td>
-                      <td>Win 95+</td>
-                      <td> 4</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                      <td>X</td>
-                    </tr>
+										<?php if(!empty($records)):?>
+											<?php foreach($records as $record):?>
+											<tr>
+												<td><?=$record->order_id?></td>
+												<td><?=$record->name?></td>
+												<td><?=$record->vendor_name?></td>
+												<td><?=$record->product_name?></td>
+												<td><?=$record->sub_total?></td>
+												<td><?=$record->discount?></td>
+												<td><?=$record->paid_amount?></td>
+												<td><?=$record->due_amount?></td>
+											</tr>
+                    	<?php endforeach;?>
+										<?php endif;?>
                   </tbody>
                 </table>
               </div>

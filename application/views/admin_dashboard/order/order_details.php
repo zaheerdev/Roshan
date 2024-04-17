@@ -36,7 +36,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="paid_amount">Discount:</label>
-                <input type="text" class="form-control" id="discount" name="discount" value="<?= $order_details[0]->discount ? $order_details[0]->discount : '' ?>">
+                <input type="text" class="form-control" id="discount" name="discount" value="">
             </div>
         </div>
     </div>
@@ -53,7 +53,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="paid_amount">Paid Amount:</label>
-                <input type="text" class="form-control" id="paid_amount" name="paid_amount" value="<?= $order_details[0]->paid_amount ? $order_details[0]->paid_amount : '' ?>">
+                <input type="text" class="form-control" id="paid_amount" name="paid_amount" value="">
             </div>
         </div>
     </div>
@@ -61,7 +61,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="paid_amount">Due Amount:</label>
-                <input type="text" class="form-control" id="due_amount" name="due_amount" value="<?= $order_details[0]->due_amount ? $order_details[0]->due_amount : '' ?>" readonly >
+                <input type="text" class="form-control" id="due_amount" name="due_amount" value="" readonly >
             </div>
         </div>
     </div>
