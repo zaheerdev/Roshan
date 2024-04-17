@@ -42,7 +42,7 @@
                                     <select class="form-control" name="vendor_id" required>
                                         <option value="">Select Vendor</option>
                                         <?php foreach ($vendors as $vendor) : ?>
-                                            <option value="<?php echo $vendor['id']; ?>"><?php echo $vendor['name']; ?></option>
+                                            <option value="<?php echo $vendor->id; ?>"><?php echo $vendor->name; ?></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
