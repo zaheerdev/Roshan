@@ -177,6 +177,7 @@ class Order extends CI_Controller
 			$this->session->set_flashdata('toast_message', 'Error occurred while saving delivery order');
 		}
 
-		redirect($_SERVER['HTTP_REFERER']);
+		// redirect($_SERVER['HTTP_REFERER']);
+		redirect(BASE_URL . 'records');
 	}
 }
