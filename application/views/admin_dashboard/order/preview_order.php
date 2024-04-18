@@ -64,9 +64,8 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-md-4">
-                                    <a href="<?= BASE_URL ?>order/share_pdf/<?= $order_details[0]->order_id; ?>" class="btn btn-success mt-4">Share via Whatsapp</a>
-                                </div>
+                                <a href="<?= BASE_URL ?>order/deliver_order" class="btn btn-primary mt-4 mr-3">Deliver Order</a>
+                                <a href="<?= BASE_URL ?>order/share_pdf/<?= $order_details[0]->order_id; ?>" class="btn btn-success mt-4">Share via Whatsapp</a>
                             </div>
 
                         </div>

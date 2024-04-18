@@ -20,7 +20,7 @@ class Records extends CI_Controller
 	public function index()
 	{
 		$data['page_title'] = "Roshan | Revords";
-		$data['records'] = $this->order_model->get_records();
+		$data['records'] = $this->records_model->get_records();
 		$this->load->view('admin_dashboard/record/records',$data);
 	}
 }

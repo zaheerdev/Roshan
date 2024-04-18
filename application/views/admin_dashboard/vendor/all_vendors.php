@@ -100,13 +100,13 @@
 									<?php foreach ($vendors as $vendor) : ?>
 										<tr>
 											<td><?= $vendor->id ?></td>
-											<td><?= $vendor->name ?></td>
+											<td><?= $vendor->vendor_name ?></td>
 											<td><?= $vendor->business_name ?></td>
 											<td><?= $vendor->address ?></td>
 											<td><?= $vendor->phone_no ?></td>
 											<td>
 												<a class="btn btn-primary " href="<?= BASE_URL . "vendor/edit_vendor/" . $vendor->id ?>">Edit</a>
-												<a class="btn btn-danger " href="<?= BASE_URL . "vendor/delete_vendor/" . $vendor->id ?>" onclick="return confirm('are you sure to delete <?= $vendor->name ?>')">Delete</a>
+												<a class="btn btn-danger " href="<?= BASE_URL . "vendor/delete_vendor/" . $vendor->id ?>" onclick="return confirm('are you sure to delete <?= $vendor->vendor_name ?>')">Delete</a>
 											</td>
 										</tr>
 									<?php endforeach; ?>
