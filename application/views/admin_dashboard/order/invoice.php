@@ -34,7 +34,7 @@
 <body>
     <div class="wrapper">
         <div class="header">
-            <img src="<?php echo BASE_URL.'assets/images/img1.png'; ?>" alt="Logo" class="logo">
+            <img src="<?php echo BASE_URL.'assets/images/logo.jpg'; ?>" alt="Logo" class="logo" style="float: left;">
             <div class="contact-info">
                 <p>Roshan tea company plot no# 5, old sabzi mandi<br> bhalwal, district sargodha</p>
                 <p>+923077713000</p>
