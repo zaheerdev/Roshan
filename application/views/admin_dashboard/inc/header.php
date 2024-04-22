@@ -31,7 +31,12 @@
 	<link rel="stylesheet" href="<?= ASSETS ?>adminlte/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
 	<link rel="stylesheet" href="<?= ASSETS ?>adminlte/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
 </head>
-
+<!-- internal css -->
+<style>
+	.table-overflow{
+		overflow: auto;
+	}
+</style>
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 

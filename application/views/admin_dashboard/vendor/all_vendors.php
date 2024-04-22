@@ -84,35 +84,37 @@
 						<!-- Table start -->
 						<!-- if record found -->
 						<?php if (!empty($vendors)) : ?>
-							<table class="table">
-								<thead class="thead-dark">
-									<tr>
-										<th scope="col">ID</th>
-										<th scope="col">Name</th>
-										<th scope="col">Business Name</th>
-										<th scope="col">Address</th>
-										<th scope="col">Phone</th>
-										<th scope="col">Action</th>
-									</tr>
-								</thead>
-								<tbody>
-
-									<?php foreach ($vendors as $vendor) : ?>
+							<div class="table-overflow">
+								<table class="table">
+									<thead class="thead-dark">
 										<tr>
-											<td><?= $vendor->id ?></td>
-											<td><?= $vendor->vendor_name ?></td>
-											<td><?= $vendor->business_name ?></td>
-											<td><?= $vendor->address ?></td>
-											<td><?= $vendor->phone_no ?></td>
-											<td>
-												<a class="btn btn-primary " href="<?= BASE_URL . "vendor/edit_vendor/" . $vendor->id ?>">Edit</a>
-												<a class="btn btn-danger " href="<?= BASE_URL . "vendor/delete_vendor/" . $vendor->id ?>" onclick="return confirm('are you sure to delete <?= $vendor->vendor_name ?>')">Delete</a>
-											</td>
+											<th scope="col">ID</th>
+											<th scope="col">Name</th>
+											<th scope="col">Business Name</th>
+											<th scope="col">Address</th>
+											<th scope="col">Phone</th>
+											<th scope="col">Action</th>
 										</tr>
-									<?php endforeach; ?>
+									</thead>
+									<tbody>
 
-								</tbody>
-							</table>
+										<?php foreach ($vendors as $vendor) : ?>
+											<tr>
+												<td><?= $vendor->id ?></td>
+												<td><?= $vendor->vendor_name ?></td>
+												<td><?= $vendor->business_name ?></td>
+												<td><?= $vendor->address ?></td>
+												<td><?= $vendor->phone_no ?></td>
+												<td>
+													<a class="btn btn-primary " href="<?= BASE_URL . "vendor/edit_vendor/" . $vendor->id ?>">Edit</a>
+													<a class="btn btn-danger " href="<?= BASE_URL . "vendor/delete_vendor/" . $vendor->id ?>" onclick="return confirm('are you sure to delete <?= $vendor->vendor_name ?>')">Delete</a>
+												</td>
+											</tr>
+										<?php endforeach; ?>
+
+									</tbody>
+								</table>
+							</div>
 							<!-- if not found -->
 						<?php else : ?>
 							<div class="p-3 text-center">No Record Found</div>

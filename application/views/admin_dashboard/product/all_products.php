@@ -81,39 +81,43 @@
 							<h3 class="card-title">List of Products</h3>
 						</div>
 						<div class="bg-white">
-							<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?=BASE_URL.'product/add_product'?>">Add New Product</a>
+							<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'product/add_product' ?>">Add New Product</a>
 						</div>
 						<!-- /.card-header -->
 						<!-- Table start -->
 						<!-- if record found -->
 						<?php if (!empty($products)) : ?>
-							<table class="table">
-								<thead class="thead-dark">
-									<tr>
-										<th scope="col">ID</th>
-										<th scope="col">Product Name</th>
-										<th scope="col">Price</th>
-										<th scope="col">Action</th>
-									
-									</tr>
-								</thead>
-								<tbody>
-
-									<?php foreach ($products as $product) : ?>
+							<div class="table-overflow">
+								<table class="table">
+									<thead class="thead-dark">
 										<tr>
-											<td><?= $product->id ?></td>
-											<td><?= $product->product_name ?></td>
-											<td><?= $product->price ?></td>
-											
-											<td>
-												<a class="btn btn-primary " href="<?= BASE_URL . "product/edit_product/" . $product->id ?>">Edit</a>
-												<a class="btn btn-danger " href="<?= BASE_URL . "product/delete_product/" . $product->id ?>" onclick="return confirm('are you sure to delete <?= $product->product_name ?>')">Delete</a>
-											</td>
-										</tr>
-									<?php endforeach; ?>
+											<th scope="col">ID</th>
+											<th scope="col">Product Name</th>
+											<th scope="col">Price</th>
+											<th scope="col">Action</th>
 
-								</tbody>
-							</table>
+										</tr>
+									</thead>
+									<tbody>
+
+										<?php foreach ($products as $product) : ?>
+											<tr>
+												<td><?= $product->id ?></td>
+												<td><?= $product->product_name ?></td>
+												<td><?= $product->price ?></td>
+
+												<td>
+													<a class="btn btn-primary " href="<?= BASE_URL . "product/edit_product/" . $product->id ?>">Edit</a>
+													<a class="btn btn-danger " href="<?= BASE_URL . "product/delete_product/" . $product->id ?>" onclick="return confirm('are you sure to delete <?= $product->product_name ?>')">Delete</a>
+												</td>
+											</tr>
+										<?php endforeach; ?>
+
+									</tbody>
+								</table>
+
+							</div>
+
 							<!-- if not found -->
 						<?php else : ?>
 							<div class="p-3 text-center">No Record Found</div>
