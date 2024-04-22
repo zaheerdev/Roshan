@@ -47,6 +47,14 @@
                          </p>
                      </a>
                  </li>
+				 <li class="nav-item">
+                     <a href="<?= BASE_URL . 'product/all_products' ?>" class="nav-link">
+                         <i class="nav-icon fas fa-edit"></i>
+                         <p>
+                             Products
+                         </p>
+                     </a>
+                 </li>
                  <li class="nav-item">
                      <a href="<?= BASE_URL . 'vendor/add_vendor' ?>" class="nav-link">
                          <i class="nav-icon fas fa-edit"></i>
