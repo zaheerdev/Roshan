@@ -9,12 +9,12 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0">Vendors</h1>
+					<h1 class="m-0">Products</h1>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="#">Home</a></li>
-						<li class="breadcrumb-item active">Vendors</li>
+						<li class="breadcrumb-item active">Products</li>
 					</ol>
 				</div>
 			</div>
@@ -38,7 +38,7 @@
 						</div>
 					<?php endif; ?>
 
-					<!-- vendor added successfully -->
+					<!-- product added successfully -->
 					<?php if ($this->session->flashdata('success')) : ?>
 						<div class="alert alert-success alert-dismissible fade show" role="alert">
 							<?= $this->session->flashdata('success') ?>
@@ -56,7 +56,7 @@
 							</button>
 						</div>
 					<?php endif; ?>
-					<!-- vendor updated successfully -->
+					<!-- product updated successfully -->
 					<?php if ($this->session->flashdata('updated')) : ?>
 						<div class="alert alert-success alert-dismissible fade show" role="alert">
 							<?= $this->session->flashdata('updated') ?>
@@ -65,7 +65,7 @@
 							</button>
 						</div>
 					<?php endif; ?>
-					<!-- vendor deleted successfully -->
+					<!-- product deleted successfully -->
 					<?php if ($this->session->flashdata('delete')) : ?>
 						<div class="alert alert-success alert-dismissible fade show" role="alert">
 							<?= $this->session->flashdata('delete') ?>
@@ -77,52 +77,38 @@
 
 					<!-- general form elements -->
 					<div class="card card-primary">
-						<div class="card-header">
-							<h3 class="card-title">List of Products</h3>
-						</div>
-						<div class="bg-white">
-							<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'product/add_product' ?>">Add New Product</a>
-						</div>
-						<!-- /.card-header -->
-						<!-- Table start -->
-						<!-- if record found -->
-						<?php if (!empty($products)) : ?>
-							<div class="table-overflow">
-								<table class="table">
-									<thead class="thead-dark">
-										<tr>
-											<th scope="col">ID</th>
-											<th scope="col">Product Name</th>
-											<th scope="col">Price</th>
-											<th scope="col">Action</th>
-
-										</tr>
-									</thead>
-									<tbody>
-
+						<div class="card-body">
+							<div class="bg-white">
+								<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'product/add_product' ?>">Add New Product</a>
+							</div>
+							<!-- /.card-header -->
+							<!-- Table start -->
+							<table id="example1" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Product Name</th>
+										<th>Price</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<?php if (!empty($products)) : ?>
 										<?php foreach ($products as $product) : ?>
 											<tr>
 												<td><?= $product->id ?></td>
 												<td><?= $product->product_name ?></td>
 												<td><?= $product->price ?></td>
-
 												<td>
 													<a class="btn btn-primary " href="<?= BASE_URL . "product/edit_product/" . $product->id ?>">Edit</a>
 													<a class="btn btn-danger " href="<?= BASE_URL . "product/delete_product/" . $product->id ?>" onclick="return confirm('are you sure to delete <?= $product->product_name ?>')">Delete</a>
 												</td>
 											</tr>
 										<?php endforeach; ?>
-
-									</tbody>
-								</table>
-
-							</div>
-
-							<!-- if not found -->
-						<?php else : ?>
-							<div class="p-3 text-center">No Record Found</div>
-						<?php endif; ?>
-
+									<?php endif; ?>
+								</tbody>
+							</table>
+						</div>
 					</div>
 					<!-- /.card -->
 				</div>
