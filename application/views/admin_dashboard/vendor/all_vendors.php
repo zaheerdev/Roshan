@@ -81,44 +81,44 @@
 							<h3 class="card-title">List of Vendors</h3>
 						</div>
 						<!-- /.card-header -->
+						<div class="card-body">
+						<div class="bg-white">
+							<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'vendor/add_vendor' ?>">Add New Vendor</a>
+						</div>
 						<!-- Table start -->
-						<!-- if record found -->
-						<?php if (!empty($vendors)) : ?>
-							<div class="table-overflow">
-								<table class="table">
-									<thead class="thead-dark">
+						<table id="example1" class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th scope="col">ID</th>
+									<th scope="col">Name</th>
+									<th scope="col">Business Name</th>
+									<th scope="col">Address</th>
+									<th scope="col">Phone</th>
+									<th scope="col">Action</th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php if (!empty($vendors)) : ?>
+									<!-- if record found -->
+									<?php foreach ($vendors as $vendor) : ?>
 										<tr>
-											<th scope="col">ID</th>
-											<th scope="col">Name</th>
-											<th scope="col">Business Name</th>
-											<th scope="col">Address</th>
-											<th scope="col">Phone</th>
-											<th scope="col">Action</th>
+											<td><?= $vendor->id ?></td>
+											<td><?= $vendor->vendor_name ?></td>
+											<td><?= $vendor->business_name ?></td>
+											<td><?= $vendor->address ?></td>
+											<td><?= $vendor->phone_no ?></td>
+											<td>
+												<a class="btn btn-primary " href="<?= BASE_URL . "vendor/edit_vendor/" . $vendor->id ?>">Edit</a>
+												<a class="btn btn-danger " href="<?= BASE_URL . "vendor/delete_vendor/" . $vendor->id ?>" onclick="return confirm('are you sure to delete <?= $vendor->vendor_name ?>')">Delete</a>
+											</td>
 										</tr>
-									</thead>
-									<tbody>
-
-										<?php foreach ($vendors as $vendor) : ?>
-											<tr>
-												<td><?= $vendor->id ?></td>
-												<td><?= $vendor->vendor_name ?></td>
-												<td><?= $vendor->business_name ?></td>
-												<td><?= $vendor->address ?></td>
-												<td><?= $vendor->phone_no ?></td>
-												<td>
-													<a class="btn btn-primary " href="<?= BASE_URL . "vendor/edit_vendor/" . $vendor->id ?>">Edit</a>
-													<a class="btn btn-danger " href="<?= BASE_URL . "vendor/delete_vendor/" . $vendor->id ?>" onclick="return confirm('are you sure to delete <?= $vendor->vendor_name ?>')">Delete</a>
-												</td>
-											</tr>
-										<?php endforeach; ?>
-
-									</tbody>
-								</table>
-							</div>
-							<!-- if not found -->
-						<?php else : ?>
-							<div class="p-3 text-center">No Record Found</div>
-						<?php endif; ?>
+									<?php endforeach; ?>
+								<?php else : ?>
+									<div class="p-3 text-center">No Record Found</div>
+								<?php endif; ?>
+							</tbody>
+						</table>	
+						</div>
 
 					</div>
 					<!-- /.card -->
