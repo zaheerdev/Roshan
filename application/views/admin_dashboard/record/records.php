@@ -33,9 +33,10 @@
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                   <tr>
+                    <th>Vendor ID</th>
                     <th>Order ID</th>
-                    <th>User Name</th>
                     <th>Vendor Name</th>
+                    <th>Seller Name</th>
                     <th>Product</th>
                     <th>Sub Total</th>
                     <th>Discount</th>
@@ -47,9 +48,10 @@
                   <?php if (!empty($records)) : ?>
                     <?php foreach ($records as $record) : ?>
                       <tr>
+                        <td>RTA-<?= $record->id ?></td>
                         <td><?= $record->order_id ?></td>
-                        <td><?= $record->name ?></td>
                         <td><?= $record->vendor_name ?></td>
+                        <td><?= $record->name ?></td>
                         <td><?= $record->product_name ?></td>
                         <td><?= $record->sub_total ?></td>
                         <td><?= $record->discount ?></td>
