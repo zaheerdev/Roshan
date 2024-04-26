@@ -19,8 +19,11 @@
 <body class="hold-transition login-page">
   <div class="login-box">
     <div class="login-logo">
-      <a href="#"><b>ROSHAN</b> Dashboard</a>
+      <img class="w-75" src="<?=BASE_URL.'assets/images/logo.jpg'?>" style="mix-blend-mode:darken;">
     </div>
+    <!-- <div class="login-logo">
+      <a href="#"><b>ROSHAN</b> Dashboard</a>
+    </div> -->
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
