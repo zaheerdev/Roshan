@@ -34,6 +34,7 @@ class Auth extends CI_Controller
 		$this->form_validation->set_rules('password', 'Password', 'required');
 
 		if ($this->form_validation->run() === FALSE) {
+			$data['auth_errors'] = validation_errors();
 			$this->load->view('auth/index', $data);
 		} else {
 

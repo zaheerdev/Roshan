@@ -24,6 +24,24 @@
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body login-card-body">
+				<!-- credential required errors -->
+				<?php if($auth_errors) :?>
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<?=$auth_errors?>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+				<?php endif;?>
+				<!-- credentials wrong error -->
+				<?php if($this->session->flashdata('login_failed')) :?>
+					<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<?=$this->session->flashdata('login_failed')?>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+				<?php endif;?>
         <p class="login-box-msg">Sign in to start your session</p>
         <form action="<?php echo BASE_URL?>/auth/login" method="post">
           <div class="form-group">
