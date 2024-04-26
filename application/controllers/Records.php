@@ -55,12 +55,16 @@ class Records extends CI_Controller
 
 		$total_paid_amount = 0;
 		$total_due_amount = 0;
-
+		$updated = false;
 		foreach ($details as $detail) {
 			$order_id = $detail->order_id;
 			$total_paid_amount = $detail->paid_amount +  $paid_amount_percentage;
 			$total_due_amount = $detail->due_amount - $paid_amount_percentage;
-			$this->records_model->update_order_payment($order_id, $total_paid_amount, $total_due_amount);
+			$updated = $this->records_model->update_order_payment($order_id, $total_paid_amount, $total_due_amount);
+		}
+		if($updated)
+		{
+			return redirect(BASE_URL.'records');
 		}
 	}
 }
