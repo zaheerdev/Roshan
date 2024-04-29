@@ -41,7 +41,7 @@
                                 <div class="form-group">
                                     <label>Order ID</label>
                                     <div class="row">
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 pb-3">
                                             <input type="search" class="form-control" id="order_id" name="order_id" placeholder="Enter Order ID">
                                         </div>
                                         <div class="col-md-4">
