@@ -24,11 +24,7 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-12">
-
-					<!-- /.card -->
-					<!-- payment successfull -->
-					<div class="card">
-						<?php if ($this->session->flashdata('pay_amount')) : ?>
+					<?php if ($this->session->flashdata('pay_amount')) : ?>
 							<div class="alert alert-success alert-dismissible fade show" role="alert">
 								<?php echo $this->session->flashdata('pay_amount'); ?>
 								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -36,6 +32,9 @@
 								</button>
 							</div>
 						<?php endif; ?>
+					<!-- /.card -->
+					<!-- payment successfull -->
+					<div class="card">
 						<!-- /.card-header -->
 						<div class="card-body">
 							<table id="example1" class="table table-bordered table-striped">

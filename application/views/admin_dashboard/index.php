@@ -31,7 +31,7 @@
           <!-- small box -->
           <div class="small-box bg-info">
             <div class="inner">
-              <h3>150</h3>
+              <h3><?= $total_sales; ?></h3>
               <p>Total Sales</p>
             </div>
             <div class="icon">
@@ -44,11 +44,11 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>53</h3>
+              <h3><?= $total_due_amount; ?></h3>
               <p>Due Amount</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="ion ion-cash"></i>
             </div>
           </div>
         </div>
@@ -57,11 +57,11 @@
           <!-- small box -->
           <div class="small-box bg-success">
             <div class="inner">
-              <h3>44</h3>
+              <h3><?= $total_paid_amount; ?></h3>
               <p>Paid Amount</p>
             </div>
             <div class="icon">
-              <i class="ion ion-person-add"></i>
+              <i class="ion ion-cash"></i>
             </div>
           </div>
         </div>
@@ -70,8 +70,8 @@
           <!-- small box -->
           <div class="small-box bg-danger">
             <div class="inner">
-              <h3>65</h3>
-              <p>Expenses</p>
+              <h3><?= $total_expense_amount; ?></h3>
+              <p>Total Expenses</p>
             </div>
             <div class="icon">
               <i class="ion ion-pie-graph"></i>

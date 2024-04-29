@@ -57,7 +57,7 @@
 						<!-- search form -->
 						
 						<!-- search form -->
-						<div class="card-body">
+						<div class="card-body pb-0">
 							<?php if (!isset($vendor_id)) : ?>
 								<form id="search_due_form" action="#" method="post">
 									<div class="form-group">

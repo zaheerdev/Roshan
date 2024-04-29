@@ -60,7 +60,6 @@ class Records extends CI_Controller
 			$order_id = $this->input->post('order_id');
 			$pay_amount = $this->input->post('pay_amount');
 			$all_due_amount = $this->input->post('due_amount');
-			// dd($total_due_amount);
 			$paid_amount_percentage = $this->input->post('paid_amount_percentage');
 			$details = $this->records_model->get_amount_details($vendor_id);
 			$total_paid_amount = 0;
@@ -75,7 +74,7 @@ class Records extends CI_Controller
 					$total_due_amount = $detail->due_amount - $amount_to_add_subtract;
 					$updated = $this->records_model->update_order_payment($order_id, $total_paid_amount, $total_due_amount);
 				} else {
-					$this->session->set_flashdata('exceed', 'pay amount is more than due amount or due amount is 0');
+					$this->session->set_flashdata('exceed', 'Pay amount is more than due amount or due amount is 0');
 					return redirect(BASE_URL . 'records/due_payment/' . $this->input->post('vendor_id'));
 				}
 			}

@@ -64,14 +64,6 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a href="<?= BASE_URL ?>records/due_payment" class="nav-link">
-                         <i class="nav-icon fas fa-edit"></i>
-                         <p>
-                            Due Amount
-                         </p>
-                     </a>
-                 </li>
-                 <li class="nav-item">
                      <a href="<?= BASE_URL ?>records" class="nav-link">
                          <i class="nav-icon fas fa-edit"></i>
                          <p>

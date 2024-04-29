@@ -154,6 +154,7 @@ class Order extends CI_Controller
 		$discount_percentage = $this->input->post('discount');
 		$paid_amount = $this->input->post('paid_amount');
 		$due_amount = $this->input->post('due_amount');
+		$net_total = $this->input->post('net_total');
 
 		// Calculate due amount if it's not provided in the form
 		if (empty($due_amount)) {
@@ -166,6 +167,7 @@ class Order extends CI_Controller
 			'order_id' => $order_id,
 			'sub_total' => $sub_total,
 			'discount' => $discount_percentage,
+			'net_total' => $net_total,
 			'paid_amount' => $paid_amount,
 			'due_amount' => $due_amount,
 			'user_id' => $this->session->userdata('user_session')->id
