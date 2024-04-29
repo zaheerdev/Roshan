@@ -27,7 +27,7 @@ class Records extends CI_Controller
 	public function due_payment($vendor_id = null)
 	{
 		$data['page_title'] = "Roshan | Due Payment";
-		if(!is_null($vendor_id)){
+		if (!is_null($vendor_id)) {
 			$data['vendor_id'] = $vendor_id;
 		}
 		// $data['records'] = $this->records_model->get_records();
@@ -53,28 +53,36 @@ class Records extends CI_Controller
 	{
 		$this->form_validation->set_rules('paid_amount_percentage', 'Pay Amount', 'required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->session->set_flashdata('pay_amount',validation_errors());
-			return redirect(BASE_URL.'records/due_payment/'.$this->input->post('vendor_id'));
+			$this->session->set_flashdata('pay_amount', validation_errors());
+			return redirect(BASE_URL . 'records/due_payment/' . $this->input->post('vendor_id'));
 		} else {
 			$vendor_id = $this->input->post('vendor_id');
 			$order_id = $this->input->post('order_id');
+			$pay_amount = $this->input->post('pay_amount');
+			$all_due_amount = $this->input->post('due_amount');
+			// dd($total_due_amount);
 			$paid_amount_percentage = $this->input->post('paid_amount_percentage');
 			$details = $this->records_model->get_amount_details($vendor_id);
-
 			$total_paid_amount = 0;
 			$total_due_amount = 0;
 			$updated = false;
 			foreach ($details as $detail) {
+
 				$order_id = $detail->order_id;
-				$total_paid_amount = $detail->paid_amount +  $paid_amount_percentage;
-				$total_due_amount = $detail->due_amount - $paid_amount_percentage;
-				$updated = $this->records_model->update_order_payment($order_id, $total_paid_amount, $total_due_amount);
+				$amount_to_add_subtract = ($detail->due_amount * $paid_amount_percentage) / 100;
+				if ($pay_amount <= $all_due_amount) {
+					$total_paid_amount = $detail->paid_amount +  $amount_to_add_subtract;
+					$total_due_amount = $detail->due_amount - $amount_to_add_subtract;
+					$updated = $this->records_model->update_order_payment($order_id, $total_paid_amount, $total_due_amount);
+				} else {
+					$this->session->set_flashdata('exceed', 'pay amount is more than due amount or due amount is 0');
+					return redirect(BASE_URL . 'records/due_payment/' . $this->input->post('vendor_id'));
+				}
 			}
-			if($updated)
-			{
-				$this->session->set_flashdata('pay_amount',"Payment Added Successfully");
-				return redirect(BASE_URL.'records');
+			if ($updated) {
+				$this->session->set_flashdata('pay_amount', "Payment Added Successfully");
+				return redirect(BASE_URL . 'records');
 			}
-		}	
+		}
 	}
 }

@@ -26,16 +26,11 @@
 	<section class="content">
 		<div class="container-fluid">
 			<div class="row">
+
 				<!-- left column -->
 				<div class="col-md-12">
-					<!-- general form elements -->
-					<div class="card card-primary">
-						<div class="card-header">
-							<h3 class="card-title">Due Payment</h3>
-						</div>
-						<!-- /.card-header -->
-						<!-- due amount eerors -->
-						<?php if ($this->session->flashdata('pay_amount')):?>
+					<!-- due amount eerors -->
+					<?php if ($this->session->flashdata('pay_amount')):?>
 							<div class="alert alert-danger alert-dismissible fade show" role="alert">
 							<?php echo $this->session->flashdata('pay_amount'); ?>
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -43,6 +38,24 @@
 							</button>
 						</div>
 						<?php endif; ?>
+					<!-- due amount eerors -->
+					<?php if ($this->session->flashdata('exceed')):?>
+							<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<?php echo $this->session->flashdata('exceed'); ?>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+						<?php endif; ?>
+					<!-- general form elements -->
+					<div class="card card-primary">
+						<div class="card-header">
+							<h3 class="card-title">Due Payment</h3>
+						</div>
+						<!-- /.card-header -->
+					
+						<!-- search form -->
+						
 						<!-- search form -->
 						<div class="card-body">
 							<?php if (!isset($vendor_id)) : ?>
