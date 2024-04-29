@@ -1,6 +1,14 @@
 <?php require_once(APPPATH . 'views/admin_dashboard/inc/header.php'); ?>
 <?php require_once(APPPATH . 'views/admin_dashboard/inc/sidebar.php'); ?>
 
+<style>
+    @media (max-width: 575px){
+        .book_order_table tr{
+            display: grid;
+        }
+    }
+</style>
+
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
@@ -47,19 +55,20 @@
                                     </select>
                                 </div>
 
-                                <table id="items-table" class="table">
-                                    <thead>
+                                <table id="items-table" class="table book_order_table">
+                                    <!-- <thead>
                                         <tr>
                                             <th>Item</th>
                                             <th>Price</th>
                                             <th>Quantity</th>
                                             <th>Total</th>
                                         </tr>
-                                    </thead>
+                                    </thead> -->
                                     <tbody>
                                         <tr>
                                             <td>
                                                 <div class="form-group">
+                                                    <label for="item_select">Item</label>
                                                     <select class="form-control" id="item_select" required>
                                                         <option value="">Select Item</option>
                                                         <?php foreach ($product_items as $item) : ?>
@@ -72,14 +81,21 @@
                                             </td>
                                             <td>
                                                 <div class="form-group">
+                                                    <label for="price_input">Price</label>
                                                     <input type="text" class="form-control price_input" readonly>
                                                 </div>
                                             </td>
                                             <td>
-                                                <input type="number" class="form-control quantity">
+                                                <div class="form-group">
+                                                    <label for="quantity">Quantity</label>
+                                                    <input type="number" class="form-control quantity">
+                                                </div>
                                             </td>
                                             <td class="total">
-                                                <input type="number" class="form-control" value="0" readonly>
+                                                <div class="form-group">
+                                                    <label for="item_select">Total</label>
+                                                    <input type="number" class="form-control" value="0" readonly>
+                                                </div>
                                             </td>
                                         </tr>
                                     </tbody>
