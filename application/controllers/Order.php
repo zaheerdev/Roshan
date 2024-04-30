@@ -181,6 +181,70 @@ class Order extends CI_Controller
 		}
 
 		// redirect($_SERVER['HTTP_REFERER']);
-		redirect(BASE_URL . 'records');
+		redirect(BASE_URL . 'order/preview_deliver_order/'. $order_id);
+	}
+
+	// Function for view the order details
+	public function preview_deliver_order($order_id)
+	{
+		$order_details = $this->order_model->get_deliverOrder_details($order_id);
+		// dd($order_details);
+		if ($order_details) {
+			$data = array(
+				'page_title' => "Roshan | Preview Deliver Order",
+				'order_details' => $order_details,
+			);
+			$this->load->view('admin_dashboard/order/deliver_order_preview', $data);
+		} else {
+			echo "No order found with the given ID.";
+		}
+	}
+
+	// Function to share PDF via WhatsApp
+	public function deliver_order_pdf($order_id)
+	{
+		$pdf_filename = $this->generate_d_order_pdf($order_id);
+
+		// Share PDF via WhatsApp
+		$whatsapp_message = "Check out the deliver order details in the following pdf link: " . BASE_URL . 'assets/delivered_invoices/' . $pdf_filename;
+		$whatsapp_url = "https://api.whatsapp.com/send?text=" . urlencode($whatsapp_message);
+		redirect($whatsapp_url);
+	}
+
+	// Function for generating deliver order pdf
+	private function generate_d_order_pdf($order_id)
+	{
+		$pdf_filename = 'order_' . $order_id . '.pdf';
+		$pdf_path = FCPATH . 'assets/delivered_invoices/' . $pdf_filename;
+
+		// Check if the PDF file already exists
+		if (file_exists($pdf_path)) {
+			return $pdf_filename;
+		}
+
+		$data['order_details'] = $this->order_model->get_deliverOrder_details($order_id);
+
+		$html = $this->load->view('admin_dashboard/order/deliver_invoice', $data, true);
+
+		$options = new Options();
+
+		$options->set('isHtml5ParserEnabled', true);
+		$options->set('isRemoteEnabled', true);
+
+		$dompdf = new Dompdf($options);
+
+		$dompdf->loadHtml($html);
+
+		$dompdf->setPaper('A4', 'portrait');
+
+		$dompdf->render();
+
+		$pdf_filename = 'order_' . $order_id . '.pdf';
+
+		$output = $dompdf->output();
+
+		file_put_contents(FCPATH . 'assets/delivered_invoices/' . $pdf_filename, $output);
+
+		return $pdf_filename;
 	}
 }

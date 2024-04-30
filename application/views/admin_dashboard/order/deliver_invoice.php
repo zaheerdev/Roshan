@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8" />
-    <title>Invoice</title>
+    <title>Delivered Invoice</title>
 
     <style>
         .invoice-box {
@@ -160,7 +160,27 @@
 
             <tr class="total">
                 <td></td>
-                <td>Total: <?= $totalAmount ?></td>
+                <td>Sub Total: <?= $totalAmount ?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Discount: <?= $order_details[0]->discount ?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Net Total: <?= $order_details[0]->net_total ?></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td>Paid Amount: <?= $order_details[0]->paid_amount ?></td>
+            </tr>
+            <tr class="total">
+                <td></td>
+                <td>
+                    <?php if ($order_details[0]->due_amount > 0) : ?>
+                        Due Amount: <?= $order_details[0]->due_amount ?>
+                    <?php endif; ?>
+                </td>
             </tr>
         </table>
     </div>

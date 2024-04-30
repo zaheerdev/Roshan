@@ -41,7 +41,6 @@
 								<thead>
 									<tr>
 										<th>Vendor ID</th>
-										<th>Order ID</th>
 										<th>Vendor Name</th>
 										<th>Seller Name</th>
 										<th>Product</th>
@@ -56,7 +55,6 @@
 										<?php foreach ($records as $record) : ?>
 											<tr>
 												<td>RTA-<?= $record->id ?></td>
-												<td><?= $record->order_id ?></td>
 												<td><?= $record->vendor_name ?></td>
 												<td><?= $record->name ?></td>
 												<td><?= $record->product_name ?></td>
