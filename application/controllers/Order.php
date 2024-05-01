@@ -124,10 +124,17 @@ class Order extends CI_Controller
 	}
 
 	// Function for delivering order 
-	public function deliver_order()
+	public function deliver_order($order_id = null)
 	{
 		$data['page_title'] = "Roshan | Deliver Order";
-		$this->load->view('admin_dashboard/order/deliver_order', $data);
+		// dd($order_id);
+		if(!empty($order_id)){
+			$data['order_id'] = $order_id;
+			$this->load->view('admin_dashboard/order/deliver_order', $data);
+		}else{
+			$this->load->view('admin_dashboard/order/deliver_order', $data);
+		}
+		
 	}
 
 	// Function for getting order details 
@@ -152,9 +159,10 @@ class Order extends CI_Controller
 		$order_id = $this->input->post('order_id');
 		$sub_total = $this->input->post('total');
 		$discount_percentage = $this->input->post('discount');
-		$paid_amount = $this->input->post('paid_amount');
-		$due_amount = $this->input->post('due_amount');
-		$net_total = $this->input->post('net_total');
+		$paid_amount = round($this->input->post('paid_amount'));
+		$due_amount = round($this->input->post('due_amount'));
+		$net_total = round($this->input->post('net_total'));
+		
 
 		// Calculate due amount if it's not provided in the form
 		if (empty($due_amount)) {

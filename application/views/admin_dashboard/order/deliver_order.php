@@ -42,11 +42,13 @@
                                     <label>Order ID</label>
                                     <div class="row">
                                         <div class="col-md-6 pb-3">
-                                            <input type="search" class="form-control" id="order_id" name="order_id" placeholder="Enter Order ID">
+                                            <input type="search" class="form-control" id="order_id" name="order_id" value="<?php echo isset($order_id) ? $order_id : '' ;?>" placeholder="Enter Order ID">
                                         </div>
+										<?php if(!isset($order_id)):?>
                                         <div class="col-md-4">
                                             <input type="submit" class="btn btn-primary" value="Search">
                                         </div>
+										<?php endif;?>
                                     </div>
                                 </div>
                             </form>
@@ -117,6 +119,51 @@
 
     });
 </script>
+
+<?php if(isset($order_id)):?>
+	<script>
+    $(document).ready(function() {
+
+            var order_id = $('#order_id').val();
+            $.ajax({
+                type: 'POST',
+                url: '<?php echo BASE_URL; ?>order/get_order_details',
+                data: {
+                    order_id: order_id
+                },
+                success: function(response) {
+                    $('#order_details').html(response);
+                }
+            });
+        
+
+        // Initialize Toastr
+        toastr.options = {
+            "closeButton": true,
+            "debug": false,
+            "newestOnTop": false,
+            "progressBar": true,
+            "positionClass": "toast-top-right",
+            "preventDuplicates": false,
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+        };
+
+        // Function to trigger a toast message
+        function showToast(message, type) {
+            toastr[type](message);
+        }
+
+    });
+</script>
+<?php endif;?>
 
 <?php if ($this->session->flashdata('toast_message')) : ?>
     <script>
