@@ -1,6 +1,11 @@
 <?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
+require_once FCPATH . 'vendor/autoload.php';
+
+use Dompdf\Dompdf;
+use Dompdf\Options;
+
 class Records extends CI_Controller
 {
 
@@ -78,10 +83,61 @@ class Records extends CI_Controller
 					return redirect(BASE_URL . 'records/due_payment/' . $this->input->post('vendor_id'));
 				}
 			}
-			if ($updated) {
+			if ($updated > 0) {
 				$this->session->set_flashdata('pay_amount', "Payment Added Successfully");
-				return redirect(BASE_URL . 'records');
+				// return redirect(BASE_URL . 'records');
+				return redirect(BASE_URL . 'records/share_payment_pdf/'.$vendor_id);
 			}
 		}
+	} //ends function
+
+	// Function to share PDF via WhatsApp
+	public function share_payment_pdf($vendor_id)
+	{
+		$pdf_filename = $this->generate_payment_pdf($vendor_id);
+
+		// Share PDF via WhatsApp
+		$whatsapp_message = "Check out the vendor payment details in the following pdf link: " . BASE_URL . 'assets/payment_invoices/' . $pdf_filename;
+		$whatsapp_url = "https://api.whatsapp.com/send?text=" . urlencode($whatsapp_message);
+		redirect($whatsapp_url);
+	}
+
+	// Function for generating payment pdf
+	private function generate_payment_pdf($vendor_id)
+	{
+		$pdf_filename = 'vendor_' . $vendor_id . '_' . date('d/m/Y_His') . '.pdf';
+		$pdf_path = FCPATH . 'assets/payment_invoices/' . $pdf_filename;
+
+		// Check if the PDF file already exists
+		if (file_exists($pdf_path)) {
+			return $pdf_filename;
+		}
+
+		$data['payment_details'] = $this->records_model->get_payment_details($vendor_id);
+
+		// dd($data['payment_details']);
+
+		$html = $this->load->view('admin_dashboard/record/payment_invoice', $data, true);
+
+		$options = new Options();
+
+		$options->set('isHtml5ParserEnabled', true);
+		$options->set('isRemoteEnabled', true);
+
+		$dompdf = new Dompdf($options);
+
+		$dompdf->loadHtml($html);
+
+		$dompdf->setPaper('A4', 'portrait');
+
+		$dompdf->render();
+
+		$pdf_filename = 'vendor_' . $vendor_id . '__' . date('d-m-Y_His') . '.pdf';
+
+		$output = $dompdf->output();
+
+		file_put_contents(FCPATH . 'assets/payment_invoices/' . $pdf_filename, $output);
+
+		return $pdf_filename;
 	}
 }
