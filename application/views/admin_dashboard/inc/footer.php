@@ -59,6 +59,89 @@
     		});
     	});
     </script>
+	<!-- dashborad chart -->
+	
+	<script>
+	
+	$(function() {
+		// Get context with jQuery - using jQuery's .get() method.
+		<?php 
+			$month = null;
+			$net_total_js = null;
+			if(isset($months)){
+				$month = json_encode($months);
+				$net_total_js = json_encode($monthly_net_total);
+			} 
+		
+		?>
+		var labels = <?php echo $month;?>;
+		var data = <?php echo $net_total_js;?>;
+		let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+						'august','september','october','november','december'];
+		for(let i = 0 ; i<labels.length;i++){
+			labels[i] = months[i];
+		}
+		console.log(labels);
+		var areaChartData = {
+			// labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+			// 			'august','september','october','november','december'],
+			labels: labels,
+			datasets: [{
+					label: 'Monthly Net Total',
+					backgroundColor: 'rgba(60,141,188,0.9)',
+					borderColor: 'rgba(60,141,188,0.8)',
+					pointRadius: false,
+					pointColor: '#3b8bba',
+					pointStrokeColor: 'rgba(60,141,188,1)',
+					pointHighlightFill: '#fff',
+					pointHighlightStroke: 'rgba(60,141,188,1)',
+					data: data
+				},
+				
+			]
+		}
+		var areaChartOptions = {
+			maintainAspectRatio: false,
+			responsive: true,
+			legend: {
+				display: false
+			},
+			scales: {
+				xAxes: [{
+					gridLines: {
+						display: false,
+					}
+				}],
+				yAxes: [{
+					gridLines: {
+						display: false,
+					}
+				}]
+			}
+		}
+		//-------------
+		//- BAR CHART -
+		//-------------
+		var barChartCanvas = $('#barChart').get(0).getContext('2d')
+		var barChartData = $.extend(true, {}, areaChartData)
+		var temp0 = areaChartData.datasets[0]
+		// var temp1 = areaChartData.datasets[1]
+		barChartData.datasets[0] = temp0
+		// barChartData.datasets[1] = temp0
+
+		var barChartOptions = {
+			responsive: true,
+			maintainAspectRatio: false,
+			datasetFill: false
+		}
+
+		new Chart(barChartCanvas, {
+			type: 'bar',
+			data: barChartData,
+			options: barChartOptions
+		})
+	});
+</script>
     </body>
 
     </html>
