@@ -40,10 +40,4 @@ class Dashboard extends CI_Controller
 			$this->load->view('sales_dashboard/index', $data);
 		endif;
 	}
-	public function test()
-	{
-		$reuslt = $this->dashboard_model->monthlysale();
-		
-		dd($reuslt);
-	}
 }
