@@ -48,6 +48,8 @@ class Dashboard_model extends CI_Model
         
         // From your_table_name
         $this->db->from('orders_delivered');
+
+        $this->db->where('YEAR(created_at)', date('Y'));
         
         // Group by month and year
         $this->db->group_by('month, year');

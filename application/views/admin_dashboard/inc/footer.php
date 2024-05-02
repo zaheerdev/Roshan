@@ -72,22 +72,21 @@
 				$month = json_encode($months);
 				$net_total_js = json_encode($monthly_net_total);
 			} 
-		
 		?>
 		var labels = <?php echo $month;?>;
 		var data = <?php echo $net_total_js;?>;
 		let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
 						'august','september','october','november','december'];
 		for(let i = 0 ; i<labels.length;i++){
-			labels[i] = months[i];
+			let index = labels[i];
+			labels[i] = months[index-1];
 		}
-		console.log(labels);
 		var areaChartData = {
 			// labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
 			// 			'august','september','october','november','december'],
 			labels: labels,
 			datasets: [{
-					label: 'Monthly Net Total',
+					label: 'Total Sales',
 					backgroundColor: 'rgba(60,141,188,0.9)',
 					borderColor: 'rgba(60,141,188,0.8)',
 					pointRadius: false,
