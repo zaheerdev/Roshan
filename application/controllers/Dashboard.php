@@ -29,11 +29,11 @@ class Dashboard extends CI_Controller
 		$data['total_expense_amount'] = $this->dashboard_model->getTotalExpenseAmount();
 		$data['total_sales'] = $this->dashboard_model->getTotalSales();
 		// monthly net total data with months array andnet total array
-		$reuslt = $this->dashboard_model->monthlysale();
-		// dd($reuslt);
-		$data['months'] = $reuslt['months'];
-		$data['monthly_net_total'] = $reuslt['monthly_net_total'];
-		// dd($data);
+		$result = $this->dashboard_model->monthlysale();
+		$data['months'] = $result['months'];
+		$data['monthly_net_total'] = $result['monthly_net_total'];
+		$data['monthly_total_paid'] = $result['monthly_total_paid'];
+		$data['monthly_total_due'] = $result['monthly_total_due'];
 		if($user_role == 1):
 			$this->load->view('admin_dashboard/index', $data);
 		else:

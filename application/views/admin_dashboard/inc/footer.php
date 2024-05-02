@@ -42,12 +42,6 @@
     <script src="<?= ASSETS ?>adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
     <script>
     	$(function() {
-    		// $("#example1").DataTable({
-    		// 	"responsive": true,
-    		// 	"lengthChange": false,
-    		// 	"autoWidth": false,
-    		// 	"buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-    		// }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
     		$('#example1').DataTable({
     			"paging": true,
     			"lengthChange": false,
@@ -59,88 +53,127 @@
     		});
     	});
     </script>
-	<!-- dashborad chart -->
-	
-	<script>
-	
-	$(function() {
-		// Get context with jQuery - using jQuery's .get() method.
-		<?php 
+    <!-- dashborad chart -->
+
+    <script>
+    	$(function() {
+    		<?php
 			$month = null;
 			$net_total_js = null;
-			if(isset($months)){
+			$total_paid = null;
+			$total_due = null;
+			if (isset($months)) {
 				$month = json_encode($months);
 				$net_total_js = json_encode($monthly_net_total);
-			} 
-		?>
-		var labels = <?php echo $month;?>;
-		var data = <?php echo $net_total_js;?>;
-		let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-						'august','september','october','november','december'];
-		for(let i = 0 ; i<labels.length;i++){
-			let index = labels[i];
-			labels[i] = months[index-1];
-		}
-		var areaChartData = {
-			// labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July',
-			// 			'august','september','october','november','december'],
-			labels: labels,
-			datasets: [{
-					label: 'Total Sales',
-					backgroundColor: 'rgba(60,141,188,0.9)',
-					borderColor: 'rgba(60,141,188,0.8)',
-					pointRadius: false,
-					pointColor: '#3b8bba',
-					pointStrokeColor: 'rgba(60,141,188,1)',
-					pointHighlightFill: '#fff',
-					pointHighlightStroke: 'rgba(60,141,188,1)',
-					data: data
-				},
-				
-			]
-		}
-		var areaChartOptions = {
-			maintainAspectRatio: false,
-			responsive: true,
-			legend: {
-				display: false
-			},
-			scales: {
-				xAxes: [{
-					gridLines: {
-						display: false,
-					}
-				}],
-				yAxes: [{
-					gridLines: {
-						display: false,
-					}
-				}]
+				$total_paid = json_encode($monthly_total_paid);
+				$total_due = json_encode($monthly_total_due);
 			}
-		}
-		//-------------
-		//- BAR CHART -
-		//-------------
-		var barChartCanvas = $('#barChart').get(0).getContext('2d')
-		var barChartData = $.extend(true, {}, areaChartData)
-		var temp0 = areaChartData.datasets[0]
-		// var temp1 = areaChartData.datasets[1]
-		barChartData.datasets[0] = temp0
-		// barChartData.datasets[1] = temp0
+			?>
+    		var labels = <?php echo $month; ?>;
 
-		var barChartOptions = {
-			responsive: true,
-			maintainAspectRatio: false,
-			datasetFill: false
-		}
+    		var totalSalesData = <?php echo $net_total_js; ?>;
+			var totalPaid = <?php echo $total_paid; ?>;
+			var totalDue = <?php echo $total_due; ?>;
 
-		new Chart(barChartCanvas, {
-			type: 'bar',
-			data: barChartData,
-			options: barChartOptions
-		})
-	});
-</script>
+    		let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
+    			'August', 'September', 'October', 'November', 'December'
+    		];
+
+    		for (let i = 0; i < labels.length; i++) {
+    			let index = labels[i];
+    			labels[i] = months[index - 1];
+    		}
+    		var areaChartData = {
+    			labels: labels,
+    			datasets: [{
+    					label: 'Total Sales',
+    					backgroundColor: '#17a2b8',
+    					borderColor: '#17a2b8',
+    					pointRadius: false,
+    					pointColor: '#17a2b8',
+    					pointStrokeColor: '#17a2b8',
+    					pointHighlightFill: '#fff',
+    					pointHighlightStroke: '#17a2b8',
+    					data: totalSalesData
+    				},
+    				{
+    					label: 'Total Paid',
+    					backgroundColor: '#28a745',
+    					borderColor: '#28a745',
+    					pointRadius: false,
+    					pointColor: '#28a745',
+    					pointStrokeColor: '#28a745',
+    					pointHighlightFill: '#fff',
+    					pointHighlightStroke: '#28a745',
+    					data: totalPaid
+    				},
+					{
+    					label: 'Total Due',
+    					backgroundColor: '#dc3545',
+    					borderColor: '#dc3545',
+    					pointRadius: false,
+    					pointColor: '#dc3545',
+    					pointStrokeColor: '#dc3545',
+    					pointHighlightFill: '#fff',
+    					pointHighlightStroke: '#dc3545',
+    					data: totalDue
+    				},
+					{
+    					label: 'Total Expenses',
+    					backgroundColor: '#007bff',
+    					borderColor: '#007bff',
+    					pointRadius: false,
+    					pointColor: '#007bff',
+    					pointStrokeColor: '#007bff',
+    					pointHighlightFill: '#fff',
+    					pointHighlightStroke: '#007bff',
+    					data: totalPaid
+    				},
+    			],
+
+    		}
+    		var areaChartOptions = {
+    			maintainAspectRatio: false,
+    			responsive: true,
+    			legend: {
+    				display: false
+    			},
+    			scales: {
+    				xAxes: [{
+    					gridLines: {
+    						display: false,
+    					}
+    				}],
+    				yAxes: [{
+    					gridLines: {
+    						display: false,
+    					}
+    				}]
+    			}
+    		}
+    		//-------------
+    		//- BAR CHART -
+    		//-------------
+    		var barChartCanvas = $('#barChart').get(0).getContext('2d')
+    		var barChartData = $.extend(true, {}, areaChartData)
+    		var temp0 = areaChartData.datasets[0]
+    		// var temp1 = areaChartData.datasets[1]
+    		barChartData.datasets[0] = temp0
+    		// barChartData.datasets[1] = temp0
+
+    		var barChartOptions = {
+    			responsive: true,
+    			maintainAspectRatio: false,
+    			datasetFill: false
+    		}
+
+    		new Chart(barChartCanvas, {
+    			type: 'bar',
+    			data: barChartData,
+    			options: barChartOptions
+    		})
+    	});
+    </script>
     </body>
 
     </html>

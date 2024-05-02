@@ -42,19 +42,6 @@
 				<!-- ./col -->
 				<div class="col-lg-3 col-6">
 					<!-- small box -->
-					<div class="small-box bg-danger">
-						<div class="inner">
-							<h3><?= $total_due_amount; ?></h3>
-							<p>Due Amount</p>
-						</div>
-						<div class="icon">
-							<i class="ion ion-cash"></i>
-						</div>
-					</div>
-				</div>
-				<!-- ./col -->
-				<div class="col-lg-3 col-6">
-					<!-- small box -->
 					<div class="small-box bg-success">
 						<div class="inner">
 							<h3><?= $total_paid_amount; ?></h3>
@@ -69,6 +56,19 @@
 				<div class="col-lg-3 col-6">
 					<!-- small box -->
 					<div class="small-box bg-danger">
+						<div class="inner">
+							<h3><?= $total_due_amount; ?></h3>
+							<p>Due Amount</p>
+						</div>
+						<div class="icon">
+							<i class="ion ion-cash"></i>
+						</div>
+					</div>
+				</div>
+				<!-- ./col -->
+				<div class="col-lg-3 col-6">
+					<!-- small box -->
+					<div class="small-box bg-primary">
 						<div class="inner">
 							<h3><?= $total_expense_amount; ?></h3>
 							<p>Total Expenses</p>

@@ -41,12 +41,12 @@ class Dashboard_model extends CI_Model
 	// 
 	public function monthlysale()
 	{
-		// return $query = $this->db->select('created_at,net_total')->from('orders_delivered')->get()->result();
 		$this->db->select('EXTRACT(MONTH FROM created_at) AS month');
         $this->db->select('EXTRACT(YEAR FROM created_at) AS year');
         $this->db->select_sum('net_total', 'monthly_net_total');
+        $this->db->select_sum('paid_amount', 'monthly_total_paid');
+        $this->db->select_sum('due_amount', 'monthly_total_due');
         
-        // From your_table_name
         $this->db->from('orders_delivered');
 
         $this->db->where('YEAR(created_at)', date('Y'));
@@ -60,16 +60,22 @@ class Dashboard_model extends CI_Model
         
         // Execute the query
         $query = $this->db->get()->result();
-		
+        
 		$month = array();
 		$net_total= array();
+		$total_paid= array();
+		$total_due= array();
 		foreach($query as $q){
 			array_push($month,$q->month);
 			array_push($net_total,$q->monthly_net_total);
+			array_push($total_paid,$q->monthly_total_paid);
+			array_push($total_due,$q->monthly_total_due);
 
 		}
 		$arr['months'] = $month;
 		$arr['monthly_net_total'] = $net_total;
+		$arr['monthly_total_paid'] = $total_paid;
+		$arr['monthly_total_due'] = $total_due;
 		return $arr;
 	}
 }//class end here
