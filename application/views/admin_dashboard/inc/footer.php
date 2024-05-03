@@ -62,11 +62,13 @@
 			$net_total_js = null;
 			$total_paid = null;
 			$total_due = null;
+			$total_expenses = null;
 			if (isset($months)) {
 				$month = json_encode($months);
 				$net_total_js = json_encode($monthly_net_total);
 				$total_paid = json_encode($monthly_total_paid);
 				$total_due = json_encode($monthly_total_due);
+				$total_expenses = json_encode($monthly_total_expenses);
 			}
 			?>
     		var labels = <?php echo $month; ?>;
@@ -74,6 +76,7 @@
     		var totalSalesData = <?php echo $net_total_js; ?>;
 			var totalPaid = <?php echo $total_paid; ?>;
 			var totalDue = <?php echo $total_due; ?>;
+			var totalExpenses = <?php echo $total_expenses; ?>;
 
     		let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
     			'August', 'September', 'October', 'November', 'December'
@@ -127,7 +130,7 @@
     					pointStrokeColor: '#007bff',
     					pointHighlightFill: '#fff',
     					pointHighlightStroke: '#007bff',
-    					data: totalPaid
+    					data: totalExpenses
     				},
     			],
 

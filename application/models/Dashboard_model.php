@@ -78,4 +78,37 @@ class Dashboard_model extends CI_Model
 		$arr['monthly_total_due'] = $total_due;
 		return $arr;
 	}
+
+    public function monthly_expenses()
+	{
+		$this->db->select('EXTRACT(MONTH FROM created_at) AS month');
+        $this->db->select('EXTRACT(YEAR FROM created_at) AS year');
+        $this->db->select_sum('amount', 'monthly_total_expenses');
+        
+        $this->db->from('expenses');
+
+        $this->db->where('YEAR(created_at)', date('Y'));
+        
+        // Group by month and year
+        $this->db->group_by('month, year');
+        
+        // Order by year and month
+        $this->db->order_by('year', 'ASC');
+        $this->db->order_by('month', 'ASC');
+        
+        // Execute the query
+        $query = $this->db->get()->result();
+        // dd($query);
+        
+		$month = array();
+		$total_expenses = array();
+		foreach($query as $q){
+			array_push($month,$q->month);
+			array_push($total_expenses,$q->monthly_total_expenses);
+
+		}
+		$arr['exp_months'] = $month;
+		$arr['monthly_total_expenses'] = $total_expenses;
+		return $arr;
+	}
 }//class end here
