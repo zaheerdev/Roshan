@@ -44,9 +44,9 @@ class Sellers extends CI_Controller
 		} else {
 			$seller = array(
 				"role_id" => 2,
-				"name" => $this->input->post('name', TRUE),
-				"email" => trim($this->input->post('email', TRUE)),
-				"password" => md5($this->input->post('password', TRUE)),
+				"name" => trim(html_escape($this->input->post('name', TRUE))),
+				"email" => trim(html_escape(trim($this->input->post('email', TRUE)))),
+				"password" => md5(trim(html_escape($this->input->post('password', TRUE)))),
 			);
 			if ($this->seller_model->save($seller)) {
 				$this->session->set_flashdata('success', "seller added successfully.");
@@ -91,9 +91,9 @@ class Sellers extends CI_Controller
 			return redirect(BASE_URL . 'sellers/edit_seller/' . $id);
 		} else {
 			$seller = array(
-				"name" => $this->input->post('name', TRUE),
-				"email" => trim($this->input->post('email', TRUE)),
-				"password" => md5($this->input->post('address', TRUE)),
+				"name" => trim(html_escape($this->input->post('name', TRUE))),
+				"email" => trim(html_escape(trim($this->input->post('email', TRUE)))),
+				"password" => md5(trim(html_escape($this->input->post('address', TRUE)))),
 			);
 			if ($this->seller_model->update($seller, $id)) {
 				$this->session->set_flashdata('updated', "Seller Updated Successfully");

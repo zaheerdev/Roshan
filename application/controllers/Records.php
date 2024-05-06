@@ -43,8 +43,7 @@ class Records extends CI_Controller
 	public function get_amount_details()
 	{
 		$vendor_id = trim($this->input->post('vendor_id'));
-		$details = $this->records_model->get_amount_details($vendor_id);
-		if ($details) {
+trim(		$details = $this->records_model->get_amount_details($vendor_id);)		if ($details) {
 			$data = array(
 				'details' => $details,
 			);
@@ -61,11 +60,11 @@ class Records extends CI_Controller
 			$this->session->set_flashdata('pay_amount', validation_errors());
 			return redirect(BASE_URL . 'records/due_payment/' . $this->input->post('vendor_id'));
 		} else {
-			$vendor_id = $this->input->post('vendor_id');
-			$order_id = $this->input->post('order_id');
-			$pay_amount = $this->input->post('pay_amount');
-			$all_due_amount = $this->input->post('due_amount');
-			$paid_amount_percentage = $this->input->post('paid_amount_percentage');
+			$vendor_id = trim(html_escape($this->input->post('vendor_id')));
+			$order_id = trim(html_escape($this->input->post('order_id')));
+			$pay_amount = trim(html_escape($this->input->post('pay_amount')));
+			$all_due_amount = trim(html_escape($this->input->post('due_amount')));
+			$paid_amount_percentage = trim(html_escape($this->input->post('paid_amount_percentage')));
 			$details = $this->records_model->get_amount_details($vendor_id);
 			$total_paid_amount = 0;
 			$total_due_amount = 0;

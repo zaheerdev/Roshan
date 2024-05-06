@@ -38,9 +38,9 @@ class Auth extends CI_Controller
 			$this->load->view('auth/index', $data);
 		} else {
 
-			$login_as = $this->input->post('login_as');
-			$email = $this->input->post('email');
-			$password = md5($this->input->post('password'));
+			$login_as = trim(html_escape($this->input->post('login_as')));
+			$email = trim(html_escape($this->input->post('email')));
+			$password = trim(html_escape(md5($this->input->post('password'))));
 
 			$role_id_exists = $this->auth_model->check_user_role($email, $login_as);
 

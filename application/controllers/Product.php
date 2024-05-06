@@ -34,8 +34,8 @@ class Product extends CI_Controller
 		}
 		 else {
 			$product = array(
-				"product_name" => $this->input->post('product_name', TRUE),
-				"price" => $this->input->post('product_price', TRUE)
+				"product_name" => trim(html_escape($this->input->post('product_name', TRUE))),
+				"price" => trim(html_escape($this->input->post('product_price', TRUE)))
 			);
 			if((int)$product['price'] <= 0)
 			{
@@ -82,8 +82,8 @@ class Product extends CI_Controller
 			return redirect(BASE_URL . 'product/edit_product/' . $id);
 		} else {
 			$product = array(
-				"product_name" => $this->input->post('product_name', TRUE),
-				"price" => $this->input->post('product_price', TRUE)
+				"product_name" => trim(html_escape($this->input->post('product_name', TRUE))),
+				"price" => trim(html_escape($this->input->post('product_price', TRUE)))
 			);
 			if((int)$product['price'] <= 0)
 			{

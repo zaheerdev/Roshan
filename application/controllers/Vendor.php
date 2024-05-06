@@ -36,10 +36,10 @@ class Vendor extends CI_Controller
 			$this->load->view('admin_dashboard/vendor/add_vendor', $data);
 		} else {
 			$vendor = array(
-				"vendor_name" => $this->input->post('name', TRUE),
-				"business_name" => $this->input->post('bussiness', TRUE),
-				"address" => $this->input->post('address', TRUE),
-				"phone_no" => $this->input->post('phone', TRUE)
+				"vendor_name" => trim(html_escape($this->input->post('name', TRUE))),
+				"business_name" => trim(html_escape($this->input->post('bussiness', TRUE))),
+				"address" => trim(html_escape($this->input->post('address', TRUE))),
+				"phone_no" => trim(html_escape($this->input->post('phone', TRUE)))
 			);
 			if ($this->vendor_model->save($vendor)) {
 				$this->session->set_flashdata('success', "Vendor added successfully.");
@@ -80,10 +80,10 @@ class Vendor extends CI_Controller
 			return redirect(BASE_URL . 'vendor/edit_vendor/' . $id);
 		} else {
 			$vendor = array(
-				"vendor_name" => $this->input->post('name', TRUE),
-				"business_name" => $this->input->post('bussiness', TRUE),
-				"address" => $this->input->post('address', TRUE),
-				"phone_no" => $this->input->post('phone', TRUE)
+				"vendor_name" => trim(html_escape($this->input->post('name', TRUE))),
+				"business_name" => trim(html_escape($this->input->post('bussiness', TRUE))),
+				"address" => trim( html_escape($this->input->post('address', TRUE))),
+				"phone_no" => trim(html_escape($this->input->post('phone', TRUE)))
 			);
 			if ($this->vendor_model->update($vendor, $id)) {
 				$this->session->set_flashdata('updated', "Vendor Updated Successfully");

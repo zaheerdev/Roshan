@@ -36,10 +36,10 @@ class Expenses extends CI_Controller
 			$this->load->view('admin_dashboard/expenses/add_expense', $data);
 		} else {
 			$vendor = array(
-				"expense_name" => $this->input->post('expense_name', TRUE),
-				"category" => $this->input->post('category', TRUE),
-				"date" => $this->input->post('date', TRUE),
-				"amount" => $this->input->post('amount', TRUE)
+				"expense_name" => trim(html_escape($this->input->post('expense_name', TRUE))),
+				"category" => trim(html_escape($this->input->post('category', TRUE))),
+				"date" => trim(html_escape($this->input->post('date', TRUE))),
+				"amount" => trim(html_escape($this->input->post('amount', TRUE)))
 			);
 			if((int)$vendor['amount'] <= 0)
 			{
@@ -86,10 +86,10 @@ class Expenses extends CI_Controller
 			return redirect(BASE_URL . 'expenses/edit_expense/' . $id);
 		} else {
 			$expense = array(
-				"expense_name" => $this->input->post('expense_name', TRUE),
-				"category" => $this->input->post('category', TRUE),
-				"date" => $this->input->post('date', TRUE),
-				"amount" => $this->input->post('amount', TRUE)
+				"expense_name" => trim(html_escape($this->input->post('expense_name', TRUE))),
+				"category" => trim(html_escape($this->input->post('category', TRUE))),
+				"date" => trim(html_escape($this->input->post('date', TRUE))),
+				"amount" => trim(html_escape($this->input->post('amount', TRUE)))
 			);
 			if((int)$vendor['amount'] <= 0)
 			{
