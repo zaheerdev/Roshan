@@ -70,6 +70,16 @@ class Records extends CI_Controller
 			$total_paid_amount = 0;
 			$total_due_amount = 0;
 			$updated = false;
+			if((int)$pay_amount <= 0 )
+			{
+				$this->session->set_flashdata('pay_amount', "Pay amount must be greter than 0");
+				return redirect(BASE_URL . 'records/due_payment/' . $this->input->post('vendor_id'));
+			}
+			// if due amount 0 than redirect
+			if((int)$all_due_amount == 0){
+				$this->session->set_flashdata('pay_amount', "Due Amount is already paid.");
+				return redirect(BASE_URL . 'records/due_payment/' . $this->input->post('vendor_id'));
+			}
 			foreach ($details as $detail) {
 
 				$order_id = $detail->order_id;

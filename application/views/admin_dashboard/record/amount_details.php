@@ -22,19 +22,22 @@
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
+				<?php if($total_due_amount > 0):?>
                 <label for="pay_amount">Pay Amount:</label>
                 <input type="text" class="form-control" id="pay_amount" name="pay_amount">
-                <input type="hidden" name="vendor_id" value="<?= $details[0]->vendor_id; ?>">
+                <?php endif;?>
+				<input type="hidden" name="vendor_id" value="<?= $details[0]->vendor_id; ?>">
                 <input type="hidden" name="order_id" value="<?= $details[0]->order_id; ?>">
                 <input type="hidden" name="paid_amount_percentage" id="paid_amount_percentage">
             </div>
         </div>
     </div>
 </div>
-
+<?php if((int)$total_due_amount > 0):?>
 <div class="card-footer">
     <button type="submit" class="btn btn-primary">Submit</button>
 </div>
+<?php endif;?>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

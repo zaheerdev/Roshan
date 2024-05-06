@@ -85,6 +85,12 @@ class Product extends CI_Controller
 				"product_name" => $this->input->post('product_name', TRUE),
 				"price" => $this->input->post('product_price', TRUE)
 			);
+			if((int)$product['price'] <= 0)
+			{
+				$this->session->set_flashdata('price','Price must be greater than 0');
+				$data['price'] = 'Price must be greater than 0';
+				return redirect(BASE_URL.'product/edit_product/'.$id);
+			}
 			if ($this->product_model->update($product, $id)) {
 				$this->session->set_flashdata('updated', "Product Updated Successfully");
 				return redirect(BASE_URL . "product/all_products");
