@@ -43,7 +43,8 @@ class Records extends CI_Controller
 	public function get_amount_details()
 	{
 		$vendor_id = trim($this->input->post('vendor_id'));
-trim(		$details = $this->records_model->get_amount_details($vendor_id);)		if ($details) {
+		$details = $this->records_model->get_amount_details($vendor_id);
+		if ($details) {
 			$data = array(
 				'details' => $details,
 			);
@@ -69,13 +70,12 @@ trim(		$details = $this->records_model->get_amount_details($vendor_id);)		if ($d
 			$total_paid_amount = 0;
 			$total_due_amount = 0;
 			$updated = false;
-			if((int)$pay_amount <= 0 )
-			{
+			if ((int)$pay_amount <= 0) {
 				$this->session->set_flashdata('pay_amount', "Pay amount must be greter than 0");
 				return redirect(BASE_URL . 'records/due_payment/' . $this->input->post('vendor_id'));
 			}
 			// if due amount 0 than redirect
-			if((int)$all_due_amount == 0){
+			if ((int)$all_due_amount == 0) {
 				$this->session->set_flashdata('pay_amount', "Due Amount is already paid.");
 				return redirect(BASE_URL . 'records/due_payment/' . $this->input->post('vendor_id'));
 			}
@@ -95,7 +95,7 @@ trim(		$details = $this->records_model->get_amount_details($vendor_id);)		if ($d
 			if ($updated > 0) {
 				$this->session->set_flashdata('pay_amount', "Payment Added Successfully");
 				// return redirect(BASE_URL . 'records');
-				return redirect(BASE_URL . 'records/share_payment_pdf/'.$vendor_id);
+				return redirect(BASE_URL . 'records/share_payment_pdf/' . $vendor_id);
 			}
 		}
 	} //ends function
