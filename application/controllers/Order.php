@@ -156,19 +156,19 @@ class Order extends CI_Controller
 	// Function for saving deliver order
 	public function save_deliver_order()
 	{
-		$order_id = $this->input->post('order_id');
-		$sub_total = $this->input->post('total');
-		$discount_percentage = $this->input->post('discount');
-		$paid_amount = round($this->input->post('paid_amount'));
-		$due_amount = round($this->input->post('due_amount'));
-		$net_total = round($this->input->post('net_total'));
+		$order_id = trim(html_escape($this->input->post('order_id')));
+		$sub_total = round((float)trim(html_escape($this->input->post('total'))));
+		$discount_percentage = round((float)trim(html_escape($this->input->post('discount'))));
+		$paid_amount = round((float)trim(html_escape($this->input->post('paid_amount'))));
+		$due_amount = round((float)trim(html_escape($this->input->post('due_amount'))));
+		$net_total = round((float)trim(html_escape($this->input->post('net_total'))));
 		
 
 		// Calculate due amount if it's not provided in the form
 		if (empty($due_amount)) {
-			$discount_amount = ($sub_total * $discount_percentage) / 100;
-			$net_total = $sub_total - $discount_amount;
-			$due_amount = $net_total - $paid_amount;
+			$discount_amount = round(($sub_total * $discount_percentage) / 100);
+			$net_total = round($sub_total - $discount_amount);
+			$due_amount = round($net_total - $paid_amount);
 		}
 
 		$data = array(
