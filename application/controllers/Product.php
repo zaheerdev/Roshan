@@ -31,11 +31,19 @@ class Product extends CI_Controller
 		$this->form_validation->set_rules('product_price', 'Price', 'required');
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('admin_dashboard/product/add_product', $data);
-		} else {
+		}
+		 else {
 			$product = array(
 				"product_name" => $this->input->post('product_name', TRUE),
 				"price" => $this->input->post('product_price', TRUE)
 			);
+			if((int)$product['price'] <= 0)
+			{
+				$this->session->set_flashdata('price','Price must be greater than 0');
+				$data['price'] = 'Price must be greater than 0';
+				return redirect(BASE_URL.'product/add_product');
+			}
+			// dd(gettype((int)$product['price']));
 			if ($this->product_model->save($product)) {
 				$this->session->set_flashdata('success', "Product added successfully.");
 				return redirect(BASE_URL . "product/all_products");

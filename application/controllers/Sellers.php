@@ -46,7 +46,7 @@ class Sellers extends CI_Controller
 				"role_id" => 2,
 				"name" => $this->input->post('name', TRUE),
 				"email" => trim($this->input->post('email', TRUE)),
-				"password" => md5($this->input->post('address', TRUE)),
+				"password" => md5($this->input->post('password', TRUE)),
 			);
 			if ($this->seller_model->save($seller)) {
 				$this->session->set_flashdata('success', "seller added successfully.");

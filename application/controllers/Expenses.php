@@ -41,6 +41,12 @@ class Expenses extends CI_Controller
 				"date" => $this->input->post('date', TRUE),
 				"amount" => $this->input->post('amount', TRUE)
 			);
+			if((int)$vendor['amount'] <= 0)
+			{
+				$this->session->set_flashdata('amount','Amount must be greater than 0');
+				$data['price'] = 'Price must be greater than 0';
+				return redirect(BASE_URL.'expenses/add_expense');
+			}
 			if ($this->expenses_model->save($vendor)) {
 				$this->session->set_flashdata('success', "Expense added successfully.");
 				return redirect(BASE_URL . "expenses/all_expenses");

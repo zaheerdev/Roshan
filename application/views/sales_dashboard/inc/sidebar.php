@@ -64,7 +64,7 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a href="<?= BASE_URL?>/auth/logout" class="nav-link">
+                     <a href="<?= BASE_URL?>auth/logout" class="nav-link">
                          <i class="nav-icon fas fa-edit"></i>
                          <p>
                              Logout
