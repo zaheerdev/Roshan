@@ -64,6 +64,14 @@
                      </a>
                  </li>
                  <li class="nav-item">
+                     <a href="<?= BASE_URL . 'sellers/all_sellers' ?>" class="nav-link">
+                         <i class="nav-icon fas fa-edit"></i>
+                         <p>
+                            Sellers
+                         </p>
+                     </a>
+                 </li>
+                 <li class="nav-item">
                      <a href="<?= BASE_URL ?>records" class="nav-link">
                          <i class="nav-icon fas fa-edit"></i>
                          <p>
