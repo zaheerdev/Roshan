@@ -171,6 +171,11 @@ class Order extends CI_Controller
 			$due_amount = round($net_total - $paid_amount);
 		}
 
+		if($paid_amount > $net_total){
+			$this->session->set_flashdata('error', "The paid amount exceeds the net total value.");
+			redirect(BASE_URL . 'order/deliver_order/'. $order_id);
+		}
+
 		$data = array(
 			'order_id' => $order_id,
 			'sub_total' => $sub_total,

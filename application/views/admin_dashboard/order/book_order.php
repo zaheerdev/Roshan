@@ -56,14 +56,6 @@
                                 </div>
 
                                 <table id="items-table" class="table book_order_table">
-                                    <!-- <thead>
-                                        <tr>
-                                            <th>Item</th>
-                                            <th>Price</th>
-                                            <th>Quantity</th>
-                                            <th>Total</th>
-                                        </tr>
-                                    </thead> -->
                                     <tbody>
                                         <tr>
                                             <td>

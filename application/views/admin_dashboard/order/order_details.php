@@ -117,13 +117,10 @@
 		function updateTotals() {
 			var total = calculateTotal();
 			var discountPercentage = parseFloat(discountInput.val()) || 0;
-			console.log(discountType);
 			if(discountType == 'percentage'){
 				var discountAmount = (total * discountPercentage) / 100;
-				console.log(discountAmount);
 			}else if(discountType == 'fixed-price'){
 				var discountAmount = discountInput.val();
-				console.log(discountAmount);
 			}
 			
 			var netTotal = total - discountAmount;
