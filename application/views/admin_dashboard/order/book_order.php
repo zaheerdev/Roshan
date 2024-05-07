@@ -17,12 +17,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Book Order</h1>
+                    <h1 class="m-0">Order</h1>
                 </div>
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Book Order</li>
+                        <li class="breadcrumb-item active">Order</li>
                     </ol>
                 </div>
             </div>
@@ -39,7 +39,7 @@
                     <!-- general form elements -->
                     <div class="card card-primary">
                         <div class="card-header">
-                            <h3 class="card-title">Book Order</h3>
+                            <h3 class="card-title">Deliver Order</h3>
                         </div>
                         <!-- /.card-header -->
                         <!-- form start -->
@@ -99,7 +99,7 @@
                             </div>
                             <!-- /.card-body -->
                             <div class="card-footer">
-                                <button type="submit" class="btn btn-primary">Book Order</button>
+                                <button type="submit" class="btn btn-primary">Deliver Order</button>
                                 <button type="button" id="cancel-button" class="btn btn-default">Cancel</button>
                             </div>
                         </form>
@@ -138,7 +138,7 @@
             var selectedPrice = parseFloat($(this).find('option:selected').data('price'));
             $(this).closest('tr').find('.price_input').val(selectedPrice);
             var total = selectedPrice;
-            $(this).closest('tr').find('.total input').val(total);
+            $(this).closest('tr').find('.total input').val(total);            
         });
 
         $('#items-table').on('change', 'input.quantity', function() {
@@ -212,7 +212,7 @@
                         var orderId = responseData.order_id;
                         showToast(responseData.message, 'success');
                         setTimeout(function() {
-                            window.location.href = BASE_URL + 'order/preview_order/' + orderId;
+                            window.location.href = BASE_URL + 'order/deliver_order/' + orderId;
                         }, 1500);
                     } else {
                         showToast(responseData.message, 'error');

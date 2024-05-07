@@ -35,15 +35,7 @@
                      <a href="<?= BASE_URL ?>order/book_order" class="nav-link">
                          <i class="nav-icon fas fa-edit"></i>
                          <p>
-                             Book Order
-                         </p>
-                     </a>
-                 </li>
-                 <li class="nav-item">
-                     <a href="<?= BASE_URL ?>order/deliver_order" class="nav-link">
-                         <i class="nav-icon fas fa-edit"></i>
-                         <p>
-                             Deliver Order
+                            Deliver Order
                          </p>
                      </a>
                  </li>

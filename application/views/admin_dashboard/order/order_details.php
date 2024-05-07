@@ -82,7 +82,7 @@
 	if (is_order_delivered($order_id)) : ?>
 		<button type="button" class="btn btn-danger" disabled>Delivered</button>
 	<?php else : ?>
-		<button type="submit" class="btn btn-primary">Deliver Order</button>
+		<button type="submit" class="btn btn-primary">Deliver Order Now</button>
 	<?php endif; ?>
 </div>
 
