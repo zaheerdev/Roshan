@@ -202,11 +202,15 @@ class Order extends CI_Controller
 	public function preview_deliver_order($order_id)
 	{
 		$order_details = $this->order_model->get_deliverOrder_details($order_id);
-		// dd($order_details);
+		
+		$vendor_id = $this->order_model->get_vendor_id($order_id)->vendor_id;
+		$pdf_filename = $this->generate_d_order_pdf($order_id,$vendor_id);
+
 		if ($order_details) {
 			$data = array(
 				'page_title' => "Roshan | Preview Deliver Order",
 				'order_details' => $order_details,
+				'pdf_filename' => $pdf_filename
 			);
 			$this->load->view('admin_dashboard/order/deliver_order_preview', $data);
 		} else {
@@ -215,15 +219,15 @@ class Order extends CI_Controller
 	}
 
 	// Function to share PDF via WhatsApp
-	public function deliver_order_pdf($order_id)
-	{
-		$vendor_id = $this->order_model->get_vendor_id($order_id)->vendor_id;
+	// public function deliver_order_pdf($order_id)
+	// {
+	// 	$vendor_id = $this->order_model->get_vendor_id($order_id)->vendor_id;
 
-		$pdf_filename = $this->generate_d_order_pdf($order_id,$vendor_id);
+	// 	$pdf_filename = $this->generate_d_order_pdf($order_id,$vendor_id);
 
-		force_download(FCPATH . 'assets/delivered_invoices/vendor-'.$vendor_id.'/' .$pdf_filename,null,TRUE);
+	// 	force_download(FCPATH . 'assets/delivered_invoices/vendor-'.$vendor_id.'/' .$pdf_filename,null,TRUE);
 		
-	}
+	// }
 
 	// Function for generating deliver order pdf
 	private function generate_d_order_pdf($order_id,$vendor_id)

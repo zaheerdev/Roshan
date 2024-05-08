@@ -82,41 +82,39 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
-						<div class="bg-white">
-							<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'sellers/add_seller' ?>">Add New Seller</a>
-						</div>
-						<!-- Table start -->
-						<table id="example1" class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th scope="col">ID</th>
-									<th scope="col">Name</th>
-									<th scope="col">Email</th>
-									<th scope="col">Action</th>
-									
-								</tr>
-							</thead>
-							<tbody>
-								<?php if (!empty($sellers)) : ?>
-									<!-- if record found -->
-									<?php foreach ($sellers as $seller) : ?>
-										<tr>
-											<td><?= $seller->id ?></td>
-											<td><?= $seller->name ?></td>
-											<td><?= $seller->email ?></td>
-											
-											<td>
-												<a class="btn btn-primary " href="<?= BASE_URL . "sellers/edit_seller/" . $seller->id ?>">Edit</a>
-												<a class="btn btn-danger " href="<?= BASE_URL . "sellers/delete_seller/" . $seller->id ?>" onclick="return confirm('are you sure to delete <?= $seller->name ?>')">Delete</a>
-												
-											</td>
-										</tr>
-									<?php endforeach; ?>
-								<?php else : ?>
-									<div class="p-3 text-center">No Record Found</div>
-								<?php endif; ?>
-							</tbody>
-						</table>	
+							<div class="bg-white">
+								<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'sellers/add_seller' ?>">Add New Seller</a>
+							</div>
+							<!-- Table start -->
+							<table id="example1" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">Name</th>
+										<th scope="col">Email</th>
+										<th scope="col">Action</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<?php if (!empty($sellers)) : ?>
+										<!-- if record found -->
+										<?php foreach ($sellers as $seller) : ?>
+											<tr>
+												<td><?= $seller->id ?></td>
+												<td><?= $seller->name ?></td>
+												<td><?= $seller->email ?></td>
+
+												<td>
+													<a class="btn btn-primary " href="<?= BASE_URL . "sellers/edit_seller/" . $seller->id ?>">Edit</a>
+													<a class="btn btn-danger " href="<?= BASE_URL . "sellers/delete_seller/" . $seller->id ?>" onclick="return confirm('are you sure to delete <?= $seller->name ?>')">Delete</a>
+
+												</td>
+											</tr>
+										<?php endforeach; ?>
+									<?php endif; ?>
+								</tbody>
+							</table>
 						</div>
 
 					</div>
