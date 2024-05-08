@@ -21,6 +21,7 @@ class Order extends CI_Controller
 		if (!$this->session->userdata('user_session')->logged_in) {
 			redirect(BASE_URL . 'auth/login');
 		}
+		$this->load->helper('download');
 	} //end function 
 
 	// Function for booking order
@@ -216,19 +217,19 @@ class Order extends CI_Controller
 	// Function to share PDF via WhatsApp
 	public function deliver_order_pdf($order_id)
 	{
-		$pdf_filename = $this->generate_d_order_pdf($order_id);
+		$vendor_id = $this->order_model->get_vendor_id($order_id)->vendor_id;
 
-		// Share PDF via WhatsApp
-		$whatsapp_message = "Check out the deliver order details in the following pdf link: " . BASE_URL . 'assets/delivered_invoices/' . $pdf_filename;
-		$whatsapp_url = "https://api.whatsapp.com/send?text=" . urlencode($whatsapp_message);
-		redirect($whatsapp_url);
+		$pdf_filename = $this->generate_d_order_pdf($order_id,$vendor_id);
+
+		force_download(FCPATH . 'assets/delivered_invoices/vendor-'.$vendor_id.'/' .$pdf_filename,null,TRUE);
+		
 	}
 
 	// Function for generating deliver order pdf
-	private function generate_d_order_pdf($order_id)
+	private function generate_d_order_pdf($order_id,$vendor_id)
 	{
 		$pdf_filename = 'order_' . $order_id . '.pdf';
-		$pdf_path = FCPATH . 'assets/delivered_invoices/' . $pdf_filename;
+		$pdf_path = FCPATH . 'assets/delivered_invoices/vendor-'.$vendor_id.'/' . $pdf_filename;
 
 		// Check if the PDF file already exists
 		if (file_exists($pdf_path)) {
@@ -256,7 +257,12 @@ class Order extends CI_Controller
 
 		$output = $dompdf->output();
 
-		file_put_contents(FCPATH . 'assets/delivered_invoices/' . $pdf_filename, $output);
+		if(is_dir(FCPATH.'assets/delivered_invoices/vendor-'.$vendor_id)){
+			file_put_contents(FCPATH . 'assets/delivered_invoices/vendor-'.$vendor_id.'/' . $pdf_filename, $output);
+		}else{
+			mkdir(FCPATH.'assets/delivered_invoices/vendor-'.$vendor_id);
+			file_put_contents(FCPATH . 'assets/delivered_invoices/vendor-'.$vendor_id.'/' . $pdf_filename, $output);
+		}
 
 		return $pdf_filename;
 	}

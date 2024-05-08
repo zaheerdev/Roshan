@@ -25,13 +25,14 @@
 			<div class="row">
 				<div class="col-12">
 					<?php if ($this->session->flashdata('pay_amount')) : ?>
-							<div class="alert alert-success alert-dismissible fade show" role="alert">
-								<?php echo $this->session->flashdata('pay_amount'); ?>
-								<button type="button" class="close" data-dismiss="alert" aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-							</div>
-						<?php endif; ?>
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+							<?php echo $this->session->flashdata('pay_amount'); ?>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					<?php endif; ?>
+					
 					<!-- /.card -->
 					<!-- payment successfull -->
 					<div class="card">
@@ -42,26 +43,26 @@
 									<tr>
 										<th>Vendor ID</th>
 										<th>Vendor Name</th>
-										<th>Seller Name</th>
-										<th>Product</th>
+										<th>User Name</th>
 										<th>Sub Total</th>
-										<th>Discount</th>
-										<th>Paid Amount</th>
-										<th>Due Amount</th>
+										<th>Net Total</th>
+										<th>Total Discount</th>
+										<th>Total paid amoint</th>
+										<th>Total due Amount</th>
 									</tr>
 								</thead>
 								<tbody>
 									<?php if (!empty($records)) : ?>
 										<?php foreach ($records as $record) : ?>
 											<tr>
-												<td>RTA-<?= $record->id ?></td>
+												<td>RTA-<?= $record->vendor_id ?></td>
 												<td><?= $record->vendor_name ?></td>
-												<td><?= $record->name ?></td>
-												<td><?= $record->product_name ?></td>
-												<td><?= $record->sub_total ?></td>
-												<td><?= $record->discount ?></td>
-												<td><?= $record->paid_amount ?></td>
-												<td><?= $record->due_amount ?></td>
+												<td><?= $record->user_name ?></td>
+												<td><?= $record->total_sub_total ?></td>
+												<td><?= $record->total_net_total ?></td>
+												<td><?= $record->total_sub_total - $record->total_net_total ?></td>
+												<td><?= $record->total_paid_amount ?></td>
+												<td><?= $record->total_due_amount ?></td>
 											</tr>
 										<?php endforeach; ?>
 									<?php endif; ?>

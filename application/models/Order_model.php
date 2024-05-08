@@ -123,4 +123,8 @@ class Order_model extends CI_Model
         }
         return $result;
     } //function ends
+	//get vendor id for generating pdf
+	public function get_vendor_id($order_id){
+		return $this->db->select('vendor_id')->from('orders')->where('order_id',$order_id)->get()->row();
+	}
 }

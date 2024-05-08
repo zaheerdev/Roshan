@@ -71,7 +71,7 @@
                             </div>
 
                             <div class="row">
-                                <a href="<?= BASE_URL ?>order/deliver_order_pdf/<?= $order_details[0]->order_id; ?>" class="btn btn-success mt-4">Share via Whatsapp</a>
+                                <a href="<?= BASE_URL ?>order/deliver_order_pdf/<?= $order_details[0]->order_id; ?>" class="btn btn-success mt-4">Download PDF</a>
                             </div>
 
                         </div>

@@ -20,6 +20,7 @@ class Records extends CI_Controller
 		if (!$this->session->userdata('user_session')->logged_in) {
 			redirect(BASE_URL . 'auth/login');
 		}
+		$this->load->helper('download');
 	} //end function 
 
 	public function index()
@@ -93,23 +94,31 @@ class Records extends CI_Controller
 				}
 			}
 			if ($updated > 0) {
-				$this->session->set_flashdata('pay_amount', "Payment Added Successfully");
+				$pdf_filename = $this->generate_payment_pdf($vendor_id);
+				$filePath = BASE_URL."/records/downloadPDF/".$pdf_filename;
+				// dd($pdf_filename);
+				$this->session->set_flashdata('pay_amount', "Payment Added Successfully.");
+				$this->session->set_flashdata('download_pdf', "<form action='{$filePath}'><input class='btn btn-success mb-2 rounded' type='submit' value='Download PDF'></form>");
 				// return redirect(BASE_URL . 'records');
-				return redirect(BASE_URL . 'records/share_payment_pdf/' . $vendor_id);
+				return redirect(BASE_URL . 'records/due_payment/' . $vendor_id);
 			}
 		}
 	} //ends function
 
-	// Function to share PDF via WhatsApp
-	public function share_payment_pdf($vendor_id)
+	public function downloadPDF($pdf_filename)
 	{
-		$pdf_filename = $this->generate_payment_pdf($vendor_id);
-
-		// Share PDF via WhatsApp
-		$whatsapp_message = "Check out the vendor payment details in the following pdf link: " . BASE_URL . 'assets/payment_invoices/' . $pdf_filename;
-		$whatsapp_url = "https://api.whatsapp.com/send?text=" . urlencode($whatsapp_message);
-		redirect($whatsapp_url);
+		force_download(FCPATH . 'assets/payment_invoices/' . $pdf_filename,null,TRUE);
 	}
+	// Function to share PDF via WhatsApp
+	// public function share_payment_pdf($vendor_id)
+	// {
+	// 	$pdf_filename = $this->generate_payment_pdf($vendor_id);
+
+	// 	// Share PDF via WhatsApp
+	// 	$whatsapp_message = "Check out the vendor payment details in the following pdf link: " . BASE_URL . 'assets/payment_invoices/' . $pdf_filename;
+	// 	$whatsapp_url = "https://api.whatsapp.com/send?text=" . urlencode($whatsapp_message);
+	// 	redirect($whatsapp_url);
+	// }
 
 	// Function for generating payment pdf
 	private function generate_payment_pdf($vendor_id)
