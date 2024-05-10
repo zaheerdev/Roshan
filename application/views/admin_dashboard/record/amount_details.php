@@ -1,6 +1,6 @@
 <div class="card-body">
     <?php if ($details) : ?>
-        <p>Vendor ID: RTA-<?= $details[0]->vendor_id; ?></p>
+        <p>Dukandar ID: RTA-<?= $details[0]->vendor_id; ?></p>
     <?php
     endif; ?>
 

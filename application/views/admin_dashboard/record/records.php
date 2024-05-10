@@ -41,14 +41,14 @@
 							<table id="example1" class="table table-bordered table-striped">
 								<thead>
 									<tr>
-										<th>Vendor ID</th>
-										<th>Vendor Name</th>
-										<th>User Name</th>
+										<th>Dukandar ID</th>
+										<th>Dukandar Name</th>
+										<th>Seller Name</th>
 										<th>Sub Total</th>
 										<th>Net Total</th>
 										<th>Total Discount</th>
-										<th>Total paid amoint</th>
-										<th>Total due Amount</th>
+										<th>Total Paid amount</th>
+										<th>Total Due Amount</th>
 									</tr>
 								</thead>
 								<tbody>

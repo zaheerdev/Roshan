@@ -51,7 +51,7 @@
                      <a href="<?= BASE_URL . 'vendor/all_vendors' ?>" class="nav-link">
                          <i class="nav-icon fas fa-edit"></i>
                          <p>
-                             Vendors
+                            Dukandar
                          </p>
                      </a>
                  </li>

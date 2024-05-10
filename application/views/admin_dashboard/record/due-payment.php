@@ -66,10 +66,10 @@
 							<?php if (!isset($vendor_id)) : ?>
 								<form id="search_due_form" action="#" method="post">
 									<div class="form-group">
-										<label>Vendor ID</label>
+										<label>Dukandar ID</label>
 										<div class="row">
 											<div class="col-md-6">
-												<input type="search" class="form-control" id="vendor_id" value='<?= $vendor_id ?? '' ?>' name="vendor_id" placeholder="Enter Vendor ID">
+												<input type="search" class="form-control" id="vendor_id" value='<?= $vendor_id ?? '' ?>' name="vendor_id" placeholder="Enter Dukandar ID">
 											</div>
 											<div class="col-md-4">
 												<input type="submit" class="btn btn-primary" value="Search">

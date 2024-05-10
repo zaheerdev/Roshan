@@ -9,12 +9,12 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0">Vendors</h1>
+					<h1 class="m-0">Dukandar</h1>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="#">Home</a></li>
-						<li class="breadcrumb-item active">Vendors</li>
+						<li class="breadcrumb-item active">Dukandar</li>
 					</ol>
 				</div>
 			</div>
@@ -78,12 +78,12 @@
 					<!-- general form elements -->
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title">List of Vendors</h3>
+							<h3 class="card-title">List of Dukandar</h3>
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
 						<div class="bg-white">
-							<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'vendor/add_vendor' ?>">Add New Vendor</a>
+							<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'vendor/add_vendor' ?>">Add New Dukandar</a>
 						</div>
 						<!-- Table start -->
 						<table id="example1" class="table table-bordered table-striped">

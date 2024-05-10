@@ -111,7 +111,7 @@
                                 </td>
                                 <td>
 
-                                    Vendor ID#: RTA-<?= $payment_details->id ?><br />
+                                Dukandar ID#: RTA-<?= $payment_details->id ?><br />
                                     Created: <?php
                                                 $currentDate = date("Y-m-d");
                                                 $formattedDate = date("F j, Y", strtotime($currentDate));
@@ -147,8 +147,8 @@
             <table>
 
                 <tr class="heading">
-                    <td>Vendor ID</td>
-                    <td>Vendor Name</td>
+                    <td>Dukandar ID</td>
+                    <td>Dukandar Name</td>
                     <td>Total Amount</td>
                 </tr>
 

@@ -13,7 +13,7 @@
 				<?php endforeach; ?>
 			</div>
 			<div class="col-md-6">
-				<h4 class="mb-3">Vendor Information</h4>
+				<h4 class="mb-3">Dukandar Information</h4>
 				<p><?= $order_details[0]->business_name ?></p>
 				<p><?= $order_details[0]->phone_no ?></p>
 				<p><?= $order_details[0]->address ?></p><br>

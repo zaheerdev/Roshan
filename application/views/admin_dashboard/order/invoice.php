@@ -110,7 +110,7 @@
                             </td>
                             <td>
                                 Order ID#: <?= $order_details[0]->order_id; ?><br />
-                                Vendor ID#: RTA-<?= $order_details[0]->vendor_id; ?><br />
+                                Dukandar ID#: RTA-<?= $order_details[0]->vendor_id; ?><br />
                                 Created: <?php
                                             $currentDate = date("Y-m-d");
                                             $formattedDate = date("F j, Y", strtotime($currentDate));

@@ -46,9 +46,9 @@
                         <form id="book_order_form" action="#" method="post">
                             <div class="card-body">
                                 <div class="form-group">
-                                    <label>Vendor</label>
+                                    <label>Dukandar</label>
                                     <select class="form-control" name="vendor_id" required>
-                                        <option value="">Select Vendor</option>
+                                        <option value="">Select Dukandar</option>
                                         <?php foreach ($vendors as $vendor) : ?>
                                             <option value="<?php echo $vendor->id; ?>"><?php echo $vendor->vendor_name; ?></option>
                                         <?php endforeach; ?>
