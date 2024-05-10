@@ -27,7 +27,7 @@
             vertical-align: top;
         }
 
-        .invoice-box table tr td:nth-child(2) {
+        .invoice-box table tr td:nth-child(2), .invoice-box table tr td:nth-child(3), .invoice-box table tr td:nth-child(4) {
             text-align: right;
         }
 
@@ -63,7 +63,7 @@
             border-bottom: none;
         }
 
-        .invoice-box table tr.total td:nth-child(2) {
+        .invoice-box table tr.total td:nth-child(4) {
             border-top: 2px solid #eee;
             font-weight: bold;
         }
@@ -140,10 +140,15 @@
                     </table>
                 </td>
             </tr>
+        </table>
+
+        <table cellpadding="0" cellspacing="0">
 
             <tr class="heading">
                 <td>Product Item</td>
-                <td>Price</td>
+                <td>Unit Price</td>
+                <td>Quantity</td>
+                <td>Total Price</td>
             </tr>
 
             <?php
@@ -154,27 +159,39 @@
             ?>
                 <tr class="item">
                     <td><?= $product->product_name ?></td>
+                    <td><?= $product->price ?></td>
+                    <td><?= $order->quantity ?></td>
                     <td><?= $order->total ?></td>
                 </tr>
             <?php endforeach; ?>
 
             <tr class="total">
                 <td></td>
+                <td></td>
+                <td></td>
                 <td>Sub Total: <?= $totalAmount ?></td>
             </tr>
             <tr>
+                <td></td>
+                <td></td>
                 <td></td>
                 <td>Discount: <?= $order_details[0]->discount ?></td>
             </tr>
             <tr>
                 <td></td>
+                <td></td>
+                <td></td>
                 <td>Net Total: <?= $order_details[0]->net_total ?></td>
             </tr>
             <tr>
                 <td></td>
+                <td></td>
+                <td></td>
                 <td>Paid Amount: <?= $order_details[0]->paid_amount ?></td>
             </tr>
             <tr class="total">
+                <td></td>
+                <td></td>
                 <td></td>
                 <td>
                     <?php if ($order_details[0]->due_amount > 0) : ?>
