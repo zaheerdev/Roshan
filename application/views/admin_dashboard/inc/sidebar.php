@@ -80,10 +80,10 @@
                      </a>
                  </li>
                  <li class="nav-item">
-                     <a href="<?= BASE_URL ?>inventory/add_inventory" class="nav-link">
+                     <a href="<?= BASE_URL ?>inventory/inventory" class="nav-link">
                          <i class="nav-icon fas fa-edit"></i>
                          <p>
-                            Add inventory
+                         Inventory
                          </p>
                      </a>
                  </li>

@@ -18,35 +18,62 @@ class Inventory extends CI_Controller
 		}
 	} //end function 
 
-	public function add_inventory()
+	public function inventory()
 	{
-		$data['page_title'] = "Roshan | Add Inventory";
-		$this->load->view('admin_dashboard/inventory/add_inventory', $data);
+		$data['page_title'] = "Roshan | Inventory";
+		$this->load->view('admin_dashboard/inventory/inventory', $data);
 	}
 
-	public function save_inventory()
+	public function add_product_inventory()
+	{
+		$data['page_title'] = "Roshan | Add Product Inventory";
+		$data['product_items'] = $this->order_model->get_product_items();
+		$this->load->view('admin_dashboard/inventory/add_product_inventory', $data);
+	}
+
+	public function save_product_inventory()
 	{
 		$data['page_title'] = "Roshan | Add Inventory";
-		$this->form_validation->set_rules('raw_material1', 'Raw Material1', 'required');
-		$this->form_validation->set_rules('raw_material2', 'Raw Material2', 'required');
-		$this->form_validation->set_rules('raw_material3', 'Raw Material3', 'required');
-		$this->form_validation->set_rules('raw_material4', 'Raw Material4', 'required');
-		$this->form_validation->set_rules('raw_material5', 'Raw Material5', 'required');
+		$this->form_validation->set_rules('product_id', 'Product ID', 'required');
+		$this->form_validation->set_rules('quantity', 'Product Quantity', 'required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('admin_dashboard/inventory/add_inventory', $data);
+			$this->load->view('admin_dashboard/inventory/add_product_inventory', $data);
 		}
 		 else {
+			$product_id = trim(html_escape($this->input->post('product_id', TRUE)));
 			$inventory = array(
-                "user_id" => $this->session->userdata('user_session')->id,
-				"raw_material1" => trim(html_escape($this->input->post('raw_material1', TRUE))),
-				"raw_material2" => trim(html_escape($this->input->post('raw_material2', TRUE))),
-				"raw_material3" => trim(html_escape($this->input->post('raw_material3', TRUE))),
-				"raw_material4" => trim(html_escape($this->input->post('raw_material4', TRUE))),
-				"raw_material5" => trim(html_escape($this->input->post('raw_material5', TRUE)))
+				"quantity" => trim(html_escape($this->input->post('quantity', TRUE)))
 			);
-			if ($this->inventory_model->save($inventory)) {
-				$this->session->set_flashdata('success', "Inventory added successfully.");
-				return redirect(BASE_URL . "inventory/add_inventory");
+			if ($this->inventory_model->save_product_inventory($inventory, $product_id)) {
+				$this->session->set_flashdata('success', "Product  quantity added successfully.");
+				return redirect(BASE_URL . "inventory/add_product_inventory");
+			}
+		}
+	}
+
+	public function add_raw_inventory()
+	{
+		$data['page_title'] = "Roshan | Add Raw Inventory";
+		$data['raw_items'] = $this->inventory_model->get_raw_items();
+		$this->load->view('admin_dashboard/inventory/add_raw_inventory', $data);
+	}
+
+	public function save_raw_inventory()
+	{
+		$data['page_title'] = "Roshan | Add Raw Inventory";
+		$this->form_validation->set_rules('material_id', 'Raw Material ID', 'required');
+		$this->form_validation->set_rules('quantity', 'Raw Material Quantity', 'required');
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('admin_dashboard/inventory/add_raw_inventory', $data);
+		}
+		 else {
+			$material_id = trim(html_escape($this->input->post('material_id', TRUE)));
+			$inventory = array(
+				"quantity" => trim(html_escape($this->input->post('quantity', TRUE)))
+			);
+			if ($this->inventory_model->save_raw_inventory($inventory, $material_id)) {
+				$this->session->set_flashdata('success', "Raw Material quantity added successfully.");
+				return redirect(BASE_URL . "inventory/add_raw_inventory");
 			}
 		}
 	}
