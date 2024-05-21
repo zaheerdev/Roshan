@@ -51,6 +51,9 @@ class Order extends CI_Controller
 			$result = $this->order_model->process_order($formData['vendorId'], $formData['productItems'], $order_id);
 
 			if ($result) {
+				foreach ($formData['productItems'] as $item) {
+					$this->order_model->update_product_quantity($item['productId'], $item['quantity']);
+				}
 				echo json_encode(array('success' => true, 'order_id' => $order_id, 'message' => 'Order processed successfully'));
 			} else {
 				echo json_encode(array('success' => false, 'error' => 'Failed to process order'));

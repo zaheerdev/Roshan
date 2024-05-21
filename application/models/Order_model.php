@@ -123,8 +123,25 @@ class Order_model extends CI_Model
         }
         return $result;
     } //function ends
+    
 	//get vendor id for generating pdf
 	public function get_vendor_id($order_id){
 		return $this->db->select('vendor_id')->from('orders')->where('order_id',$order_id)->get()->row();
 	}
+
+    public function update_product_quantity($product_id, $quantity)
+    {
+        $current_quantity = $this->db->get_where('product_items', array('id' => $product_id))->row()->quantity;
+
+        $new_quantity = $current_quantity - $quantity;
+
+        $this->db->where('id', $product_id);
+        $this->db->update('product_items', array('quantity' => $new_quantity));
+
+        if ($this->db->affected_rows() > 0) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
