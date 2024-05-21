@@ -89,6 +89,7 @@
 										<th>ID</th>
 										<th>Product Name</th>
 										<th>Price</th>
+										<th>Quantity</th>
 										<th>Action</th>
 									</tr>
 								</thead>
@@ -99,6 +100,7 @@
 												<td><?= $product->id ?></td>
 												<td><?= $product->product_name ?></td>
 												<td><?= $product->price ?></td>
+												<td><?= $product->quantity ?></td>
 												<td>
 													<a class="btn btn-primary " href="<?= BASE_URL . "product/edit_product/" . $product->id ?>">Edit</a>
 													<a class="btn btn-danger " href="<?= BASE_URL . "product/delete_product/" . $product->id ?>" onclick="return confirm('are you sure to delete <?= $product->product_name ?>')">Delete</a>
