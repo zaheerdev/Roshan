@@ -51,7 +51,7 @@ class Inventory extends CI_Controller
 			);
 			if ($this->inventory_model->save_product_inventory($inventory, $product_id)) {
 				$this->session->set_flashdata('success', "Product  quantity added successfully.");
-				return redirect(BASE_URL . "inventory/add_product_inventory");
+				return redirect(BASE_URL . "inventory/inventory");
 			}
 		}
 	}
@@ -78,7 +78,7 @@ class Inventory extends CI_Controller
 			);
 			if ($this->inventory_model->save_raw_inventory($inventory, $material_id)) {
 				$this->session->set_flashdata('success', "Raw Material quantity added successfully.");
-				return redirect(BASE_URL . "inventory/add_raw_inventory");
+				return redirect(BASE_URL . "inventory/inventory");
 			}
 		}
 	}
