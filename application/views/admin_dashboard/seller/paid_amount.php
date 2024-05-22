@@ -9,12 +9,12 @@
 		<div class="container-fluid">
 			<div class="row mb-2">
 				<div class="col-sm-6">
-					<h1 class="m-0">All Sellers</h1>
+					<h1 class="m-0">Sellers Paid Amount Details</h1>
 				</div>
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="#">Home</a></li>
-						<li class="breadcrumb-item active">All Sellers</li>
+						<li class="breadcrumb-item active">Paid Amount Detail</li>
 					</ol>
 				</div>
 			</div>
@@ -75,42 +75,57 @@
 						</div>
 					<?php endif; ?>
 
+
 					<!-- general form elements -->
 					<div class="card card-primary">
 						<div class="card-header">
-							<h3 class="card-title">Sellers</h3>
+							<h3 class="card-title">Sellers Paid Amount Details</h3>
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
-							<div class="bg-white">
+							<div class="bg-white d-lg-flex justify-content-lg-between align-items-center ">
 								<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'sellers/add_seller' ?>">Add New Seller</a>
+								<span style="float: end;">
+									<form action="<?= BASE_URL . 'sellers/paid_amount/' . $id . '/filtered'; ?>" method="post">
+										<div class="filter mt-2 d-lg-flex align-items-end">
+											<div class="form-group m-1">
+												<label for="date">Start Date</label>
+												<input class="form-control" name="start" type="date" required>
+											</div>
+											<div class="form-group m-1">
+												<label for="date">End Date</label>
+												<input class="form-control" name="end" type="date" required>
+											</div>
+											<div class="form-group text-right m-1">
+												<input class="btn btn-primary " type="submit">
+											</div>
+										</div>
+								</span>
+								</form>
 							</div>
+
 							<!-- Table start -->
 							<table id="example1" class="table table-bordered table-striped">
 								<thead>
 									<tr>
-										<th scope="col">ID</th>
 										<th scope="col">Name</th>
-										<th scope="col">Email</th>
-										<th scope="col">Action</th>
-
+										<th scope="col">Paid Amount</th>
+										<th scope="col">Due Amount</th>
+										<!-- <th scope="col">Date</th> -->
 									</tr>
 								</thead>
 								<tbody>
-									<?php if (!empty($sellers)) : ?>
+									<?php if (!empty($paid_amount)) : ?>
 										<!-- if record found -->
-										<?php foreach ($sellers as $seller) : ?>
+										<?php foreach ($paid_amount as $amount) : ?>
 											<tr>
-												<td><?= $seller->id ?></td>
-												<td><?= $seller->name ?></td>
-												<td><?= $seller->email ?></td>
-
-												<td>
-													<a class="btn btn-primary " href="<?= BASE_URL . "sellers/edit_seller/" . $seller->id ?>">Edit</a>
-													<a class="btn btn-danger " href="<?= BASE_URL . "sellers/delete_seller/" . $seller->id ?>" onclick="return confirm('are you sure to delete <?= $seller->name ?>')">Delete</a>
-													<a class="btn btn-primary " href="<?= BASE_URL . "sellers/paid_amount/" . $seller->id ?>">View Paid Amount</a>
-
-												</td>
+												<?php if(is_null($amount->name)):?>
+													<td>No data found for today. Apply some date filter.</td>
+												<?php else:?>
+													<td><?= $amount->name ?></td>
+													<td><?= $amount->paid_amount ?></td>
+													<td><?= $amount->due_amount ?></td>
+												<?php endif;?>
 											</tr>
 										<?php endforeach; ?>
 									<?php endif; ?>
@@ -132,5 +147,6 @@
 	<!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
+
 
 <?php require_once(APPPATH . 'views/admin_dashboard/inc/footer.php'); ?>

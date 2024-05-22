@@ -1,4 +1,7 @@
 <?php
+
+use function PHPSTORM_META\type;
+
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Sellers extends CI_Controller
@@ -27,7 +30,7 @@ class Sellers extends CI_Controller
 	public function save_seller()
 	{
 		$result = $this->seller_model->check_email(trim($this->input->post('email')));
-		if($result != null){
+		if ($result != null) {
 			$this->session->set_flashdata('email_exist', "email already exist.");
 			return redirect(BASE_URL . "sellers/add_seller");
 		}
@@ -37,7 +40,7 @@ class Sellers extends CI_Controller
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
 		$this->form_validation->set_rules('password', 'Password', 'required');
-		
+
 
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('admin_dashboard/seller/add_seller', $data);
@@ -76,10 +79,10 @@ class Sellers extends CI_Controller
 
 	public function update_seller($id)
 	{
-		$result = $this->seller_model->check_updated_email($id,trim($this->input->post('email')));
-		if($result != null){
+		$result = $this->seller_model->check_updated_email($id, trim($this->input->post('email')));
+		if ($result != null) {
 			$this->session->set_flashdata('email_exist', "email already exist.");
-			return redirect(BASE_URL . "sellers/edit_seller/".$id);
+			return redirect(BASE_URL . "sellers/edit_seller/" . $id);
 		}
 		$this->form_validation->set_rules('name', 'Name', 'required');
 		$this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
@@ -112,5 +115,29 @@ class Sellers extends CI_Controller
 			$this->session->set_flashdata('delete', "seller deleted successfully ");
 			return redirect(BASE_URL . '/sellers/all_sellers');
 		}
+	}
+	public function paid_amount($id, $filter = null)
+	{
+
+		
+		if ($filter !== null) {
+			$start = $this->input->post('start');
+			$end = $this->input->post('end');
+			$filter = $start."+".$end;
+			// dd($filter);
+			$data['id'] = $id;
+			$data['page_title'] = "Roshan | Seller Paid Amount Details";
+			$paid_amount = $this->seller_model->get_paid_details($id, $filter);
+			$data['paid_amount'] = $paid_amount;
+			// dd($result);
+			$this->load->view('admin_dashboard/seller/paid_amount', $data);
+		}
+
+		$data['id'] = $id;
+		$data['page_title'] = "Roshan | Seller Paid Amount Details";
+		$paid_amount = $this->seller_model->get_paid_details($id, $filter);
+		$data['paid_amount'] = $paid_amount;
+		// dd($data);
+		$this->load->view('admin_dashboard/seller/paid_amount', $data);
 	}
 }

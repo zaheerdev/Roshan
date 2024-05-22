@@ -79,6 +79,34 @@
 					</div>
 				</div>
 				<!-- ./col -->
+				<!-- ./col -->
+				<div class="col-lg-3 col-6">
+					<!-- small box -->
+					<div class="small-box" style="background-color:#d7f5a4">
+						<div class="inner">
+							<h3><?= $total_paid_amount-$total_expense_amount; ?></h3>
+							<p>Actual Profit</p>
+						</div>
+						<div class="icon">
+							<i class="ion ion-pie-graph"></i>
+						</div>
+					</div>
+				</div>
+				<!-- ./col -->
+				<!-- ./col -->
+				<div class="col-lg-3 col-6">
+					<!-- small box -->
+					<div class="small-box" style="background-color:#a4f5df">
+						<div class="inner">
+							<h3><?= $total_sales-$total_expense_amount; ?></h3>
+							<p>Expected Profit</p>
+						</div>
+						<div class="icon">
+							<i class="ion ion-pie-graph"></i>
+						</div>
+					</div>
+				</div>
+				<!-- ./col -->
 			</div>
 			<!-- chart -->
 			<div class="row">
