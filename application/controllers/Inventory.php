@@ -24,8 +24,8 @@ class Inventory extends CI_Controller
 	public function inventory()
 	{
 		$data['page_title'] = "Roshan | Inventory";
-		// $data['product_items'] = $this->order_model->get_product_items();
-		// $data['raw_items'] = $this->inventory_model->get_raw_items();
+		$data['product_items'] = $this->order_model->get_product_items();
+		$data['raw_items'] = $this->inventory_model->get_raw_items();
 		$this->load->view('admin_dashboard/inventory/inventory', $data);
 	}
 
