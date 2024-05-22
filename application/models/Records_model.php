@@ -3,7 +3,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 
 class Records_model extends CI_Model
 {
-    public function get_records()
+	private $user_id;
+	public function __construct() {
+		$this->setUserId();
+	}
+	public function setUserId(){
+		$this->user_id = $this->session->userdata('user_session')->id ?? '';
+	}
+    public function get_records($user_role)
     {
         // $this->db->select('or.order_id,users.name,ven.id,ven.vendor_name,pi.product_name,od.sub_total,od.discount,od.paid_amount,od.due_amount');
         // $this->db->from('orders or');
@@ -31,7 +38,9 @@ class Records_model extends CI_Model
 
         // From orders_delivered table
         $this->db->from('orders_delivered od');
-
+		if($user_role == 2){
+			$this->db->where('od.user_id',$this->user_id);
+		}
         // Join with orders table to get vendor_id
         $this->db->join('orders o', 'o.order_id = od.order_id');
 		// Join with vendors table to get vendor_name

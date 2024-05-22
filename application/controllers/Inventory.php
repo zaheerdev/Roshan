@@ -16,11 +16,16 @@ class Inventory extends CI_Controller
 		if (!$this->session->userdata('user_session')->logged_in) {
 			redirect(BASE_URL . 'auth/login');
 		}
+		if ($this->session->userdata('user_session')->role_id != 1) {
+			redirect(BASE_URL . 'auth/login');
+		}
 	} //end function 
 
 	public function inventory()
 	{
 		$data['page_title'] = "Roshan | Inventory";
+		// $data['product_items'] = $this->order_model->get_product_items();
+		// $data['raw_items'] = $this->inventory_model->get_raw_items();
 		$this->load->view('admin_dashboard/inventory/inventory', $data);
 	}
 
@@ -37,7 +42,7 @@ class Inventory extends CI_Controller
 		$this->form_validation->set_rules('product_id', 'Product ID', 'required');
 		$this->form_validation->set_rules('quantity', 'Product Quantity', 'required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('admin_dashboard/inventory/add_product_inventory', $data);
+			$this->load->view('admin_dashboard/inventory/inventory', $data);
 		}
 		 else {
 			$product_id = trim(html_escape($this->input->post('product_id', TRUE)));
@@ -64,7 +69,7 @@ class Inventory extends CI_Controller
 		$this->form_validation->set_rules('material_id', 'Raw Material ID', 'required');
 		$this->form_validation->set_rules('quantity', 'Raw Material Quantity', 'required');
 		if ($this->form_validation->run() == FALSE) {
-			$this->load->view('admin_dashboard/inventory/add_raw_inventory', $data);
+			$this->load->view('admin_dashboard/inventory/inventory', $data);
 		}
 		 else {
 			$material_id = trim(html_escape($this->input->post('material_id', TRUE)));

@@ -14,23 +14,38 @@ class Order extends CI_Controller
 	 *
 	 * @return void
 	 */
+	private $user_id;
+	private $user_role;
 	function __construct()
 	{
+		
 		parent::__construct();
 
 		if (!$this->session->userdata('user_session')->logged_in) {
 			redirect(BASE_URL . 'auth/login');
 		}
 		$this->load->helper('download');
+		$this->setUserData();
 	} //end function 
+	public function setUserData(){
+		$this->user_id = $this->session->userdata('user_session')->id;
+		$this->user_role = $this->session->userdata('user_session')->role_id;
+	}
 
 	// Function for booking order
 	public function book_order()
 	{
-		$data['page_title'] = "Roshan | Book Order";
-		$data['vendors'] = $this->vendor_model->get_vendors();
-		$data['product_items'] = $this->order_model->get_product_items();
-		$this->load->view('admin_dashboard/order/book_order', $data);
+		if ($this->user_role == 1) {
+			$data['page_title'] = "Roshan | Book Order";
+			$data['vendors'] = $this->vendor_model->get_vendors(null);
+			$data['product_items'] = $this->order_model->get_product_items();
+			$this->load->view('admin_dashboard/order/book_order', $data);
+		} else {
+			$data['page_title'] = "Roshan | Book Order";
+			$data['vendors'] = $this->vendor_model->get_vendors($this->user_id);
+			$data['product_items'] = $this->order_model->get_product_items();
+			$this->load->view('admin_dashboard/order/book_order', $data);
+		}
 	}
 
 	// Function for saving order
@@ -132,13 +147,12 @@ class Order extends CI_Controller
 	{
 		$data['page_title'] = "Roshan | Deliver Order";
 		// dd($order_id);
-		if(!empty($order_id)){
+		if (!empty($order_id)) {
 			$data['order_id'] = $order_id;
 			$this->load->view('admin_dashboard/order/deliver_order', $data);
-		}else{
+		} else {
 			$this->load->view('admin_dashboard/order/deliver_order', $data);
 		}
-		
 	}
 
 	// Function for getting order details 
@@ -166,7 +180,7 @@ class Order extends CI_Controller
 		$paid_amount = round((float)trim(html_escape($this->input->post('paid_amount'))));
 		$due_amount = round((float)trim(html_escape($this->input->post('due_amount'))));
 		$net_total = round((float)trim(html_escape($this->input->post('net_total'))));
-		
+
 
 		// Calculate due amount if it's not provided in the form
 		if (empty($due_amount)) {
@@ -175,9 +189,9 @@ class Order extends CI_Controller
 			$due_amount = round($net_total - $paid_amount);
 		}
 
-		if($paid_amount > $net_total){
+		if ($paid_amount > $net_total) {
 			$this->session->set_flashdata('error', "The paid amount exceeds the net total value.");
-			redirect(BASE_URL . 'order/deliver_order/'. $order_id);
+			redirect(BASE_URL . 'order/deliver_order/' . $order_id);
 		}
 
 		$data = array(
@@ -198,16 +212,16 @@ class Order extends CI_Controller
 		}
 
 		// redirect($_SERVER['HTTP_REFERER']);
-		redirect(BASE_URL . 'order/preview_deliver_order/'. $order_id);
+		redirect(BASE_URL . 'order/preview_deliver_order/' . $order_id);
 	}
 
 	// Function for view the order details
 	public function preview_deliver_order($order_id)
 	{
 		$order_details = $this->order_model->get_deliverOrder_details($order_id);
-		
+
 		$vendor_id = $this->order_model->get_vendor_id($order_id)->vendor_id;
-		$pdf_filename = $this->generate_d_order_pdf($order_id,$vendor_id);
+		$pdf_filename = $this->generate_d_order_pdf($order_id, $vendor_id);
 
 		if ($order_details) {
 			$data = array(
@@ -229,14 +243,14 @@ class Order extends CI_Controller
 	// 	$pdf_filename = $this->generate_d_order_pdf($order_id,$vendor_id);
 
 	// 	force_download(FCPATH . 'assets/delivered_invoices/vendor-'.$vendor_id.'/' .$pdf_filename,null,TRUE);
-		
+
 	// }
 
 	// Function for generating deliver order pdf
-	private function generate_d_order_pdf($order_id,$vendor_id)
+	private function generate_d_order_pdf($order_id, $vendor_id)
 	{
 		$pdf_filename = 'order_' . $order_id . '.pdf';
-		$pdf_path = FCPATH . 'assets/delivered_invoices/vendor-'.$vendor_id.'/' . $pdf_filename;
+		$pdf_path = FCPATH . 'assets/delivered_invoices/vendor-' . $vendor_id . '/' . $pdf_filename;
 
 		// Check if the PDF file already exists
 		if (file_exists($pdf_path)) {
@@ -264,11 +278,11 @@ class Order extends CI_Controller
 
 		$output = $dompdf->output();
 
-		if(is_dir(FCPATH.'assets/delivered_invoices/vendor-'.$vendor_id)){
-			file_put_contents(FCPATH . 'assets/delivered_invoices/vendor-'.$vendor_id.'/' . $pdf_filename, $output);
-		}else{
-			mkdir(FCPATH.'assets/delivered_invoices/vendor-'.$vendor_id);
-			file_put_contents(FCPATH . 'assets/delivered_invoices/vendor-'.$vendor_id.'/' . $pdf_filename, $output);
+		if (is_dir(FCPATH . 'assets/delivered_invoices/vendor-' . $vendor_id)) {
+			file_put_contents(FCPATH . 'assets/delivered_invoices/vendor-' . $vendor_id . '/' . $pdf_filename, $output);
+		} else {
+			mkdir(FCPATH . 'assets/delivered_invoices/vendor-' . $vendor_id);
+			file_put_contents(FCPATH . 'assets/delivered_invoices/vendor-' . $vendor_id . '/' . $pdf_filename, $output);
 		}
 
 		return $pdf_filename;

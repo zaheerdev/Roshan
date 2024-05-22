@@ -66,51 +66,55 @@
 					</div>
 				</div>
 				<!-- ./col -->
-				<div class="col-lg-3 col-6">
-					<!-- small box -->
-					<div class="small-box bg-primary">
-						<div class="inner">
-							<h3><?= $total_expense_amount; ?></h3>
-							<p>Total Expenses</p>
-						</div>
-						<div class="icon">
-							<i class="ion ion-pie-graph"></i>
-						</div>
-					</div>
-				</div>
-				<!-- ./col -->
-				<!-- ./col -->
-				<div class="col-lg-3 col-6">
-					<!-- small box -->
-					<div class="small-box" style="background-color:#d7f5a4">
-						<div class="inner">
-							<h3><?= $total_paid_amount-$total_expense_amount; ?></h3>
-							<p>Actual Profit</p>
-						</div>
-						<div class="icon">
-							<i class="ion ion-pie-graph"></i>
+
+				<?php if ($user_role != 2) : ?>
+
+					<div class="col-lg-3 col-6">
+						<!-- small box -->
+						<div class="small-box bg-primary">
+							<div class="inner">
+								<h3><?= $total_expense_amount; ?></h3>
+								<p>Total Expenses</p>
+							</div>
+							<div class="icon">
+								<i class="ion ion-pie-graph"></i>
+							</div>
 						</div>
 					</div>
-				</div>
-				<!-- ./col -->
-				<!-- ./col -->
-				<div class="col-lg-3 col-6">
-					<!-- small box -->
-					<div class="small-box" style="background-color:#a4f5df">
-						<div class="inner">
-							<h3><?= $total_sales-$total_expense_amount; ?></h3>
-							<p>Expected Profit</p>
-						</div>
-						<div class="icon">
-							<i class="ion ion-pie-graph"></i>
+					<!-- ./col -->
+					<!-- ./col -->
+					<div class="col-lg-3 col-6">
+						<!-- small box -->
+						<div class="small-box" style="background-color:#d7f5a4">
+							<div class="inner">
+								<h3><?= $total_paid_amount - $total_expense_amount; ?></h3>
+								<p>Actual Profit</p>
+							</div>
+							<div class="icon">
+								<i class="ion ion-pie-graph"></i>
+							</div>
 						</div>
 					</div>
-				</div>
-				<!-- ./col -->
+					<!-- ./col -->
+					<!-- ./col -->
+					<div class="col-lg-3 col-6">
+						<!-- small box -->
+						<div class="small-box" style="background-color:#a4f5df">
+							<div class="inner">
+								<h3><?= $total_sales - $total_expense_amount; ?></h3>
+								<p>Expected Profit</p>
+							</div>
+							<div class="icon">
+								<i class="ion ion-pie-graph"></i>
+							</div>
+						</div>
+					</div>
+					<!-- ./col -->
+				<?php endif; ?>
 			</div>
 			<!-- chart -->
 			<div class="row">
-				
+
 				<!-- /.col (LEFT) -->
 				<div class="col-md-12">
 

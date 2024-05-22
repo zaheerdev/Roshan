@@ -16,6 +16,9 @@ class Expenses extends CI_Controller
 		if (!$this->session->userdata('user_session')->logged_in) {
 			redirect(BASE_URL . 'auth/login');
 		}
+		if($this->session->userdata('user_session')->role_id != 1 ){
+			redirect(BASE_URL.'dashboard');
+		}
 	} //end function 
 
 	public function add_expense()

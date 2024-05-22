@@ -84,7 +84,9 @@
 						<!-- /.card-header -->
 						<div class="card-body">
 							<div class="bg-white d-lg-flex justify-content-lg-between align-items-center ">
+								<?php if($user_role == 1):?>
 								<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'sellers/add_seller' ?>">Add New Seller</a>
+								<?php endif;?>
 								<span style="float: end;">
 									<form action="<?= BASE_URL . 'sellers/paid_amount/' . $id . '/filtered'; ?>" method="post">
 										<div class="filter mt-2 d-lg-flex align-items-end">

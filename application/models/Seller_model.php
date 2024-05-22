@@ -4,9 +4,21 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Seller_model extends CI_Model
 {
 	// Getting Expenses
-	public function get_sellers()
+	private $user_id;
+	public function __construct() {
+		$this->setUserID();
+	}
+	public function setUserID(){
+		$this->user_id = $this->session->userdata('user_session')->id;
+	}
+	public function get_sellers($user_role)
 	{
-		return $this->db->select('id,name,email')->from('users')->where('role_id', 2)->get()->result();
+		$this->db->select('id,name,email')->from('users');
+		if($user_role == 2){
+			$this->db->where('id',$this->user_id);
+		}
+		
+		return $this->db->get()->result();
 	} // function ends
 
 	public function save($seller)

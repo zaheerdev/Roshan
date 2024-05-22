@@ -9,6 +9,8 @@ class Vendor extends CI_Controller
 	 *
 	 * @return void
 	 */
+	private $user_id;
+	private $user_role;
 	function __construct()
 	{
 		parent::__construct();
@@ -16,6 +18,8 @@ class Vendor extends CI_Controller
 		if (!$this->session->userdata('user_session')->logged_in) {
 			redirect(BASE_URL . 'auth/login');
 		}
+		$this->user_id = $this->session->userdata('user_session')->id ?? '';
+		$this->user_role = $this->session->userdata('user_session')->role_id ?? '';
 	} //end function 
 
 	public function add_vendor()
@@ -36,6 +40,7 @@ class Vendor extends CI_Controller
 			$this->load->view('admin_dashboard/vendor/add_vendor', $data);
 		} else {
 			$vendor = array(
+				"user_id" => $this->user_id,
 				"vendor_name" => trim(html_escape($this->input->post('name', TRUE))),
 				"business_name" => trim(html_escape($this->input->post('bussiness', TRUE))),
 				"address" => trim(html_escape($this->input->post('address', TRUE))),
@@ -50,9 +55,16 @@ class Vendor extends CI_Controller
 
 	public function all_vendors()
 	{
-		$data['page_title'] = "Roshan | All Vendors";
-		$data['vendors'] = $this->vendor_model->get_vendors();
-		$this->load->view('admin_dashboard/vendor/all_vendors', $data);
+		if($this->user_role == 1){
+			$data['page_title'] = "Roshan | All Vendors";
+			$data['vendors'] = $this->vendor_model->get_vendors(null);
+			$this->load->view('admin_dashboard/vendor/all_vendors', $data);
+		}else{
+			$data['page_title'] = "Roshan | All Vendors";
+			$data['vendors'] = $this->vendor_model->get_vendors($this->user_id);
+			$this->load->view('admin_dashboard/vendor/all_vendors', $data);
+		}
+		
 	}
 
 	public function edit_vendor($id)

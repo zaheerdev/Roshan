@@ -82,9 +82,11 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
+							<?php if($user_role == 1):?>
 							<div class="bg-white">
 								<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'sellers/add_seller' ?>">Add New Seller</a>
 							</div>
+							<?php endif;?>
 							<!-- Table start -->
 							<table id="example1" class="table table-bordered table-striped">
 								<thead>
@@ -106,8 +108,10 @@
 												<td><?= $seller->email ?></td>
 
 												<td>
+													<?php if($user_role == 1):?>
 													<a class="btn btn-primary " href="<?= BASE_URL . "sellers/edit_seller/" . $seller->id ?>">Edit</a>
 													<a class="btn btn-danger " href="<?= BASE_URL . "sellers/delete_seller/" . $seller->id ?>" onclick="return confirm('are you sure to delete <?= $seller->name ?>')">Delete</a>
+													<?php endif;?>
 													<a class="btn btn-primary " href="<?= BASE_URL . "sellers/paid_amount/" . $seller->id ?>">View Paid Amount</a>
 
 												</td>

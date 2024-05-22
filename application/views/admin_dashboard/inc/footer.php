@@ -68,15 +68,15 @@
 				$net_total_js = json_encode($monthly_net_total);
 				$total_paid = json_encode($monthly_total_paid);
 				$total_due = json_encode($monthly_total_due);
-				$total_expenses = json_encode($monthly_total_expenses);
+				$total_expenses = json_encode($monthly_total_expenses ?? 'null');
 			}
 			?>
     		var labels = <?php echo $month; ?>;
 
     		var totalSalesData = <?php echo $net_total_js; ?>;
-			var totalPaid = <?php echo $total_paid; ?>;
-			var totalDue = <?php echo $total_due; ?>;
-			var totalExpenses = <?php echo $total_expenses; ?>;
+    		var totalPaid = <?php echo $total_paid; ?>;
+    		var totalDue = <?php echo $total_due; ?>;
+    		var totalExpenses = <?php echo $total_expenses; ?>;
 
     		let months = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
     			'August', 'September', 'October', 'November', 'December'
@@ -86,54 +86,96 @@
     			let index = labels[i];
     			labels[i] = months[index - 1];
     		}
-    		var areaChartData = {
-    			labels: labels,
-    			datasets: [{
-    					label: 'Total Sales',
-    					backgroundColor: '#17a2b8',
-    					borderColor: '#17a2b8',
-    					pointRadius: false,
-    					pointColor: '#17a2b8',
-    					pointStrokeColor: '#17a2b8',
-    					pointHighlightFill: '#fff',
-    					pointHighlightStroke: '#17a2b8',
-    					data: totalSalesData
-    				},
-    				{
-    					label: 'Total Paid',
-    					backgroundColor: '#28a745',
-    					borderColor: '#28a745',
-    					pointRadius: false,
-    					pointColor: '#28a745',
-    					pointStrokeColor: '#28a745',
-    					pointHighlightFill: '#fff',
-    					pointHighlightStroke: '#28a745',
-    					data: totalPaid
-    				},
-					{
-    					label: 'Total Due',
-    					backgroundColor: '#dc3545',
-    					borderColor: '#dc3545',
-    					pointRadius: false,
-    					pointColor: '#dc3545',
-    					pointStrokeColor: '#dc3545',
-    					pointHighlightFill: '#fff',
-    					pointHighlightStroke: '#dc3545',
-    					data: totalDue
-    				},
-					{
-    					label: 'Total Expenses',
-    					backgroundColor: '#007bff',
-    					borderColor: '#007bff',
-    					pointRadius: false,
-    					pointColor: '#007bff',
-    					pointStrokeColor: '#007bff',
-    					pointHighlightFill: '#fff',
-    					pointHighlightStroke: '#007bff',
-    					data: totalExpenses
-    				},
-    			],
+    		if (totalExpenses != 'null') {
+    			var areaChartData = {
+    				labels: labels,
+    				datasets: [{
+    						label: 'Total Sales',
+    						backgroundColor: '#17a2b8',
+    						borderColor: '#17a2b8',
+    						pointRadius: false,
+    						pointColor: '#17a2b8',
+    						pointStrokeColor: '#17a2b8',
+    						pointHighlightFill: '#fff',
+    						pointHighlightStroke: '#17a2b8',
+    						data: totalSalesData
+    					},
+    					{
+    						label: 'Total Paid',
+    						backgroundColor: '#28a745',
+    						borderColor: '#28a745',
+    						pointRadius: false,
+    						pointColor: '#28a745',
+    						pointStrokeColor: '#28a745',
+    						pointHighlightFill: '#fff',
+    						pointHighlightStroke: '#28a745',
+    						data: totalPaid
+    					},
+    					{
+    						label: 'Total Due',
+    						backgroundColor: '#dc3545',
+    						borderColor: '#dc3545',
+    						pointRadius: false,
+    						pointColor: '#dc3545',
+    						pointStrokeColor: '#dc3545',
+    						pointHighlightFill: '#fff',
+    						pointHighlightStroke: '#dc3545',
+    						data: totalDue
+    					},
 
+    					{
+    						label: 'Total Expenses',
+    						backgroundColor: '#007bff',
+    						borderColor: '#007bff',
+    						pointRadius: false,
+    						pointColor: '#007bff',
+    						pointStrokeColor: '#007bff',
+    						pointHighlightFill: '#fff',
+    						pointHighlightStroke: '#007bff',
+    						data: totalExpenses
+    					},
+    				],
+
+    			}
+    		} else {
+    			var areaChartData = {
+    				labels: labels,
+    				datasets: [{
+    						label: 'Total Sales',
+    						backgroundColor: '#17a2b8',
+    						borderColor: '#17a2b8',
+    						pointRadius: false,
+    						pointColor: '#17a2b8',
+    						pointStrokeColor: '#17a2b8',
+    						pointHighlightFill: '#fff',
+    						pointHighlightStroke: '#17a2b8',
+    						data: totalSalesData
+    					},
+    					{
+    						label: 'Total Paid',
+    						backgroundColor: '#28a745',
+    						borderColor: '#28a745',
+    						pointRadius: false,
+    						pointColor: '#28a745',
+    						pointStrokeColor: '#28a745',
+    						pointHighlightFill: '#fff',
+    						pointHighlightStroke: '#28a745',
+    						data: totalPaid
+    					},
+    					{
+    						label: 'Total Due',
+    						backgroundColor: '#dc3545',
+    						borderColor: '#dc3545',
+    						pointRadius: false,
+    						pointColor: '#dc3545',
+    						pointStrokeColor: '#dc3545',
+    						pointHighlightFill: '#fff',
+    						pointHighlightStroke: '#dc3545',
+    						data: totalDue
+    					},
+    				],
+
+    			}
     		}
     		var areaChartOptions = {
     			maintainAspectRatio: false,

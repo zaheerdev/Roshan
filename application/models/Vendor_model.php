@@ -4,9 +4,14 @@ defined('BASEPATH') or exit('No direct script access allowed');
 class Vendor_model extends CI_Model
 {
 	// Getting Expenses
-	public function get_vendors()
+	public function get_vendors($user_id)
 	{
-		return $this->db->get('vendors')->result();
+		$this->db->select('*');
+		$this->db->from('vendors');
+		if($user_id != null){
+			$this->db->where('user_id',$user_id);
+		}
+		return $this->db->get()->result();
 	} // function ends
 
 	public function save($vendor)

@@ -8,7 +8,7 @@ use Dompdf\Options;
 
 class Records extends CI_Controller
 {
-
+	private $user_role;
 	/**
 	 * __construct
 	 *
@@ -16,18 +16,29 @@ class Records extends CI_Controller
 	 */
 	function __construct()
 	{
+		
 		parent::__construct();
 		if (!$this->session->userdata('user_session')->logged_in) {
 			redirect(BASE_URL . 'auth/login');
 		}
 		$this->load->helper('download');
+		$this->setUserRole();
 	} //end function 
+	public function setUserRole(){
+		$this->user_role = $this->session->userdata('user_session')->role_id;
+	} 
 
 	public function index()
 	{
+		
 		$data['page_title'] = "Roshan | Records";
-		$data['records'] = $this->records_model->get_records();
-		$this->load->view('admin_dashboard/record/records', $data);
+		if ($this->user_role == 2) {
+			$data['records'] = $this->records_model->get_records($this->user_role);
+			$this->load->view('admin_dashboard/record/records', $data);
+		}else{
+			$data['records'] = $this->records_model->get_records(null);
+			$this->load->view('admin_dashboard/record/records', $data);
+		}
 	}
 
 	public function due_payment($vendor_id = null)
@@ -95,7 +106,7 @@ class Records extends CI_Controller
 			}
 			if ($updated > 0) {
 				$pdf_filename = $this->generate_payment_pdf($vendor_id);
-				$filePath = BASE_URL."/records/downloadPDF/".$pdf_filename;
+				$filePath = BASE_URL . "/records/downloadPDF/" . $pdf_filename;
 				// dd($pdf_filename);
 				$this->session->set_flashdata('pay_amount', "Payment Added Successfully.");
 				$this->session->set_flashdata('download_pdf', "<form action='{$filePath}'><input class='btn btn-success mb-2 rounded' type='submit' value='Download PDF'></form>");
@@ -107,7 +118,7 @@ class Records extends CI_Controller
 
 	public function downloadPDF($pdf_filename)
 	{
-		force_download(FCPATH . 'assets/payment_invoices/' . $pdf_filename,null,TRUE);
+		force_download(FCPATH . 'assets/payment_invoices/' . $pdf_filename, null, TRUE);
 	}
 	// Function to share PDF via WhatsApp
 	// public function share_payment_pdf($vendor_id)
