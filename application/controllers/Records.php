@@ -9,6 +9,7 @@ use Dompdf\Options;
 class Records extends CI_Controller
 {
 	private $user_role;
+	private $user_id;
 	/**
 	 * __construct
 	 *
@@ -26,6 +27,7 @@ class Records extends CI_Controller
 	} //end function 
 	public function setUserRole(){
 		$this->user_role = $this->session->userdata('user_session')->role_id;
+		$this->user_id = $this->session->userdata('user_session')->id;
 	} 
 
 	public function index()
@@ -41,14 +43,27 @@ class Records extends CI_Controller
 		}
 	}
 
-	public function due_payment($vendor_id = null)
+	public function due_payment($vendor_id)
 	{
+		// get the user id from the vendor record
+		$vUserId = $this->records_model->getUserId($vendor_id);
 		$data['page_title'] = "Roshan | Due Payment";
 		if (!is_null($vendor_id)) {
 			$data['vendor_id'] = $vendor_id;
 		}
 		// $data['records'] = $this->records_model->get_records();
-		$this->load->view('admin_dashboard/record/due-payment', $data);
+		//check if the vendor belogns to the seller
+		if($this->user_id == 1){
+			$this->load->view('admin_dashboard/record/due-payment', $data);
+		}else{
+			if($this->user_id == $vUserId){
+				$this->load->view('admin_dashboard/record/due-payment', $data);
+			}else{
+				redirect(BASE_URL.'dashboard');
+			}
+		}
+		
+		
 	}
 
 	// Function for getting amount details 
@@ -56,6 +71,7 @@ class Records extends CI_Controller
 	{
 		$vendor_id = trim($this->input->post('vendor_id'));
 		$details = $this->records_model->get_amount_details($vendor_id);
+		// dd($details);
 		if ($details) {
 			$data = array(
 				'details' => $details,

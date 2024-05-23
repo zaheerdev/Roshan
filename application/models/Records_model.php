@@ -113,4 +113,8 @@ class Records_model extends CI_Model
         }
         return $result;
     }
+	public function getUserId($vendor_id){
+		$uid = $this->db->select('user_id')->from('vendors')->where('id',$vendor_id)->get()->row();
+		return $uid->user_id;
+	}
 }
