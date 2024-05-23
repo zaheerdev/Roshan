@@ -15,7 +15,7 @@
         <div class="col-md-6">
             <div class="form-group">
                 <label for="paid_amount">Due Amount:</label>
-                <input type="text" class="form-control" id="due_amount" name="due_amount" value="<?= $total_due_amount ?>" readonly>
+                <input type="text" class="form-control" id="due_amount" name="due_amount" value="<?= round($total_due_amount) ?>" readonly>
             </div>
         </div>
     </div>
