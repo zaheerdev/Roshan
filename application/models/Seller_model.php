@@ -98,9 +98,10 @@ class Seller_model extends CI_Model
 			// dd($filterdate);
 			$this->db->where('DATE(od.created_at) >=', $start_date);
 			$this->db->where('DATE(od.created_at) <=', $end_date);
-		}else{
-			$this->db->where('DATE(od.created_at)', date('Y-m-d'));
 		}
+		// else{
+		// 	$this->db->where('DATE(od.created_at)', date('Y-m-d'));
+		// }
 		return $this->db->get()->result();
 		// return dd($this->db->get_compiled_select());//->result();
 		// if ($filter == null) {

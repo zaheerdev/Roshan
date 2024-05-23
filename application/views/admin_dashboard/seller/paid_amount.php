@@ -125,8 +125,8 @@
 													<td>No data found for today. Apply some date filter.</td>
 												<?php else:?>
 													<td><?= $amount->name ?></td>
-													<td><?= $amount->paid_amount ?></td>
-													<td><?= $amount->due_amount ?></td>
+													<td><?= round($amount->paid_amount) ?></td>
+													<td><?= round($amount->due_amount) ?></td>
 												<?php endif;?>
 											</tr>
 										<?php endforeach; ?>
