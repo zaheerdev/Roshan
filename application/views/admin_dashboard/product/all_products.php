@@ -80,6 +80,7 @@
 						<div class="card-body">
 							<div class="bg-white">
 								<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'product/add_product' ?>">Add New Product</a>
+								<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'product/assign_stock' ?>">Assign Stock</a>
 							</div>
 							<!-- /.card-header -->
 							<!-- Table start -->

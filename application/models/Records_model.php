@@ -50,6 +50,7 @@ class Records_model extends CI_Model
 
         // Group by vendor_id
         $this->db->group_by('o.vendor_id');
+		$this->db->order_by('o.vendor_id', 'ASC');
 
         // Execute the query
         $query = $this->db->get();

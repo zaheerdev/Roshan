@@ -82,9 +82,7 @@ class Seller_model extends CI_Model
 	}
 	public function get_paid_details($id, $filter)
 	{
-		// daily paid amount
-		// $start_date = '2024-04-21';
-		// $end_date = '2024-05-31';
+
 		$this->db->select('u.name');
 		$this->db->select_sum('od.due_amount');
 		$this->db->select_sum('od.paid_amount');
@@ -99,22 +97,18 @@ class Seller_model extends CI_Model
 			$this->db->where('DATE(od.created_at) >=', $start_date);
 			$this->db->where('DATE(od.created_at) <=', $end_date);
 		}
-		// else{
-		// 	$this->db->where('DATE(od.created_at)', date('Y-m-d'));
-		// }
+		
 		return $this->db->get()->result();
-		// return dd($this->db->get_compiled_select());//->result();
-		// if ($filter == null) {
-		// 	return $daily = $this->db->select('u.name')
-		// 		->select_sum('od.due_amount')
-		// 		->select_sum('od.paid_amount')
-		// 		->from('orders_delivered od')
-		// 		->join('users u', 'u.id = od.user_id')
-		// 		->where('od.user_id', $id)
-		// 		->where('DATE(od.created_at) >=', $start_date)
-		// 		->where('DATE(od.created_at) <=', $end_date)
-		// 		->get()->result();
-		// }
-		// Return the result as an associative array
+		
+	}
+	public function get_assigned_stock($user_id){
+		$this->db->select('ss.id,u.name,pi.product_name,ss.quantity');
+		$this->db ->from('seller_stock ss');
+		if($user_id != null){
+			$this->db->where('ss.user_id', $user_id);
+		}
+		$this->db->join('users u','u.id = ss.user_id');
+		$this->db->join('product_items pi','pi.id = ss.product_id');
+		return $this->db->get()->result();
 	}
 }

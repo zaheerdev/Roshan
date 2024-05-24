@@ -113,6 +113,7 @@
 													<a class="btn btn-danger " href="<?= BASE_URL . "sellers/delete_seller/" . $seller->id ?>" onclick="return confirm('are you sure to delete <?= $seller->name ?>')">Delete</a>
 													<?php endif;?>
 													<a class="btn btn-primary " href="<?= BASE_URL . "sellers/paid_amount/" . $seller->id ?>">View Paid Amount</a>
+													<a class="btn btn-primary " href="<?= BASE_URL . "sellers/getstockdetail/" . $seller->id ?>">View Stock</a>
 
 												</td>
 											</tr>

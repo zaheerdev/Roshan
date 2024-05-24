@@ -60,8 +60,13 @@
 
 							</div>
 							<div class="form-group w-sm-100 w-lg-50">
-								<label for="exampleInputEmail1">Business Name</label>
-								<input type="number" name="product_price" value="<?= $product->price ?>" class="form-control" placeholder="Price">
+								<label for="exampleInputEmail1">Price</label>
+								<input type="number" min="1" name="product_price" value="<?= $product->price ?>" class="form-control" placeholder="Price">
+
+							</div>
+							<div class="form-group w-sm-100 w-lg-50">
+								<label for="exampleInputEmail1">Quantity</label>
+								<input type="number" min="1" name="quantity" value="<?= $product->quantity ?>" class="form-control" placeholder="Price">
 
 							</div>
 							

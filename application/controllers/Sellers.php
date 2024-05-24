@@ -197,4 +197,33 @@ class Sellers extends CI_Controller
 			return redirect(BASE_URL . 'dashboard');
 		}
 	}
+	public function getstockdetail($user_id = null){
+		
+		if($this->user_role == 2){
+			if($user_id != null && $user_id == $this->user_id){
+				$data['page_title'] = "Roshan | Seller Stock";
+				$data['stocks'] = $this->seller_model->get_assigned_stock($user_id);
+				// dd($data['stocks']);
+				$this->load->view('admin_dashboard/seller/seller_stock',$data);
+			}else{
+				redirect(BASE_URL.'dashboard');
+			}
+		}else{
+			// dd('inelse');
+			if($user_id != null){
+				// dd('in with userid');
+				$data['page_title'] = "Roshan | Seller Stock";
+				$data['stocks'] = $this->seller_model->get_assigned_stock($user_id);
+				// dd($data['stocks']);
+				$this->load->view('admin_dashboard/seller/seller_stock',$data);
+			}else{
+				// dd('in without userid');
+				$data['page_title'] = "Roshan | Seller Stock";
+				$data['stocks'] = $this->seller_model->get_assigned_stock(null);
+				// dd($data['stocks']);
+				$this->load->view('admin_dashboard/seller/seller_stock',$data);
+			}
+		}
+		// dd($this->seller_model->get_assigned_stock(null));
+	}
 }

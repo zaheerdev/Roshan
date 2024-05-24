@@ -59,7 +59,12 @@
 							</div>
 							<div class="form-group w-sm-100 w-lg-50">
 								<label for="exampleInputEmail1">Product Price</label>
-								<input type="number" name="product_price" class="form-control" placeholder="Price">
+								<input type="number" min="1" name="product_price" class="form-control" placeholder="Price">
+
+							</div>
+							<div class="form-group w-sm-100 w-lg-50">
+								<label for="exampleInputEmail1">Quantity</label>
+								<input type="number" min="1" name="quantity" class="form-control" placeholder="Price">
 
 							</div>
 							

@@ -65,6 +65,16 @@
  						</p>
  					</a>
  				</li>
+				<?php if($this->session->userdata('user_session')->role_id == 1):?>
+ 				<li class="nav-item">
+ 					<a href="<?= BASE_URL . 'sellers/getstockdetail' ?>" class="nav-link">
+ 						<i class="nav-icon fas fa-edit"></i>
+ 						<p>
+ 							Seller's Stock
+ 						</p>
+ 					</a>
+ 				</li>
+				<?php endif;?>
  				<li class="nav-item">
  					<a href="<?= BASE_URL ?>records" class="nav-link">
  						<i class="nav-icon fas fa-edit"></i>

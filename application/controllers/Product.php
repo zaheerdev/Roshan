@@ -12,7 +12,8 @@ class Product extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-
+		$this->load->model('seller_model');
+		$this->load->model('stock_model');
 		if (!$this->session->userdata('user_session')->logged_in) {
 			redirect(BASE_URL . 'auth/login');
 		}
@@ -32,13 +33,15 @@ class Product extends CI_Controller
 		$data['page_title'] = "Roshan | Add Product";
 		$this->form_validation->set_rules('product_name', 'Product Name', 'required');
 		$this->form_validation->set_rules('product_price', 'Price', 'required');
+		$this->form_validation->set_rules('quantity', 'Quantity', 'required');
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('admin_dashboard/product/add_product', $data);
 		}
 		 else {
 			$product = array(
 				"product_name" => trim(html_escape($this->input->post('product_name', TRUE))),
-				"price" => trim(html_escape($this->input->post('product_price', TRUE)))
+				"price" => trim(html_escape($this->input->post('product_price', TRUE))),
+				"quantity" => trim(html_escape($this->input->post('quantity', TRUE)))
 			);
 			if((int)$product['price'] <= 0)
 			{
@@ -78,6 +81,7 @@ class Product extends CI_Controller
 	{
 		$this->form_validation->set_rules('product_name', 'Product Name', 'required');
 		$this->form_validation->set_rules('product_price', 'Price', 'required');
+		$this->form_validation->set_rules('quantity', 'Quantity', 'required');
 
 		if ($this->form_validation->run() == FALSE) {
 			$errors['errors'] = validation_errors();
@@ -86,7 +90,8 @@ class Product extends CI_Controller
 		} else {
 			$product = array(
 				"product_name" => trim(html_escape($this->input->post('product_name', TRUE))),
-				"price" => trim(html_escape($this->input->post('product_price', TRUE)))
+				"price" => trim(html_escape($this->input->post('product_price', TRUE))),
+				"quantity" => trim(html_escape($this->input->post('quantity', TRUE)))
 			);
 			if((int)$product['price'] <= 0)
 			{
@@ -111,5 +116,52 @@ class Product extends CI_Controller
 			$this->session->set_flashdata('delete', "Product deleted successfully ");
 			return redirect(BASE_URL . '/product/all_products');
 		}
+	}
+	public function assign_stock(){
+		$data['page_title'] = "Roshan | Assign Quantity";
+		$data['products'] = $this->product_model->get_products();
+		$data['sellers'] = $this->seller_model->get_sellers($this->session->userdata('user_session')->role_id);
+		$this->load->view("admin_dashboard/product/assign_stock", $data);
+		// dd($data['sellers']);
+	}
+	public function save_assign_stock(){
+		// $seller_id = trim(html_escape($this->input->post('user_id', TRUE)));
+		// $product_id = trim(html_escape($this->input->post('product_id', TRUE)));
+		// $quantity = trim(html_escape($this->input->post('quantity', TRUE)));
+		// var_dump($seller_id,$product_id,$quantity);die;
+		$this->form_validation->set_rules('user_id', 'Seller', 'required');
+		$this->form_validation->set_rules('product_id', 'Product', 'required');
+		$this->form_validation->set_rules('quantity', 'Quantity', 'required');
+		if ($this->form_validation->run() == FALSE) {
+			$errors['errors'] = validation_errors();
+			$this->session->set_flashdata($errors);
+			return redirect(BASE_URL . 'product/assign_stock');
+		}
+		$seller_id = (int)trim(html_escape($this->input->post('user_id', TRUE)));
+		$product_id = (int)trim(html_escape($this->input->post('product_id', TRUE)));
+		$quantity = (int)trim(html_escape($this->input->post('quantity', TRUE)));
+		// check if given quantity is > 0 and is < the product's actual quantity
+		$actual_quantity = (int)$this->product_model->edit($product_id)->quantity;
+		// dd($quantity);
+		if(($quantity >= 1) && ($quantity <= $actual_quantity)){
+			
+			$stock = array(
+				'user_id' => $seller_id,
+				'product_id' => $product_id,
+				'quantity' => $quantity
+			);
+			if ($this->stock_model->save($stock)) {
+				$this->session->set_flashdata('success', "Product Assigned successfully.");
+				return redirect(BASE_URL . "product/all_products");
+			}else{
+				echo "There was an error";
+			}
+		}else{
+			$this->session->set_flashdata('p_quantity',"Quantity must be greater than 0 and Less than Actual quantity");
+			return redirect(BASE_URL . 'product/assign_stock');
+		}
+		
+
+		
 	}
 }
