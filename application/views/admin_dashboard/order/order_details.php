@@ -61,7 +61,7 @@
 		<div class="col-md-6">
 			<div class="form-group">
 				<label for="paid_amount">Paid Amount:</label>
-				<input type="text" class="form-control" id="paid_amount" name="paid_amount" value="">
+				<input type="text" class="form-control" id="paid_amount" name="paid_amount" value="" required>
 			</div>
 		</div>
 	</div>
