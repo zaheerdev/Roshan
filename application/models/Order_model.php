@@ -77,32 +77,33 @@ class Order_model extends CI_Model
         return $result;
     } //function ends
 
-    public function save_deliver_order($data) {
+    public function save_deliver_order($data)
+    {
         $this->db->insert('orders_delivered', $data);
         return $this->db->insert_id();
     }
 
-	public function get_records(){
-		// return $this->db->select('*')->from('orders')
-		// 		// ->join('users','users.id = orders.user_id','right')
-		// 		// ->join('vendors','vendors.id = orders.vendor_id','right')
-		// 		->get()->result();
-		$this->db->select('or.order_id,users.name,ven.vendor_name,pi.product_name,od.sub_total,od.discount,od.paid_amount,od.due_amount');
-		$this->db->from('orders or');
-		$this->db->join('users','users.id = or.user_id');
-		$this->db->join('vendors ven','ven.id = or.vendor_id');
-		$this->db->join('product_items pi','pi.id = or.product_id');
-		$this->db->join('orders_delivered od','or.order_id = od.order_id');
-		$query = $this->db->get();
-		if ($query->num_rows() > 0) {
-			$result = $query->result();
+    public function get_records()
+    {
+        // return $this->db->select('*')->from('orders')
+        // 		// ->join('users','users.id = orders.user_id','right')
+        // 		// ->join('vendors','vendors.id = orders.vendor_id','right')
+        // 		->get()->result();
+        $this->db->select('or.order_id,users.name,ven.vendor_name,pi.product_name,od.sub_total,od.discount,od.paid_amount,od.due_amount');
+        $this->db->from('orders or');
+        $this->db->join('users', 'users.id = or.user_id');
+        $this->db->join('vendors ven', 'ven.id = or.vendor_id');
+        $this->db->join('product_items pi', 'pi.id = or.product_id');
+        $this->db->join('orders_delivered od', 'or.order_id = od.order_id');
+        $query = $this->db->get();
+        if ($query->num_rows() > 0) {
+            $result = $query->result();
             // dd($result);
         } else {
             $result = null;
         }
         return $result;
-
-	}
+    }
 
     public function get_deliverOrder_details($order_id)
     {
@@ -123,11 +124,12 @@ class Order_model extends CI_Model
         }
         return $result;
     } //function ends
-    
-	//get vendor id for generating pdf
-	public function get_vendor_id($order_id){
-		return $this->db->select('vendor_id')->from('orders')->where('order_id',$order_id)->get()->row();
-	}
+
+    //get vendor id for generating pdf
+    public function get_vendor_id($order_id)
+    {
+        return $this->db->select('vendor_id')->from('orders')->where('order_id', $order_id)->get()->row();
+    }
 
     public function update_product_quantity($product_id, $quantity)
     {
@@ -142,6 +144,25 @@ class Order_model extends CI_Model
             return true;
         } else {
             return false;
+        }
+    }
+
+    public function update_stock($product_id, $quantity, $user_id)
+    {
+        $stock_data = $this->db->get_where('seller_stock', array('product_id' => $product_id, 'user_id' => $user_id))->row();
+        if ($stock_data) {
+            $current_quantity = $this->db->get_where('seller_stock', array('product_id' => $product_id, 'user_id' => $user_id))->row()->quantity;
+            $new_quantity = $current_quantity - $quantity;
+
+            $this->db->where('product_id', $product_id);
+            $this->db->where('user_id', $user_id);
+            $this->db->update('seller_stock', array('quantity' => $new_quantity));
+
+            if ($this->db->affected_rows() > 0) {
+                return true;
+            } else {
+                return false;
+            }
         }
     }
 }
