@@ -2,8 +2,8 @@
 <?php require_once(APPPATH . 'views/admin_dashboard/inc/sidebar.php'); ?>
 
 <style>
-    @media (max-width: 575px){
-        .book_order_table tr{
+    @media (max-width: 575px) {
+        .book_order_table tr {
             display: grid;
         }
     }
@@ -124,6 +124,39 @@
 </script>
 <script>
     $(document).ready(function() {
+        $('#book_order_form button[type="submit"]').prop('disabled', true);
+
+        $('#item_select').change(function() {
+            var selectedItemId = $(this).val();
+
+            if (selectedItemId) {
+                $.ajax({
+                    url: 'check_product_quantity',
+                    type: 'GET',
+                    data: {
+                        id: selectedItemId
+                    },
+                    success: function(response) {
+                        var itemQuantity = parseInt(response);
+
+                        if (itemQuantity > 0) {
+                            $('#book_order_form button[type="submit"]').prop('disabled', false);
+                        } else {
+                            $('#book_order_form button[type="submit"]').prop('disabled', true);
+                            alert("Out of stock or invalid quantity");
+                        }
+                    },
+                    error: function() {
+                        console.log("Error fetching product quantity");
+                    }
+                });
+            }
+        });
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
 
         $('#add-row').click(function(event) {
             event.preventDefault();
@@ -138,7 +171,7 @@
             var selectedPrice = parseFloat($(this).find('option:selected').data('price'));
             $(this).closest('tr').find('.price_input').val(selectedPrice);
             var total = selectedPrice;
-            $(this).closest('tr').find('.total input').val(total);            
+            $(this).closest('tr').find('.total input').val(total);
         });
 
         $('#items-table').on('change', 'input.quantity', function() {

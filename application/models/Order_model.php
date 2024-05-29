@@ -165,4 +165,18 @@ class Order_model extends CI_Model
             }
         }
     }
+
+    public function get_product_quantity($product_id)
+    {
+        $this->db->select('quantity');
+        $this->db->from('product_items');
+        $this->db->where('id', $product_id);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row()->quantity;
+        } else {
+            return 0;
+        }
+    }
 }

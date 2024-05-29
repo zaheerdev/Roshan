@@ -18,7 +18,7 @@ class Order extends CI_Controller
 	private $user_role;
 	function __construct()
 	{
-		
+
 		parent::__construct();
 
 		if (!$this->session->userdata('user_session')->logged_in) {
@@ -27,7 +27,8 @@ class Order extends CI_Controller
 		$this->load->helper('download');
 		$this->setUserData();
 	} //end function 
-	public function setUserData(){
+	public function setUserData()
+	{
 		$this->user_id = $this->session->userdata('user_session')->id;
 		$this->user_role = $this->session->userdata('user_session')->role_id;
 	}
@@ -45,6 +46,17 @@ class Order extends CI_Controller
 			$data['vendors'] = $this->vendor_model->get_vendors($this->user_id);
 			$data['product_items'] = $this->order_model->get_product_items();
 			$this->load->view('admin_dashboard/order/book_order', $data);
+		}
+	}
+
+	public function check_product_quantity()
+	{
+		if ($this->input->is_ajax_request()) {
+			$product_id = $this->input->get('id');
+			$product_quantity = $this->order_model->get_product_quantity($product_id);
+			echo $product_quantity;
+		} else {
+			show_404();
 		}
 	}
 
