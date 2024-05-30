@@ -97,7 +97,7 @@
  						<a href="<?= BASE_URL ?>inventory/inventory" class="nav-link">
  							<i class="nav-icon fas fa-edit"></i>
  							<p>
- 								Inventory Raw Material
+ 								Inventory
  							</p>
  						</a>
  					</li>

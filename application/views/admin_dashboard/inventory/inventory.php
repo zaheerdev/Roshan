@@ -82,39 +82,125 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
-						<div class="bg-white">
-							<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'inventory/add_raw_inventory' ?>">Add Raw Material</a>
-						</div>
-						<!-- Table start -->
-						<table id="example1" class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th scope="col">ID</th>
-									<th scope="col">Material Name</th>
-									<th scope="col">Quantity</th>
-									
-								</tr>
-							</thead>
-							<tbody>
-								<?php if (!empty($raw_items)) : ?>
-									<!-- if record found -->
-									<?php foreach ($raw_items as $item) : ?>
-										<tr>
-											<td><?= $item['id'] ?></td>
-											<td><?= $item['material_name'] ?></td>
-											<td><?= $item['quantity'] ?></td>
-											
-											<td>
-												<a class="btn btn-primary " href="">Edit</a>
-												<a class="btn btn-danger " href="">Delete</a>
-											</td>
-										</tr>
-									<?php endforeach; ?>
-								<?php else : ?>
-									<div class="p-3 text-center">No Record Found</div>
-								<?php endif; ?>
-							</tbody>
-						</table>	
+							
+							<!-- tabs start-->
+							<nav>
+								<div class="nav nav-tabs" id="nav-tab" role="tablist">
+									<a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Add Product Quantity</a>
+									<a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="false">Add Raw Material</a>
+									<a class="nav-item nav-link" id="nav-contact-tab" data-toggle="tab" href="#nav-contact" role="tab" aria-controls="nav-contact" aria-selected="false">View Raw Material</a>
+								</div>
+							</nav>
+							<div class="tab-content" id="nav-tabContent">
+								<div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+									<form id="add_product_inventory" action="<?= BASE_URL ?>inventory/save_product_inventory" method="post">
+										<div class="card-body">
+											<table id="items-table" class="table">
+												<tbody>
+													<tr>
+														<td>
+															<div class="form-group">
+																<label for="item_select">Item</label>
+																<select class="form-control" id="item_select" name="product_id" required>
+																	<option value="">Select Item</option>
+																	<?php foreach ($product_items as $item) : ?>
+																		<option value="<?php echo $item['id']; ?>">
+																			<?php echo $item['product_name']; ?>
+																		</option>
+																	<?php endforeach; ?>
+																</select>
+															</div>
+														</td>
+														<td>
+															<div class="form-group">
+																<label for="quantity">Quantity</label>
+																<input type="number" class="form-control quantity" name="quantity">
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+
+										</div>
+										<!-- /.card-body -->
+										<div class="card-footer">
+											<button type="submit" class="btn btn-primary">Submit</button>
+											<button type="button" id="cancel-button" class="btn btn-default">Cancel</button>
+										</div>
+									</form>
+								</div>
+								<div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+									<form id="add_raw_inventory" action="<?= BASE_URL ?>inventory/save_raw_inventory" method="post">
+										<div class="card-body">
+											<table id="items-table" class="table">
+												<tbody>
+													<tr>
+														<td>
+															<div class="form-group">
+																<label for="item_select">Item</label>
+																<select class="form-control" id="item_select" name="material_id" required>
+																	<option value="">Select Item</option>
+																	<?php foreach ($raw_items as $item) : ?>
+																		<option value="<?php echo $item['id']; ?>">
+																			<?php echo $item['material_name']; ?>
+																		</option>
+																	<?php endforeach; ?>
+																</select>
+															</div>
+														</td>
+														<td>
+															<div class="form-group">
+																<label for="quantity">Quantity</label>
+																<input type="number" class="form-control quantity" name="quantity">
+															</div>
+														</td>
+													</tr>
+												</tbody>
+											</table>
+
+										</div>
+										<!-- /.card-body -->
+										<div class="card-footer">
+											<button type="submit" class="btn btn-primary">Submit</button>
+
+										</div>
+									</form>
+								</div>
+								<div class="tab-pane fade" id="nav-contact" role="tabpanel" aria-labelledby="nav-contact-tab">
+									<table id="example1" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th scope="col">ID</th>
+												<th scope="col">Material Name</th>
+												<th scope="col">Quantity</th>
+												<th scope="col">Action</th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php if (!empty($raw_items)) : ?>
+												<!-- if record found -->
+												<?php foreach ($raw_items as $item) : ?>
+													<tr>
+														<td><?= $item['id'] ?></td>
+														<td><?= $item['material_name'] ?></td>
+														<td><?= $item['quantity'] ?></td>
+
+														<td>
+															<a class="btn btn-primary " href="">Edit</a>
+															<a class="btn btn-danger " href="">Delete</a>
+														</td>
+													</tr>
+												<?php endforeach; ?>
+											<?php else : ?>
+												<div class="p-3 text-center">No Record Found</div>
+											<?php endif; ?>
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<!-- tabs end -->
+							<!-- Table start -->
+
 						</div>
 
 					</div>
@@ -133,5 +219,3 @@
 <!-- ./wrapper -->
 
 <?php require_once(APPPATH . 'views/admin_dashboard/inc/footer.php'); ?>
-
-
