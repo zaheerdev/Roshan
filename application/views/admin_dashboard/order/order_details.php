@@ -36,14 +36,14 @@
 		<div class="col-md-6">
 			<div class="form-group">
 				<label for="paid_amount">Discount:
-					
+
 				</label>
 				<select id="discount-type" class="form-control my-1" id="exampleFormControlSelect1">
 					<option value="percentage">% Percentage</option>
 					<option value="fixed-price">Fixed Price</option>
-		
+
 				</select>
-				
+
 				<input type="text" class="form-control" id="discount" name="discount" value="">
 			</div>
 		</div>
@@ -61,7 +61,7 @@
 		<div class="col-md-6">
 			<div class="form-group">
 				<label for="paid_amount">Paid Amount:</label>
-				<input type="text" class="form-control" id="paid_amount" name="paid_amount" value="" required>
+				<input type="text" class="form-control" id="paid_amount" name="paid_amount" value="">
 			</div>
 		</div>
 	</div>
@@ -98,14 +98,14 @@
 		var netTotalInput = $("#net_total");
 		var dueAmountInput = $("#due_amount");
 		let discountType = $('#discount-type').find(':selected').val();
-		$('#discount-type').on('change',function(){
-	
+		$('#discount-type').on('change', function() {
+
 			discountType = $(this).find(':selected').val();
 			console.log(discountType);
-			
+
 			updateTotals();
 		});
-		
+
 		function calculateTotal() {
 			var totalPrice = 0;
 			$.each(orderDetails, function(index, order) {
@@ -117,12 +117,12 @@
 		function updateTotals() {
 			var total = calculateTotal();
 			var discountPercentage = parseFloat(discountInput.val()) || 0;
-			if(discountType == 'percentage'){
+			if (discountType == 'percentage') {
 				var discountAmount = (total * discountPercentage) / 100;
-			}else if(discountType == 'fixed-price'){
+			} else if (discountType == 'fixed-price') {
 				var discountAmount = discountInput.val();
 			}
-			
+
 			var netTotal = total - discountAmount;
 			var paidAmount = parseFloat(paidAmountInput.val()) || 0;
 			var dueAmount = netTotal - paidAmount;

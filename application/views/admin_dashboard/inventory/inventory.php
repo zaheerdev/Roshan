@@ -82,7 +82,7 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body">
-							
+
 							<!-- tabs start-->
 							<nav>
 								<div class="nav nav-tabs" id="nav-tab" role="tablist">
@@ -173,7 +173,6 @@
 												<th scope="col">ID</th>
 												<th scope="col">Material Name</th>
 												<th scope="col">Quantity</th>
-												<th scope="col">Action</th>
 											</tr>
 										</thead>
 										<tbody>
@@ -184,11 +183,6 @@
 														<td><?= $item['id'] ?></td>
 														<td><?= $item['material_name'] ?></td>
 														<td><?= $item['quantity'] ?></td>
-
-														<td>
-															<a class="btn btn-primary " href="">Edit</a>
-															<a class="btn btn-danger " href="">Delete</a>
-														</td>
 													</tr>
 												<?php endforeach; ?>
 											<?php else : ?>

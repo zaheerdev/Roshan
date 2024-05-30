@@ -57,11 +57,11 @@
 
                                 <table id="items-table" class="table book_order_table">
                                     <tbody>
-                                        <tr>
+                                        <tr class="order_item">
                                             <td>
                                                 <div class="form-group">
                                                     <label for="item_select">Item</label>
-                                                    <select class="form-control" id="item_select" required>
+                                                    <select class="form-control item_select" required>
                                                         <option value="">Select Item</option>
                                                         <?php foreach ($product_items as $item) : ?>
                                                             <option value="<?php echo $item['id']; ?>" data-price="<?php echo $item['price']; ?>">
@@ -122,14 +122,16 @@
 <script>
     let BASE_URL = "<?php echo BASE_URL; ?>";
 </script>
+
 <script>
     $(document).ready(function() {
         $('#book_order_form button[type="submit"]').prop('disabled', true);
 
-        $('#item_select').change(function() {
-            var selectedItemId = $(this).val();
+        $('#book_order_form').on('change', '.item_select, .quantity', function() {
+            var selectedItemId = $(this).closest('.order_item').find('.item_select').val();
+            var selectedQuantity = parseInt($(this).closest('.order_item').find('.quantity').val());
 
-            if (selectedItemId) {
+            if (selectedItemId && selectedQuantity) {
                 $.ajax({
                     url: 'check_product_quantity',
                     type: 'GET',
@@ -138,22 +140,23 @@
                     },
                     success: function(response) {
                         var itemQuantity = parseInt(response);
-
-                        if (itemQuantity > 0) {
+                        if (itemQuantity >= selectedQuantity) {
                             $('#book_order_form button[type="submit"]').prop('disabled', false);
                         } else {
                             $('#book_order_form button[type="submit"]').prop('disabled', true);
                             alert("Out of stock or invalid quantity");
                         }
-                    },
+                    }.bind(this),
                     error: function() {
                         console.log("Error fetching product quantity");
                     }
                 });
             }
+
         });
     });
 </script>
+
 
 <script>
     $(document).ready(function() {
@@ -167,7 +170,7 @@
             lastRow.after(newRow);
         });
 
-        $(document).on('change', '#item_select', function() {
+        $(document).on('change', '.item_select', function() {
             var selectedPrice = parseFloat($(this).find('option:selected').data('price'));
             $(this).closest('tr').find('.price_input').val(selectedPrice);
             var total = selectedPrice;
