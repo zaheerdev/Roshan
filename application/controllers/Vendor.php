@@ -55,31 +55,27 @@ class Vendor extends CI_Controller
 
 	public function all_vendors()
 	{
-		if($this->user_role == 1){
+		if ($this->user_role == 1) {
 			$data['page_title'] = "Roshan | All Vendors";
 			$data['vendors'] = $this->vendor_model->get_vendors(null);
 			$this->load->view('admin_dashboard/vendor/all_vendors', $data);
-		}else{
+		} else {
 			$data['page_title'] = "Roshan | All Vendors";
 			$data['vendors'] = $this->vendor_model->get_vendors($this->user_id);
 			$this->load->view('admin_dashboard/vendor/all_vendors', $data);
 		}
-		
 	}
 
 	public function edit_vendor($id)
 	{
-		if($this->user_role == 1){
-			$data['page_title'] = "Roshan | Edit Vendor";
+
+		$data['page_title'] = "Roshan | Edit Vendor";
 		$data['vendor'] = $this->vendor_model->edit($id);
 		if ($data['vendor'] == false) {
 			$this->session->set_flashdata('vendor404', "Vendor not found");
 			return redirect(BASE_URL . '/vendor/all_vendors');
 		} else {
 			$this->load->view("admin_dashboard/vendor/edit_vendor", $data);
-		}
-		}else{
-			return redirect(BASE_URL . '/vendor/all_vendors');
 		}
 	}
 
@@ -98,7 +94,7 @@ class Vendor extends CI_Controller
 			$vendor = array(
 				"vendor_name" => trim(html_escape($this->input->post('name', TRUE))),
 				"business_name" => trim(html_escape($this->input->post('bussiness', TRUE))),
-				"address" => trim( html_escape($this->input->post('address', TRUE))),
+				"address" => trim(html_escape($this->input->post('address', TRUE))),
 				"phone_no" => trim(html_escape($this->input->post('phone', TRUE)))
 			);
 			if ($this->vendor_model->update($vendor, $id)) {
@@ -110,18 +106,17 @@ class Vendor extends CI_Controller
 
 	public function delete_vendor($id)
 	{
-		if($this->user_role == 1){
+		if ($this->user_role == 1) {
 			$vendor['vendor'] = $this->vendor_model->delete($id);
-		if ($vendor['vendor'] == false) {
-			$this->session->set_flashdata('delete', "Vendor delete error ");
-			return redirect(BASE_URL . '/vendor/all_vendors');
+			if ($vendor['vendor'] == false) {
+				$this->session->set_flashdata('delete', "Vendor delete error ");
+				return redirect(BASE_URL . '/vendor/all_vendors');
+			} else {
+				$this->session->set_flashdata('delete', "Vendor deleted successfully ");
+				return redirect(BASE_URL . '/vendor/all_vendors');
+			}
 		} else {
-			$this->session->set_flashdata('delete', "Vendor deleted successfully ");
-			return redirect(BASE_URL . '/vendor/all_vendors');
-		}
-		}else{
 			return redirect(BASE_URL . 'vendor/all_vendors');
 		}
-		
 	}
 }

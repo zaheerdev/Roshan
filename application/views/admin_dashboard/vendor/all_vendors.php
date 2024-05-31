@@ -108,8 +108,9 @@
 											<td><?= $vendor->address ?></td>
 											<td><?= $vendor->phone_no ?></td>
 											<td>
-												<?php if($this->user_role = $this->session->userdata('user_session')->role_id == 1 ): ?>
+												
 												<a class="btn btn-primary " href="<?= BASE_URL . "vendor/edit_vendor/" . $vendor->id ?>">Edit</a>
+												<?php if($this->user_role = $this->session->userdata('user_session')->role_id == 1 ): ?>
 												<a class="btn btn-danger " href="<?= BASE_URL . "vendor/delete_vendor/" . $vendor->id ?>" onclick="return confirm('are you sure to delete <?= $vendor->vendor_name ?>')">Delete</a>
 												<?php endif; ?>
 												<br>
