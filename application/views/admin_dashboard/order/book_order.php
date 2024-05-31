@@ -50,7 +50,7 @@
                                     <select class="form-control dukandar" name="vendor_id" required style="width: 100%;height:50px">
                                         <option value="">Select Dukandar</option>
                                         <?php foreach ($vendors as $vendor) : ?>
-                                            <option value="<?php echo $vendor->id; ?>"><?php echo $vendor->vendor_name; ?></option>
+                                            <option value="<?php echo $vendor->id; ?>"><?php echo $vendor->vendor_name; ?><span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Address: <?=$vendor->address ?></span></option>
                                         <?php endforeach; ?>
                                     </select>
                                 </div>
