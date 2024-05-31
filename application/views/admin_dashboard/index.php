@@ -31,7 +31,7 @@
 					<!-- small box -->
 					<div class="small-box bg-info">
 						<div class="inner">
-							<h3><?= $total_sales; ?></h3>
+							<h3><?= round($total_sales); ?></h3>
 							<p>Total Sales</p>
 						</div>
 						<div class="icon">
@@ -44,7 +44,7 @@
 					<!-- small box -->
 					<div class="small-box bg-success">
 						<div class="inner">
-							<h3><?= $total_paid_amount; ?></h3>
+							<h3><?= round($total_paid_amount); ?></h3>
 							<p>Paid Amount</p>
 						</div>
 						<div class="icon">
@@ -57,7 +57,7 @@
 					<!-- small box -->
 					<div class="small-box bg-danger">
 						<div class="inner">
-							<h3><?= $total_due_amount; ?></h3>
+							<h3><?= round($total_due_amount); ?></h3>
 							<p>Due Amount</p>
 						</div>
 						<div class="icon">
@@ -73,7 +73,7 @@
 						<!-- small box -->
 						<div class="small-box bg-primary">
 							<div class="inner">
-								<h3><?= $total_expense_amount; ?></h3>
+								<h3><?= round($total_expense_amount); ?></h3>
 								<p>Total Expenses</p>
 							</div>
 							<div class="icon">
@@ -87,7 +87,7 @@
 						<!-- small box -->
 						<div class="small-box" style="background-color:#d7f5a4">
 							<div class="inner">
-								<h3><?= $total_paid_amount - $total_expense_amount; ?></h3>
+								<h3><?= round($total_paid_amount - $total_expense_amount); ?></h3>
 								<p>Actual Profit</p>
 							</div>
 							<div class="icon">
@@ -101,7 +101,7 @@
 						<!-- small box -->
 						<div class="small-box" style="background-color:#a4f5df">
 							<div class="inner">
-								<h3><?= $total_sales - $total_expense_amount; ?></h3>
+								<h3><?= round($total_sales - $total_expense_amount); ?></h3>
 								<p>Expected Profit</p>
 							</div>
 							<div class="icon">
