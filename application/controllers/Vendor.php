@@ -69,13 +69,17 @@ class Vendor extends CI_Controller
 
 	public function edit_vendor($id)
 	{
-		$data['page_title'] = "Roshan | Edit Vendor";
+		if($this->user_role == 1){
+			$data['page_title'] = "Roshan | Edit Vendor";
 		$data['vendor'] = $this->vendor_model->edit($id);
 		if ($data['vendor'] == false) {
 			$this->session->set_flashdata('vendor404', "Vendor not found");
 			return redirect(BASE_URL . '/vendor/all_vendors');
 		} else {
 			$this->load->view("admin_dashboard/vendor/edit_vendor", $data);
+		}
+		}else{
+			return redirect(BASE_URL . '/vendor/all_vendors');
 		}
 	}
 
@@ -106,7 +110,8 @@ class Vendor extends CI_Controller
 
 	public function delete_vendor($id)
 	{
-		$vendor['vendor'] = $this->vendor_model->delete($id);
+		if($this->user_role == 1){
+			$vendor['vendor'] = $this->vendor_model->delete($id);
 		if ($vendor['vendor'] == false) {
 			$this->session->set_flashdata('delete', "Vendor delete error ");
 			return redirect(BASE_URL . '/vendor/all_vendors');
@@ -114,5 +119,9 @@ class Vendor extends CI_Controller
 			$this->session->set_flashdata('delete', "Vendor deleted successfully ");
 			return redirect(BASE_URL . '/vendor/all_vendors');
 		}
+		}else{
+			return redirect(BASE_URL . 'vendor/all_vendors');
+		}
+		
 	}
 }

@@ -47,7 +47,7 @@
                             <div class="card-body">
                                 <div class="form-group">
                                     <label>Dukandar</label>
-                                    <select class="form-control" name="vendor_id" required>
+                                    <select class="form-control dukandar" name="vendor_id" required style="width: 100%;height:50px">
                                         <option value="">Select Dukandar</option>
                                         <?php foreach ($vendors as $vendor) : ?>
                                             <option value="<?php echo $vendor->id; ?>"><?php echo $vendor->vendor_name; ?></option>

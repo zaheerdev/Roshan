@@ -40,6 +40,17 @@
     <script src="<?= ASSETS ?>adminlte/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="<?= ASSETS ?>adminlte/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="<?= ASSETS ?>adminlte/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <!-- select search -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script>
+    	$(document).ready(function() {
+    		$('.dukandar').select2();
+			$('.select2-selection').css('height','40px');
+    		$('.dukandar').one('select2:open', function(e) {
+    			$('input.select2-search__field').prop('placeholder', 'Search dukandar');
+    		});
+    	});
+    </script>
     <script>
     	$(function() {
     		$('#example1').DataTable({
