@@ -82,6 +82,7 @@ class Seller_model extends CI_Model
 	}
 	public function get_paid_details($id, $filter)
 	{
+		date_default_timezone_set('Asia/Karachi');
 		$date = date('Y-m-d');
 		$this->db->select('u.name,od.created_at');
 		$this->db->select_sum('od.due_amount');

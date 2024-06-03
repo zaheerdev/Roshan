@@ -84,9 +84,9 @@
 						<!-- /.card-header -->
 						<div class="card-body">
 							<div class="bg-white d-lg-flex justify-content-lg-between align-items-center ">
-								<?php if($user_role == 1):?>
-								<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'sellers/add_seller' ?>">Add New Seller</a>
-								<?php endif;?>
+								<?php if ($user_role == 1) : ?>
+									<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'sellers/add_seller' ?>">Add New Seller</a>
+								<?php endif; ?>
 								<span style="float: end;">
 									<form action="<?= BASE_URL . 'sellers/paid_amount/' . $id . '/filtered'; ?>" method="post">
 										<div class="filter mt-2 d-lg-flex align-items-end">
@@ -117,18 +117,25 @@
 									</tr>
 								</thead>
 								<tbody>
+									
 									<?php if (!empty($paid_amount)) : ?>
 										<!-- if record found -->
 										<?php foreach ($paid_amount as $amount) : ?>
 											<tr>
-												
+												<?php if ($amount->name) : ?>
 													<td><?= $amount->name ?></td>
 													<td><?= round($amount->paid_amount) ?></td>
 													<td><?= round($amount->due_amount) ?></td>
 													<td><?= $filter ?? $amount->created_at ?></td>
-												
+												<?php else : ?>
+													<td>No Record Found.</td>
+												<?php endif; ?>
 											</tr>
 										<?php endforeach; ?>
+									<?php else : ?>
+										<tr>
+											<td>Nothing found for today. You can apply date filter.</td>
+										</tr>
 									<?php endif; ?>
 								</tbody>
 							</table>
