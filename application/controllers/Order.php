@@ -272,7 +272,6 @@ class Order extends CI_Controller
 		}
 
 		$data['order_details'] = $this->order_model->get_deliverOrder_details($order_id);
-
 		$html = $this->load->view('admin_dashboard/order/deliver_invoice', $data, true);
 
 		$options = new Options();

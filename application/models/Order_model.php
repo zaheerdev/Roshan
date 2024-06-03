@@ -107,7 +107,7 @@ class Order_model extends CI_Model
 
     public function get_deliverOrder_details($order_id)
     {
-        $this->db->select("*");
+        $this->db->select("*,or.quantity as order_quantity");
         $this->db->from("orders or");
         $this->db->join('vendors ve', 'or.vendor_id = ve.id');
         $this->db->join('product_items pr', 'or.product_id = pr.id');

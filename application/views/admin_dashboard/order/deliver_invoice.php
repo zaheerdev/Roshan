@@ -160,7 +160,7 @@
                 <tr class="item">
                     <td><?= $product->product_name ?></td>
                     <td><?= $product->price ?></td>
-                    <td><?= $order->quantity ?></td>
+                    <td><?= $order->order_quantity ?></td>
                     <td><?= $order->total ?></td>
                 </tr>
             <?php endforeach; ?>
