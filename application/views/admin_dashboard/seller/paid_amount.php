@@ -113,7 +113,7 @@
 										<th scope="col">Name</th>
 										<th scope="col">Paid Amount</th>
 										<th scope="col">Due Amount</th>
-										<!-- <th scope="col">Date</th> -->
+										<th scope="col">Date</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -121,13 +121,12 @@
 										<!-- if record found -->
 										<?php foreach ($paid_amount as $amount) : ?>
 											<tr>
-												<?php if(is_null($amount->name)):?>
-													<td>No data found for today. Apply some date filter.</td>
-												<?php else:?>
+												
 													<td><?= $amount->name ?></td>
 													<td><?= round($amount->paid_amount) ?></td>
 													<td><?= round($amount->due_amount) ?></td>
-												<?php endif;?>
+													<td><?= $filter ?? $amount->created_at ?></td>
+												
 											</tr>
 										<?php endforeach; ?>
 									<?php endif; ?>

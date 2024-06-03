@@ -153,13 +153,14 @@ class Sellers extends CI_Controller
 			if ($filter !== null) {
 				$start = $this->input->post('start');
 				$end = $this->input->post('end');
-				$filter = $start . "+" . $end;
+				$filter = $start . "-to-" . $end;
 				// dd($filter);
 				$data['id'] = $id;
 				$data['page_title'] = "Roshan | Seller Paid Amount Details";
 				$data['user_role'] = $this->user_role;
 				$paid_amount = $this->seller_model->get_paid_details($id, $filter);
 				$data['paid_amount'] = $paid_amount;
+				$data['filter'] = $filter;
 				// dd($result);
 				$this->load->view('admin_dashboard/seller/paid_amount', $data);
 			}
@@ -175,13 +176,14 @@ class Sellers extends CI_Controller
 			if ($filter !== null) {
 				$start = $this->input->post('start');
 				$end = $this->input->post('end');
-				$filter = $start . "+" . $end;
+				$filter = $start . "-to-" . $end;
 				// dd($filter);
 				$data['id'] = $id;
 				$data['page_title'] = "Roshan | Seller Paid Amount Details";
 				$data['user_role'] = $this->user_role;
 				$paid_amount = $this->seller_model->get_paid_details($this->user_id, $filter);
 				$data['paid_amount'] = $paid_amount;
+				$data['filter'] = $filter;
 				// dd($result);
 				$this->load->view('admin_dashboard/seller/paid_amount', $data);
 			}

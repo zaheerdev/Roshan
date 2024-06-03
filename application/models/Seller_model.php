@@ -82,22 +82,24 @@ class Seller_model extends CI_Model
 	}
 	public function get_paid_details($id, $filter)
 	{
-
-		$this->db->select('u.name');
+		$date = date('Y-m-d');
+		$this->db->select('u.name,od.created_at');
 		$this->db->select_sum('od.due_amount');
 		$this->db->select_sum('od.paid_amount');
 		$this->db->from('orders_delivered od');
 		$this->db->join('users u', 'u.id = od.user_id');
 		$this->db->where('od.user_id', $id);
 		if ($filter !== null) {
-			$filterdate = explode("+",$filter);
+			$filterdate = explode("-to-",$filter);
 			$start_date = $filterdate[0];
 			$end_date = $filterdate[1];
-			// dd($filterdate);
 			$this->db->where('DATE(od.created_at) >=', $start_date);
 			$this->db->where('DATE(od.created_at) <=', $end_date);
+		}else{
+			$this->db->where('DATE(od.created_at) >=', $date);
 		}
 		
+		// dd($this->db->get()->result());
 		return $this->db->get()->result();
 		
 	}
