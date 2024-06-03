@@ -128,7 +128,7 @@
 													<td><?= round($amount->due_amount) ?></td>
 													<td><?= $filter ?? $amount->created_at ?></td>
 												<?php else : ?>
-													<td>No Record Found.</td>
+													<td>No Record Found. You can apply date filter.</td>
 												<?php endif; ?>
 											</tr>
 										<?php endforeach; ?>
