@@ -65,8 +65,8 @@ class Sellers extends CI_Controller
 					return redirect(BASE_URL . "sellers/all_sellers");
 				}
 			}
-		}else{
-			redirect(BASE_URL.'dashboard');
+		} else {
+			redirect(BASE_URL . 'dashboard');
 		}
 	}
 
@@ -199,33 +199,78 @@ class Sellers extends CI_Controller
 			return redirect(BASE_URL . 'dashboard');
 		}
 	}
-	public function getstockdetail($user_id = null){
-		
-		if($this->user_role == 2){
-			if($user_id != null && $user_id == $this->user_id){
+	public function getstockdetail($user_id = null)
+	{
+
+		if ($this->user_role == 2) {
+			if ($user_id != null && $user_id == $this->user_id) {
 				$data['page_title'] = "Roshan | Seller Stock";
 				$data['stocks'] = $this->seller_model->get_assigned_stock($user_id);
 				// dd($data['stocks']);
-				$this->load->view('admin_dashboard/seller/seller_stock',$data);
-			}else{
-				redirect(BASE_URL.'dashboard');
+				$this->load->view('admin_dashboard/seller/seller_stock', $data);
+			} else {
+				redirect(BASE_URL . 'dashboard');
 			}
-		}else{
+		} else {
 			// dd('inelse');
-			if($user_id != null){
+			if ($user_id != null) {
 				// dd('in with userid');
 				$data['page_title'] = "Roshan | Seller Stock";
 				$data['stocks'] = $this->seller_model->get_assigned_stock($user_id);
 				// dd($data['stocks']);
-				$this->load->view('admin_dashboard/seller/seller_stock',$data);
-			}else{
+				$this->load->view('admin_dashboard/seller/seller_stock', $data);
+			} else {
 				// dd('in without userid');
 				$data['page_title'] = "Roshan | Seller Stock";
 				$data['stocks'] = $this->seller_model->get_assigned_stock(null);
 				// dd($data['stocks']);
-				$this->load->view('admin_dashboard/seller/seller_stock',$data);
+				$this->load->view('admin_dashboard/seller/seller_stock', $data);
 			}
 		}
 		// dd($this->seller_model->get_assigned_stock(null));
+	}
+	public function edit_seller_stock($id)
+	{
+		if ($this->user_role == 1) {
+			$data['page_title'] = "Roshan | Edit Seller Stock Quantity";
+			$data['stock_detail'] = $this->seller_model->get_assinged_stock_of_seller($id);
+			// dd($data['stock_detail']);
+			$this->load->view('admin_dashboard/seller/edit_stock', $data);
+		} else {
+			return redirect(BASE_URL . 'dashboard');
+		}
+	}
+	public function update_seller_stock($id)
+	{
+		$this->form_validation->set_rules('quantity', 'Quantity', 'required');
+		if ($this->form_validation->run() == FALSE) {
+			$errors['errors'] = validation_errors();
+			$this->session->set_flashdata($errors);
+			return redirect(BASE_URL . 'sellers/edit_seller_stock/' . $id);
+		} else {
+			if ($this->input->post('quantity') >= 0) {
+				$quantity = array(
+					"quantity" => trim(html_escape($this->input->post('quantity', TRUE))),
+
+				);
+				$updated = $this->seller_model->update_assinged_stock_of_seller($id,$quantity);
+				if($updated){
+					$errors['updated'] = "Quantity Updated Successfully";
+					$this->session->set_flashdata($errors);
+					return redirect(BASE_URL . 'sellers/getstockdetail');
+				}else{
+					$errors['again'] = "Please try again";
+					$this->session->set_flashdata($errors);
+					return redirect(BASE_URL . 'sellers/edit_seller_stock/' . $id);
+				}
+				
+			} else {
+				$errors['errors'] = "Quantity must be 0 or greater than 0";
+				$this->session->set_flashdata($errors);
+				return redirect(BASE_URL . 'sellers/edit_seller_stock/' . $id);
+			}
+
+			
+		}
 	}
 }

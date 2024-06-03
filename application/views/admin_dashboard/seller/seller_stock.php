@@ -24,8 +24,15 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-12">
-				
-				
+					<?php if ($this->session->flashdata('updated')) : ?>
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+							<?= $this->session->flashdata('updated') ?>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					<?php endif; ?>
+
 					<!-- /.card -->
 					<!-- payment successfull -->
 					<div class="card">
@@ -38,7 +45,10 @@
 										<th>Seller Name</th>
 										<th>Product Name</th>
 										<th>Quantity</th>
-										
+										<?php if ($this->session->userdata('user_session')->role_id == 1) : ?>
+											<th>Action</th>
+										<?php endif; ?>
+
 									</tr>
 								</thead>
 								<tbody>
@@ -49,7 +59,9 @@
 												<td><?= $record->name ?></td>
 												<td><?= $record->product_name ?></td>
 												<td><?= $record->quantity ?></td>
-												
+												<?php if ($this->session->userdata('user_session')->role_id == 1) : ?>
+													<td><a class="btn btn-primary" href="<?= BASE_URL . 'sellers/edit_seller_stock/' . $record->id; ?>">Edit Stock</a></td>
+												<?php endif; ?>
 											</tr>
 										<?php endforeach; ?>
 									<?php endif; ?>

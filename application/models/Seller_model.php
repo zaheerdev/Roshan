@@ -113,4 +113,22 @@ class Seller_model extends CI_Model
 		$this->db->join('product_items pi','pi.id = ss.product_id');
 		return $this->db->get()->result();
 	}
+
+
+
+	public function get_assinged_stock_of_seller($id){
+		return $this->db->select('*')->from('seller_stock')->where('id',$id)->get()->row();
+	}
+
+	
+	public function update_assinged_stock_of_seller($id,$quantity){
+		$this->db->where('id', $id);
+		$query = $this->db->update('seller_stock', $quantity);
+		if ($query) {
+			return true;
+		} else {
+			return false;
+		}
+		// return $this->db->select('*')->from('seller_stock')->where('id',$id)->get()->row();
+	}
 }
