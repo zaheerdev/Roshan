@@ -161,17 +161,17 @@ class Sellers extends CI_Controller
 				$paid_amount = $this->seller_model->get_paid_details($id, $filter);
 				$data['paid_amount'] = $paid_amount;
 				$data['filter'] = $filter;
-				// dd($result);
+				$data['collected_amount'] = $this->seller_model->get_collected_amount($id, $filter);
+				$this->load->view('admin_dashboard/seller/paid_amount', $data);
+			} else {
+				$data['id'] = $id;
+				$data['user_role'] = $this->user_role;
+				$data['page_title'] = "Roshan | Seller Paid Amount Details";
+				$paid_amount = $this->seller_model->get_paid_details($id, $filter);
+				$data['paid_amount'] = $paid_amount;
+				$data['collected_amount'] = $this->seller_model->get_collected_amount($id, null);
 				$this->load->view('admin_dashboard/seller/paid_amount', $data);
 			}
-
-			$data['id'] = $id;
-			$data['user_role'] = $this->user_role;
-			$data['page_title'] = "Roshan | Seller Paid Amount Details";
-			$paid_amount = $this->seller_model->get_paid_details($id, $filter);
-			$data['paid_amount'] = $paid_amount;
-			// dd($data);
-			$this->load->view('admin_dashboard/seller/paid_amount', $data);
 		} elseif ($this->user_role == 2 && $this->user_id == $id) {
 			if ($filter !== null) {
 				$start = $this->input->post('start');
@@ -184,17 +184,17 @@ class Sellers extends CI_Controller
 				$paid_amount = $this->seller_model->get_paid_details($this->user_id, $filter);
 				$data['paid_amount'] = $paid_amount;
 				$data['filter'] = $filter;
-				// dd($result);
+				$data['collected_amount'] = $this->seller_model->get_collected_amount($this->user_id, $filter);
+				$this->load->view('admin_dashboard/seller/paid_amount', $data);
+			} else {
+				$data['id'] = $id;
+				$data['user_role'] = $this->user_role;
+				$data['page_title'] = "Roshan | Seller Paid Amount Details";
+				$paid_amount = $this->seller_model->get_paid_details($this->user_id, $filter);
+				$data['paid_amount'] = $paid_amount;
+				$data['collected_amount'] = $this->seller_model->get_collected_amount($this->user_id, null);
 				$this->load->view('admin_dashboard/seller/paid_amount', $data);
 			}
-
-			$data['id'] = $id;
-			$data['user_role'] = $this->user_role;
-			$data['page_title'] = "Roshan | Seller Paid Amount Details";
-			$paid_amount = $this->seller_model->get_paid_details($this->user_id, $filter);
-			$data['paid_amount'] = $paid_amount;
-			// dd($data);
-			$this->load->view('admin_dashboard/seller/paid_amount', $data);
 		} else {
 			return redirect(BASE_URL . 'dashboard');
 		}
@@ -253,24 +253,21 @@ class Sellers extends CI_Controller
 					"quantity" => trim(html_escape($this->input->post('quantity', TRUE))),
 
 				);
-				$updated = $this->seller_model->update_assinged_stock_of_seller($id,$quantity);
-				if($updated){
+				$updated = $this->seller_model->update_assinged_stock_of_seller($id, $quantity);
+				if ($updated) {
 					$errors['updated'] = "Quantity Updated Successfully";
 					$this->session->set_flashdata($errors);
 					return redirect(BASE_URL . 'sellers/getstockdetail');
-				}else{
+				} else {
 					$errors['again'] = "Please try again";
 					$this->session->set_flashdata($errors);
 					return redirect(BASE_URL . 'sellers/edit_seller_stock/' . $id);
 				}
-				
 			} else {
 				$errors['errors'] = "Quantity must be 0 or greater than 0";
 				$this->session->set_flashdata($errors);
 				return redirect(BASE_URL . 'sellers/edit_seller_stock/' . $id);
 			}
-
-			
 		}
 	}
 }

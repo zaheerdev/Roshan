@@ -80,6 +80,7 @@ class Seller_model extends CI_Model
 			->get()->row();
 		return $check_email;
 	}
+	// daily sale paid amount and due amount
 	public function get_paid_details($id, $filter)
 	{
 		date_default_timezone_set('Asia/Karachi');
@@ -104,6 +105,46 @@ class Seller_model extends CI_Model
 		return $this->db->get()->result();
 		
 	}
+
+
+	// daily collected from vendors from any old record
+	public function insert_collected_amount($data){
+		date_default_timezone_set('Asia/Karachi');
+		$date = date('Y-m-d');		
+		$data['created_at'] = $date;
+		$this->db->insert('seller_collected_amount',$data);
+		if ($this->db->affected_rows() > 0) {
+			return true;
+		} else {
+			return false;
+		}
+		// return $this->db->get()->result();
+	}
+	// get collected amount
+	public function get_collected_amount($user_id,$filter){
+		date_default_timezone_set('Asia/Karachi');
+		$date = date('Y-m-d');
+		$this->db->select('u.name as user_name,v.vendor_name,sca.created_at');
+		$this->db->select_sum('sca.collected_amount');
+		$this->db->from('seller_collected_amount sca');
+		$this->db->join('users u','u.id = sca.user_id');
+		$this->db->join('vendors v','v.id = sca.vendor_id');
+		$this->db->where('sca.user_id',$user_id);
+		if ($filter !== null) {
+			$filterdate = explode("-to-",$filter);
+			$start_date = $filterdate[0];
+			$end_date = $filterdate[1];
+			$this->db->where('DATE(sca.created_at) >=', $start_date);
+			$this->db->where('DATE(sca.created_at) <=', $end_date);
+		}
+		$this->db->where('DATE(sca.created_at)',$date);
+		$this->db->group_by('sca.vendor_id');
+		return $this->db->get()->result();
+		// dd($this->db->get()->result());
+	}
+
+
+
 	public function get_assigned_stock($user_id){
 		$this->db->select('ss.id,u.name,pi.product_name,ss.quantity');
 		$this->db ->from('seller_stock ss');

@@ -44,8 +44,38 @@
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script>
     	$(document).ready(function() {
-    		$('.dukandar').select2();
-			$('.select2-selection').css('height','40px');
+    		// custom matcher
+    		function matchCustom(params, data) {
+    			// If there are no search terms, return all of the data
+    			if ($.trim(params.term) === '') {
+    				return data;
+    			}
+
+    			// Do not display the item if there is no 'text' property
+    			if (typeof data.text === 'undefined') {
+    				return null;
+    			}
+
+    			// `params.term` should be the term that is used for searching
+    			// `data.text` is the text that is displayed for the data object
+    			if (data.text.indexOf(params.term) === 0) {
+    				var modifiedData = $.extend({}, data, true);
+    				// modifiedData.text += ' (matched)';
+
+    				// You can return modified objects from here
+    				// This includes matching the `children` how you want in nested data sets
+    				return modifiedData;
+    			}
+
+    			// Return `null` if the term should not be displayed
+    			return null;
+    		}
+    		// custom matcher end
+
+    		$('.dukandar').select2({
+    			matcher: matchCustom
+    		});
+    		$('.select2-selection').css('height', '40px');
     		$('.dukandar').one('select2:open', function(e) {
     			$('input.select2-search__field').prop('placeholder', 'Search dukandar');
     		});
@@ -53,6 +83,7 @@
     </script>
     <script>
     	$(function() {
+    		
     		$('#example1').DataTable({
     			"paging": true,
     			"lengthChange": false,

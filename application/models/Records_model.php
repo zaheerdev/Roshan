@@ -84,10 +84,13 @@ class Records_model extends CI_Model
 
     public function update_order_payment($order_id, $total_paid_amount, $total_due_amount)
     {
+		date_default_timezone_set('Asia/Karachi');
+		$date = date('Y-m-d');
         $this->db->where('order_id', $order_id);
         $this->db->update('orders_delivered', array(
             'paid_amount' => $total_paid_amount,
-            'due_amount' => $total_due_amount
+            'due_amount' => $total_due_amount,
+			'updated_at' => $date
         ));
 
         if ($this->db->affected_rows() > 0) {

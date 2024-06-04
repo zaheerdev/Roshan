@@ -2,7 +2,7 @@
 <?php require_once(APPPATH . 'views/admin_dashboard/inc/sidebar.php'); ?>
 
 <!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
+<div class="content-wrapper paid-amount">
 
 	<!-- Content Header (Page header) -->
 	<div class="content-header">
@@ -126,6 +126,43 @@
 													<td><?= $amount->name ?></td>
 													<td><?= round($amount->paid_amount) ?></td>
 													<td><?= round($amount->due_amount) ?></td>
+													<td><?= $filter ?? $amount->created_at ?></td>
+												<?php else : ?>
+													<td>No Record Found. You can apply date filter.</td>
+												<?php endif; ?>
+											</tr>
+										<?php endforeach; ?>
+									<?php else : ?>
+										<tr>
+											<td>Nothing found for today. You can apply date filter.</td>
+										</tr>
+									<?php endif; ?>
+								</tbody>
+							</table>
+							<div class="p-2 my-3 border rounded bg-primary">
+								Collected Amount From Dukandar
+							</div>
+							<!-- collected amount -->
+							<!-- Table start -->
+							<table id="example1" class="table table-bordered table-striped">
+								<thead>
+									<tr>
+										<th scope="col">Seller Name</th>
+										<th scope="col">Dukandar Name</th>
+										<th scope="col">Collected Amount</th>
+										<th scope="col">Date</th>
+									</tr>
+								</thead>
+								<tbody>
+									
+									<?php if (!empty($collected_amount)) : ?>
+										<!-- if record found -->
+										<?php foreach ($collected_amount as $amount) : ?>
+											<tr>
+												<?php if ($amount->user_name) : ?>
+													<td><?= $amount->user_name ?></td>
+													<td><?= $amount->vendor_name ?></td>
+													<td><?= round($amount->collected_amount) ?></td>
 													<td><?= $filter ?? $amount->created_at ?></td>
 												<?php else : ?>
 													<td>No Record Found. You can apply date filter.</td>
