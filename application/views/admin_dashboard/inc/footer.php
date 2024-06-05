@@ -81,8 +81,8 @@
     		});
     	});
     </script>
-	<!-- datatable with custom searching  -->
-    <script>
+    <!-- datatable with custom searching  -->
+    <!-- <script>
     	$(document).ready(function() {
     		var table = $('#example0').DataTable({
     			"paging": true,
@@ -115,7 +115,7 @@
     		$('#example0_filter').hide()
 
     	});
-    </script>
+    </script> -->
     <!-- datatable  -->
     <script>
     	$(function() {
@@ -124,11 +124,25 @@
     			"lengthChange": false,
     			"searching": true,
     			"ordering": true,
-    			"order": [[0, 'desc']],
+    			"order": [
+    				[0, 'desc']
+    			],
     			"info": true,
     			"autoWidth": false,
     			"responsive": true,
     		});
+    		$.fn.dataTable.ext.search.push(
+    			function(settings, searchData, index, rowData, counter) {
+    				var match = false;
+    				var searchTerm = settings.oPreviousSearch.sSearch.toLowerCase();
+    				searchData.forEach(function(item, index) {
+    					if (item.toLowerCase().startsWith(searchTerm)) {
+    						match = true;
+    					}
+    				});
+    				return match;
+    			}
+    		);
     	});
     </script>
     <!-- dashborad chart -->

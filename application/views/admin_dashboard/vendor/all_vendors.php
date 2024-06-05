@@ -86,7 +86,7 @@
 							<a style="color:#fff !important;" class="btn btn-primary my-1" href="<?= BASE_URL . 'vendor/add_vendor' ?>">Add New Dukandar</a>
 						</div>
 						<!-- Table start -->
-						<table id="example0" class="table table-bordered table-striped">
+						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th scope="col">ID</th>
