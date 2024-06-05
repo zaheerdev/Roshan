@@ -25,6 +25,7 @@ class Order extends CI_Controller
 			redirect(BASE_URL . 'auth/login');
 		}
 		$this->load->helper('download');
+		$this->load->model('seller_model');
 		$this->setUserData();
 	} //end function 
 	public function setUserData()
@@ -32,7 +33,10 @@ class Order extends CI_Controller
 		$this->user_id = $this->session->userdata('user_session')->id;
 		$this->user_role = $this->session->userdata('user_session')->role_id;
 	}
-
+	// show seeler there assingned products
+	// public function gg(){
+	// 	dd($this->order_model->get_assinged_products());
+	// }
 	// Function for booking order
 	public function book_order()
 	{
@@ -54,6 +58,17 @@ class Order extends CI_Controller
 		if ($this->input->is_ajax_request()) {
 			$product_id = $this->input->get('id');
 			$product_quantity = $this->order_model->get_product_quantity($product_id);
+			echo $product_quantity;
+		} else {
+			show_404();
+		}
+	}
+	// get seller's assinged quantity
+	public function check_seller_quantity()
+	{
+		if ($this->input->is_ajax_request()) {
+			$product_id = $this->input->get('id');
+			$product_quantity = $this->order_model->get_seller_assinged_quantity($product_id);
 			echo $product_quantity;
 		} else {
 			show_404();
@@ -194,7 +209,7 @@ class Order extends CI_Controller
 		$paid_amount = round((float)trim(html_escape($this->input->post('paid_amount'))));
 		$due_amount = round((float)trim(html_escape($this->input->post('due_amount'))));
 		$net_total = round((float)trim(html_escape($this->input->post('net_total'))));
-
+		$vendor_id = trim(html_escape($this->input->post('vendor_id')));
 
 		// Calculate due amount if it's not provided in the form
 		if (empty($due_amount)) {
@@ -218,6 +233,17 @@ class Order extends CI_Controller
 			'user_id' => $this->session->userdata('user_session')->id
 		);
 		$deliver_order_id = $this->order_model->save_deliver_order($data);
+
+		// add pay amount to collected amount
+		if($paid_amount != 0){
+			$collected = array(
+				'user_id' => $this->user_id,
+				'vendor_id' => $vendor_id,
+				'collected_amount' => $paid_amount
+			);
+			$this->seller_model->insert_collected_amount($collected);
+		}
+		
 
 		if ($deliver_order_id) {
 			$this->session->set_flashdata('toast_message', 'Order delivered successfully');

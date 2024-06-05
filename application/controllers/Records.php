@@ -17,7 +17,7 @@ class Records extends CI_Controller
 	 */
 	function __construct()
 	{
-		
+
 		parent::__construct();
 		if (!$this->session->userdata('user_session')->logged_in) {
 			redirect(BASE_URL . 'auth/login');
@@ -26,19 +26,20 @@ class Records extends CI_Controller
 		$this->setUserRole();
 		$this->load->model('seller_model');
 	} //end function 
-	public function setUserRole(){
+	public function setUserRole()
+	{
 		$this->user_role = $this->session->userdata('user_session')->role_id;
 		$this->user_id = $this->session->userdata('user_session')->id;
-	} 
+	}
 
 	public function index()
 	{
-		
+
 		$data['page_title'] = "Roshan | Records";
 		if ($this->user_role == 2) {
 			$data['records'] = $this->records_model->get_records($this->user_role);
 			$this->load->view('admin_dashboard/record/records', $data);
-		}else{
+		} else {
 			$data['records'] = $this->records_model->get_records(null);
 			$this->load->view('admin_dashboard/record/records', $data);
 		}
@@ -54,17 +55,15 @@ class Records extends CI_Controller
 		}
 		// $data['records'] = $this->records_model->get_records();
 		//check if the vendor belogns to the seller
-		if($this->user_role == 1){
+		if ($this->user_role == 1) {
 			$this->load->view('admin_dashboard/record/due-payment', $data);
-		}else{
-			if($this->user_id == $vUserId){
+		} else {
+			if ($this->user_id == $vUserId) {
 				$this->load->view('admin_dashboard/record/due-payment', $data);
-			}else{
-				redirect(BASE_URL.'dashboard');
+			} else {
+				redirect(BASE_URL . 'dashboard');
 			}
 		}
-		
-		
 	}
 
 	// Function for getting amount details 
@@ -121,21 +120,20 @@ class Records extends CI_Controller
 					return redirect(BASE_URL . 'records/due_payment/' . $this->input->post('vendor_id'));
 				}
 			}
-			if ($updated > 0) {
-				$pdf_filename = $this->generate_payment_pdf($vendor_id);
-				$filePath = BASE_URL . "/records/downloadPDF/" . $pdf_filename;
-				$this->session->set_flashdata('pay_amount', "Payment Added Successfully.");
-				$this->session->set_flashdata('download_pdf', "<form action='{$filePath}'><input class='btn btn-success mb-2 rounded' type='submit' value='Download PDF'></form>");
-				// return redirect(BASE_URL . 'records');
-				// adding pay amount in seller collected amount 
-				$collected = array(
-					'user_id' => $this->user_id,
-					'vendor_id' => $vendor_id,
-					'collected_amount' => $pay_amount
-				);
-				$this->seller_model->insert_collected_amount($collected);
-				return redirect(BASE_URL . 'records/due_payment/' . $vendor_id);
-			}
+
+			$pdf_filename = $this->generate_payment_pdf($vendor_id);
+			$filePath = BASE_URL . "/records/downloadPDF/" . $pdf_filename;
+			$this->session->set_flashdata('pay_amount', "Payment Added Successfully.");
+			$this->session->set_flashdata('download_pdf', "<form action='{$filePath}'><input class='btn btn-success mb-2 rounded' type='submit' value='Download PDF'></form>");
+			// return redirect(BASE_URL . 'records');
+			// adding pay amount in seller collected amount 
+			$collected = array(
+				'user_id' => $this->user_id,
+				'vendor_id' => $vendor_id,
+				'collected_amount' => $pay_amount
+			);
+			$this->seller_model->insert_collected_amount($collected);
+			return redirect(BASE_URL . 'records/due_payment/' . $vendor_id);
 		}
 	} //ends function
 

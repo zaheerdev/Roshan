@@ -45,6 +45,7 @@
 				</select>
 
 				<input type="text" class="form-control" id="discount" name="discount" value="">
+				<input type="number" name="vendor_id" value="<?= $order_details[0]->vendor_id ?>" hidden>
 			</div>
 		</div>
 	</div>

@@ -179,4 +179,28 @@ class Order_model extends CI_Model
             return 0;
         }
     }
+    public function get_seller_assinged_quantity($product_id)
+    {
+        $this->db->select('quantity');
+        $this->db->from('seller_stock');
+        $this->db->where('product_id', $product_id);
+        $this->db->where('user_id', $this->session->userdata('user_session')->id);
+        $query = $this->db->get();
+
+        if ($query->num_rows() > 0) {
+            return $query->row()->quantity;
+        } else {
+            return 0;
+        }
+    }
+	// get sellers assinged products.
+	// public function get_assinged_products(){
+	// 	$this->db->select('*');
+    //     $this->db->from('product_items pi');
+    //     $this->db->join('seller_stock ss','pi.id = ss.product_id');
+    //     $this->db->where('user_id', $this->session->userdata('user_session')->id);
+    //     $query = $this->db->get()->result();
+	// 	return $query;
+        
+	// }
 }

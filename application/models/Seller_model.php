@@ -124,7 +124,7 @@ class Seller_model extends CI_Model
 	public function get_collected_amount($user_id,$filter){
 		date_default_timezone_set('Asia/Karachi');
 		$date = date('Y-m-d');
-		$this->db->select('u.name as user_name,v.vendor_name,sca.created_at');
+		$this->db->select('u.name as user_name,v.vendor_name,v.address as vendor_address,sca.created_at');
 		$this->db->select_sum('sca.collected_amount');
 		$this->db->from('seller_collected_amount sca');
 		$this->db->join('users u','u.id = sca.user_id');

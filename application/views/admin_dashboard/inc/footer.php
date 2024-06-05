@@ -55,10 +55,11 @@
     			if (typeof data.text === 'undefined') {
     				return null;
     			}
-
+				var param = params.term.toLowerCase();
+				var text = data.text.toLowerCase();
     			// `params.term` should be the term that is used for searching
     			// `data.text` is the text that is displayed for the data object
-    			if (data.text.indexOf(params.term) === 0) {
+    			if (text.indexOf(param) === 0) {
     				var modifiedData = $.extend({}, data, true);
     				// modifiedData.text += ' (matched)';
 

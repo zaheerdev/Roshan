@@ -117,7 +117,7 @@
 									</tr>
 								</thead>
 								<tbody>
-									
+
 									<?php if (!empty($paid_amount)) : ?>
 										<!-- if record found -->
 										<?php foreach ($paid_amount as $amount) : ?>
@@ -149,19 +149,23 @@
 									<tr>
 										<th scope="col">Seller Name</th>
 										<th scope="col">Dukandar Name</th>
+										<th scope="col">Dukandar Address</th>
 										<th scope="col">Collected Amount</th>
 										<th scope="col">Date</th>
 									</tr>
 								</thead>
 								<tbody>
-									
+
 									<?php if (!empty($collected_amount)) : ?>
+										<?php $total_collected_amount = 0; ?>
 										<!-- if record found -->
 										<?php foreach ($collected_amount as $amount) : ?>
+											<?php $total_collected_amount += $amount->collected_amount; ?>
 											<tr>
 												<?php if ($amount->user_name) : ?>
 													<td><?= $amount->user_name ?></td>
 													<td><?= $amount->vendor_name ?></td>
+													<td><?= $amount->vendor_address ?></td>
 													<td><?= round($amount->collected_amount) ?></td>
 													<td><?= $filter ?? $amount->created_at ?></td>
 												<?php else : ?>
@@ -169,6 +173,14 @@
 												<?php endif; ?>
 											</tr>
 										<?php endforeach; ?>
+										<!-- row for showing total -->
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td><?='Total: '.round($total_collected_amount) ?></td>
+											<td></td>
+										</tr>
 									<?php else : ?>
 										<tr>
 											<td>Nothing found for today. You can apply date filter.</td>
