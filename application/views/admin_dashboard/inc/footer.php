@@ -82,18 +82,54 @@
     	});
     </script>
     <script>
-    	$(function() {
-    		
+		$(document).ready(function() {
+    		var table = $('#example0').DataTable({
+    			"paging": true,
+    			"lengthChange": false,
+				"searching" : true,
+    			"ordering": true,
+				"order": [[0, 'desc']],
+				"order": 'decs',
+    			"info": true,
+    			"autoWidth": false,
+    			"responsive": true,
+    		});
+
+    		// Add search input fields outside the table
+    		$('#example0').before('<div class="my-2 form-inline" id="searchInputs"></div>');
+    		var columnsToSearch = [1, 4]; // Specify the columns to add search fields to
+    		columnsToSearch.forEach(function(index) {
+    			var title = table.column(index).header().innerText;
+    			$('#searchInputs').append('<input class="mr-2 form-control" type="text" placeholder="Search ' + title + '" id="searchInput_' + index + '" />');
+    		});
+
+    		// Apply the search to the respective columns
+    		$('#searchInputs input').on('input', function() {
+    			var columnIndex = $(this).attr('id').split('_')[1];
+    			var val = $.fn.dataTable.util.escapeRegex($(this).val());
+    			table.column(columnIndex).search('^' + val, true, false).draw();
+    		});
+			// disable default searchbar
+			$('#example0_filter').hide()
+
+    	});
+    	
+    </script>
+    <!-- datatable searching -->
+    <script>
+		$(function() {
     		$('#example1').DataTable({
     			"paging": true,
     			"lengthChange": false,
     			"searching": true,
     			"ordering": true,
+				"order": [[0, 'desc']],
     			"info": true,
     			"autoWidth": false,
     			"responsive": true,
     		});
     	});
+    	
     </script>
     <!-- dashborad chart -->
 
