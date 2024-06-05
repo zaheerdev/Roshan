@@ -81,15 +81,17 @@
     		});
     	});
     </script>
+	<!-- datatable with custom searching  -->
     <script>
-		$(document).ready(function() {
+    	$(document).ready(function() {
     		var table = $('#example0').DataTable({
     			"paging": true,
     			"lengthChange": false,
-				"searching" : true,
+    			"searching": true,
     			"ordering": true,
-				"order": [[0, 'desc']],
-				"order": 'decs',
+    			"order": [
+    				[0, 'desc']
+    			],
     			"info": true,
     			"autoWidth": false,
     			"responsive": true,
@@ -109,27 +111,25 @@
     			var val = $.fn.dataTable.util.escapeRegex($(this).val());
     			table.column(columnIndex).search('^' + val, true, false).draw();
     		});
-			// disable default searchbar
-			$('#example0_filter').hide()
+    		// disable default searchbar
+    		$('#example0_filter').hide()
 
     	});
-    	
     </script>
-    <!-- datatable searching -->
+    <!-- datatable  -->
     <script>
-		$(function() {
+    	$(function() {
     		$('#example1').DataTable({
     			"paging": true,
     			"lengthChange": false,
     			"searching": true,
     			"ordering": true,
-				"order": [[0, 'desc']],
+    			"order": [[0, 'desc']],
     			"info": true,
     			"autoWidth": false,
     			"responsive": true,
     		});
     	});
-    	
     </script>
     <!-- dashborad chart -->
 

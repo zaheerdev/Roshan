@@ -55,7 +55,7 @@
 									<?php if (!empty($records)) : ?>
 										<?php foreach ($records as $record) : ?>
 											<tr>
-												<td>RTA-<?= $record->vendor_id ?></td>
+												<td><?= $record->vendor_id ?></td>
 												<td><?= $record->vendor_name ?></td>
 												<td><?= $record->user_name ?></td>
 												<td><?= $record->total_sub_total ?></td>
