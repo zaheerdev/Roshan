@@ -136,11 +136,11 @@ class Seller_model extends CI_Model
 			$end_date = $filterdate[1];
 			$this->db->where('DATE(sca.created_at) >=', $start_date);
 			$this->db->where('DATE(sca.created_at) <=', $end_date);
+		}else{
+			$this->db->where('DATE(sca.created_at)',$date);
 		}
-		$this->db->where('DATE(sca.created_at)',$date);
 		$this->db->group_by('sca.vendor_id');
 		return $this->db->get()->result();
-		// dd($this->db->get()->result());
 	}
 
 
