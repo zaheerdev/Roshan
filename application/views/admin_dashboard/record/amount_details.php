@@ -35,12 +35,20 @@
 </div>
 <?php if((int)$total_due_amount > 0):?>
 <div class="card-footer">
-    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="submit" class="btn btn-primary" >Submit</button>
 </div>
 <?php endif;?>
 
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$('#vendor_payment_form').on('submit',function(){
+			let confrim = confirm('are you sure you want to pay: '+ $("input[name='pay_amount']").val());
+			return confrim;
+		});
+	});
+</script>
 <script>
     $(document).ready(function() {
         var Details = <?php echo json_encode($details); ?>;

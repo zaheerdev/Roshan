@@ -4,185 +4,187 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
 
-    <!-- Content Header (Page header) -->
-    <div class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1 class="m-0">Deliver Order</h1>
-                </div>
-                <div class="col-sm-6">
-                    <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Deliver Order</li>
-                    </ol>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- /.content-header -->
+	<!-- Content Header (Page header) -->
+	<div class="content-header">
+		<div class="container-fluid">
+			<div class="row mb-2">
+				<div class="col-sm-6">
+					<h1 class="m-0">Deliver Order</h1>
+				</div>
+				<div class="col-sm-6">
+					<ol class="breadcrumb float-sm-right">
+						<li class="breadcrumb-item"><a href="#">Home</a></li>
+						<li class="breadcrumb-item active">Deliver Order</li>
+					</ol>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- /.content-header -->
 
-    <!-- Main content -->
-    <section class="content">
-        <div class="container-fluid">
-            <div class="row">
-                <!-- left column -->
-                <div class="col-md-12">
-                     <!-- error message -->
-                <?php if ($this->session->flashdata('error')) : ?>
-                    <div class="alert alert-danger alert-dismissible fade show" role="alert">
-                        <?= $this->session->flashdata('error') ?>
-                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                <?php endif; ?>
-                    <!-- general form elements -->
-                    <div class="card card-primary">
-                        <div class="card-header">
-                            <h3 class="card-title">Deliver Order</h3>
-                        </div>
-                        <!-- /.card-header -->
+	<!-- Main content -->
+	<section class="content">
+		<div class="container-fluid">
+			<div class="row">
+				<!-- left column -->
+				<div class="col-md-12">
+					<!-- error message -->
+					<?php if ($this->session->flashdata('error')) : ?>
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<?= $this->session->flashdata('error') ?>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					<?php endif; ?>
+					<!-- general form elements -->
+					<div class="card card-primary">
+						<div class="card-header">
+							<h3 class="card-title">Deliver Order</h3>
+						</div>
+						<!-- /.card-header -->
 
-                        <!-- search form -->
-                        <div class="card-body">
-                            <form id="search_form" action="#" method="post">
-                                <div class="form-group">
-                                    <label>Order ID</label>
-                                    <div class="row">
-                                        <div class="col-md-6 pb-3">
-                                            <input type="search" class="form-control" id="order_id" name="order_id" value="<?php echo isset($order_id) ? $order_id : '' ;?>" placeholder="Enter Order ID">
-                                        </div>
-										<?php if(!isset($order_id)):?>
-                                        <div class="col-md-4">
-                                            <input type="submit" class="btn btn-primary" value="Search">
-                                        </div>
-										<?php endif;?>
-                                    </div>
-                                </div>
-                            </form>
-                        </div>
+						<!-- search form -->
+						<div class="card-body">
+							<form id="search_form" action="#" method="post">
+								<div class="form-group">
+									<label>Order ID</label>
+									<div class="row">
+										<div class="col-md-6 pb-3">
+											<input type="search" class="form-control" id="order_id" name="order_id" value="<?php echo isset($order_id) ? $order_id : ''; ?>" placeholder="Enter Order ID">
+										</div>
+										<?php if (!isset($order_id)) : ?>
+											<div class="col-md-4">
+												<input type="submit" class="btn btn-primary" value="Search">
+											</div>
+										<?php endif; ?>
+									</div>
+								</div>
+							</form>
+						</div>
 
-                        <form action="<?= BASE_URL ?>order/save_deliver_order" method="post" id="deliver_order_form">
-                            <div id="order_details"></div>
-                        </form>
+						
+						
+						<form action="<?= BASE_URL ?>order/save_deliver_order" method="post" id="deliver_order_form">
+							<div id="order_details"></div>
+						</form>
 
-                    </div>
-                    <!-- /.card -->
-                </div>
-                <!--/.col (left) -->
-            </div>
-            <!-- /.row -->
-        </div><!-- /.container-fluid -->
-    </section>
-    <!-- /.content -->
+					</div>
+					<!-- /.card -->
+				</div>
+				<!--/.col (left) -->
+			</div>
+			<!-- /.row -->
+		</div><!-- /.container-fluid -->
+	</section>
+	<!-- /.content -->
 
 
-    <!-- /.content-wrapper -->
+	<!-- /.content-wrapper -->
 </div>
 <!-- ./wrapper -->
 
 <?php require_once(APPPATH . 'views/admin_dashboard/inc/footer.php'); ?>
 
 <script>
-    $(document).ready(function() {
+	$(document).ready(function() {
 
-        $('#search_form').submit(function(e) {
-            e.preventDefault();
-            var order_id = $('#order_id').val();
-            $.ajax({
-                type: 'POST',
-                url: '<?php echo BASE_URL; ?>order/get_order_details',
-                data: {
-                    order_id: order_id
-                },
-                success: function(response) {
-                    $('#order_details').html(response);
-                }
-            });
-        });
+		$('#search_form').submit(function(e) {
+			e.preventDefault();
+			var order_id = $('#order_id').val();
+			$.ajax({
+				type: 'POST',
+				url: '<?php echo BASE_URL; ?>order/get_order_details',
+				data: {
+					order_id: order_id
+				},
+				success: function(response) {
+					$('#order_details').html(response);
+				}
+			});
+		});
 
-        // Initialize Toastr
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
+		// Initialize Toastr
+		toastr.options = {
+			"closeButton": true,
+			"debug": false,
+			"newestOnTop": false,
+			"progressBar": true,
+			"positionClass": "toast-top-right",
+			"preventDuplicates": false,
+			"onclick": null,
+			"showDuration": "300",
+			"hideDuration": "1000",
+			"timeOut": "5000",
+			"extendedTimeOut": "1000",
+			"showEasing": "swing",
+			"hideEasing": "linear",
+			"showMethod": "fadeIn",
+			"hideMethod": "fadeOut"
+		};
 
-        // Function to trigger a toast message
-        function showToast(message, type) {
-            toastr[type](message);
-        }
+		// Function to trigger a toast message
+		function showToast(message, type) {
+			toastr[type](message);
+		}
 
-    });
+	});
 </script>
 
-<?php if(isset($order_id)):?>
+<?php if (isset($order_id)) : ?>
 	<script>
-    $(document).ready(function() {
+		$(document).ready(function() {
 
-            var order_id = $('#order_id').val();
-            $.ajax({
-                type: 'POST',
-                url: '<?php echo BASE_URL; ?>order/get_order_details',
-                data: {
-                    order_id: order_id
-                },
-                success: function(response) {
-                    $('#order_details').html(response);
-                }
-            });
-        
+			var order_id = $('#order_id').val();
+			$.ajax({
+				type: 'POST',
+				url: '<?php echo BASE_URL; ?>order/get_order_details',
+				data: {
+					order_id: order_id
+				},
+				success: function(response) {
+					$('#order_details').html(response);
+				}
+			});
 
-        // Initialize Toastr
-        toastr.options = {
-            "closeButton": true,
-            "debug": false,
-            "newestOnTop": false,
-            "progressBar": true,
-            "positionClass": "toast-top-right",
-            "preventDuplicates": false,
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-        };
 
-        // Function to trigger a toast message
-        function showToast(message, type) {
-            toastr[type](message);
-        }
+			// Initialize Toastr
+			toastr.options = {
+				"closeButton": true,
+				"debug": false,
+				"newestOnTop": false,
+				"progressBar": true,
+				"positionClass": "toast-top-right",
+				"preventDuplicates": false,
+				"onclick": null,
+				"showDuration": "300",
+				"hideDuration": "1000",
+				"timeOut": "5000",
+				"extendedTimeOut": "1000",
+				"showEasing": "swing",
+				"hideEasing": "linear",
+				"showMethod": "fadeIn",
+				"hideMethod": "fadeOut"
+			};
 
-    });
-</script>
-<?php endif;?>
+			// Function to trigger a toast message
+			function showToast(message, type) {
+				toastr[type](message);
+			}
+
+		});
+	</script>
+<?php endif; ?>
 
 <?php if ($this->session->flashdata('toast_message')) : ?>
-    <script>
-        $(document).ready(function() {
-            var message = "<?php echo $this->session->flashdata('toast_message'); ?>";
-            showToast(message, 'success');
-        });
+	<script>
+		$(document).ready(function() {
+			var message = "<?php echo $this->session->flashdata('toast_message'); ?>";
+			showToast(message, 'success');
+		});
 
-        function showToast(message, type) {
-            toastr[type](message);
-        }
-    </script>
+		function showToast(message, type) {
+			toastr[type](message);
+		}
+	</script>
 <?php endif; ?>

@@ -37,6 +37,92 @@ class Order extends CI_Controller
 	// public function gg(){
 	// 	dd($this->order_model->get_assinged_products());
 	// }
+
+	// functions for all orders
+	public function all_orders()
+	{
+		$result = $this->order_model->get_all_orders();
+		$data['page_title'] = "Roshan | Order List";
+		$data['orders'] = $result;
+		$this->load->view('admin_dashboard/order/all_orders', $data);
+		// dd($result);
+	}
+	// edit product
+	public function edit_order($order_user_id, $order_id)
+	{
+		if ($this->user_role == 1) {
+			$data['page_title'] = "Roshan | Order List";
+			$data['orders'] = $this->order_model->get_order_by_id($order_id);
+			$data['vendors'] = $this->vendor_model->get_vendors(null);
+			$data['product_items'] = $this->order_model->get_product_items();
+			// dd($data);
+			$this->load->view('admin_dashboard/order/edit_order', $data);
+		} else {
+			if ($order_user_id == $this->user_id) {
+				$data['page_title'] = "Roshan | Order List";
+				$data['orders'] = $this->order_model->get_order_by_id($order_id);
+				$data['vendors'] = $this->vendor_model->get_vendors($this->user_id);
+				$data['product_items'] = $this->order_model->get_product_items();
+				// dd($data);
+				$this->load->view('admin_dashboard/order/edit_order', $data);
+			} else {
+				return redirect(BASE_URL . 'dashboard');
+			}
+		}
+	}
+	// public function cancel order
+	public function cancel_order($user_id, $order_id)
+	{
+		date_default_timezone_set('Asia/Karachi');
+		$date = date('Y-m-d');
+		if ($this->user_role == 1) {
+			$order = array(
+				'user_id' => $this->user_id,
+				'order_id' => $order_id,
+				'created_at' => $date
+			);
+			$this->order_model->cancel_order($order);
+			$this->session->set_flashdata('cancel', 'Order cancelled successfully');
+			return redirect(BASE_URL . 'order/all_orders');
+		} else {
+			$result = $this->order_model->seller_cancel_confrim($user_id,$order_id);
+			
+			if (!empty($result)) {
+				$order = array(
+					'user_id' => $this->user_id,
+					'order_id' => $order_id,
+					'created_at' => $date
+				);
+				$this->order_model->cancel_order($order);
+				$this->session->set_flashdata('cancel', 'Order cancelled successfully');
+				return redirect(BASE_URL . 'order/all_orders');
+			} else {
+				return redirect(BASE_URL . 'dashboard');
+			}
+		}
+	}
+	// delete cancelled order
+	public function delete_cancelled($order_id)
+	{
+		if($this->user_role == 1){
+			if($this->order_model->if_cancelled($order_id)){
+				$status = $this->order_model->delete_cancelled_order($order_id);
+				if($status === TRUE){
+					$this->session->set_flashdata('success','Order deleted successfully');
+					return redirect(BASE_URL . 'order/all_orders');
+				}else{
+					$this->session->set_flashdata('fail','Something went wrong please try again');
+					return redirect(BASE_URL . 'order/all_orders');
+				}
+			}else{
+				$this->session->set_flashdata('cannot','Order cannot be deleted. it was not cancelled.');
+				return redirect(BASE_URL . 'order/all_orders');
+			}
+				
+		}else{
+			redirect(BASE_URL.'dashboard');
+		}
+	}
 	// Function for booking order
 	public function book_order()
 	{
@@ -235,7 +321,7 @@ class Order extends CI_Controller
 		$deliver_order_id = $this->order_model->save_deliver_order($data);
 
 		// add pay amount to collected amount
-		if($paid_amount != 0){
+		if ($paid_amount != 0) {
 			$collected = array(
 				'user_id' => $this->user_id,
 				'vendor_id' => $vendor_id,
@@ -243,7 +329,7 @@ class Order extends CI_Controller
 			);
 			$this->seller_model->insert_collected_amount($collected);
 		}
-		
+
 
 		if ($deliver_order_id) {
 			$this->session->set_flashdata('toast_message', 'Order delivered successfully');

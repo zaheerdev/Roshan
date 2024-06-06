@@ -32,6 +32,14 @@
  					</a>
  				</li>
  				<li class="nav-item">
+ 					<a href="<?= BASE_URL ?>order/all_orders" class="nav-link">
+ 						<i class="nav-icon fas fa-tachometer-alt"></i>
+ 						<p>
+ 							Orders
+ 						</p>
+ 					</a>
+ 				</li>
+ 				<li class="nav-item">
  					<a href="<?= BASE_URL ?>order/book_order" class="nav-link">
  						<i class="nav-icon fas fa-edit"></i>
  						<p>

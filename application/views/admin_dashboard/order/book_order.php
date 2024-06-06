@@ -80,7 +80,7 @@
 											<td>
 												<div class="form-group">
 													<label for="quantity">Quantity</label>
-													<input type="number" class="form-control quantity">
+													<input min="1" type="number" class="form-control quantity">
 												</div>
 											</td>
 											<td class="total">
@@ -125,13 +125,15 @@
 
 <script>
 	$(document).ready(function() {
+
 		$('#book_order_form button[type="submit"]').prop('disabled', true);
 
 		$('#book_order_form').on('change', '.item_select, .quantity', function() {
 			var selectedItemId = $(this).closest('.order_item').find('.item_select').val();
 			var selectedQuantity = parseInt($(this).closest('.order_item').find('.quantity').val());
-
+			var addtoquantity = $(this).closest('.order_item').find('.quantity')
 			if (selectedItemId && selectedQuantity) {
+				let itemQuantity = null
 				<?php if ($this->session->userdata('user_session')->role_id == 1) : ?>
 					$.ajax({
 						url: 'check_product_quantity',
@@ -140,12 +142,14 @@
 							id: selectedItemId
 						},
 						success: function(response) {
-							var itemQuantity = parseInt(response);
+							itemQuantity = parseInt(response);
 							if (itemQuantity >= selectedQuantity) {
 								$('#book_order_form button[type="submit"]').prop('disabled', false);
+								
 							} else {
 								$('#book_order_form button[type="submit"]').prop('disabled', true);
 								alert("Out of stock or invalid quantity");
+								
 							}
 						}.bind(this),
 						error: function() {
@@ -186,11 +190,17 @@
 
 		$('#add-row').click(function(event) {
 			event.preventDefault();
-			var lastRow = $('#items-table tbody tr:last');
-			var newRow = lastRow.clone();
+			var firstRow = $('#items-table tbody tr:first');
+			var newRow = firstRow.clone();
+
 			newRow.find('input').val('');
 			newRow.find('.total input').val('0');
-			lastRow.after(newRow);
+			newRow.append('<td class="pt-5"><button class="btn btn-sm btn-danger delete-row-btn">Delete</button></td>');
+			$('#items-table tbody tr:last').after(newRow);
+		});
+		// delete duplicated row
+		$('#items-table').on('click', '.delete-row-btn', function() {
+			$(this).closest('tr').remove();
 		});
 
 		$(document).on('change', '.item_select', function() {
@@ -240,8 +250,8 @@
 		$('#book_order_form').submit(function(event) {
 			event.preventDefault();
 			// disable submit button when ordered
-			$('#submit-btn').attr('disabled',true);
-			
+			$('#submit-btn').attr('disabled', true);
+
 			var vendorId = $('select[name="vendor_id"]').val();
 			var productItems = [];
 
