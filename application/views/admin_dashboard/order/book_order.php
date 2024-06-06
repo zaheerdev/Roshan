@@ -99,7 +99,7 @@
 							</div>
 							<!-- /.card-body -->
 							<div class="card-footer">
-								<button type="submit" class="btn btn-primary">Deliver Order</button>
+								<button id="submit-btn" type="submit" class="btn btn-primary">Deliver Order</button>
 								<button type="button" id="cancel-button" class="btn btn-default">Cancel</button>
 							</div>
 						</form>
@@ -165,7 +165,7 @@
 								$('#book_order_form button[type="submit"]').prop('disabled', false);
 							} else {
 								$('#book_order_form button[type="submit"]').prop('disabled', true);
-								alert("Your Assinged quantity is "+itemQuantity+". You cannot deliver "+selectedQuantity);
+								alert("Your Assinged quantity is " + itemQuantity + ". You cannot deliver " + selectedQuantity);
 							}
 						}.bind(this),
 						error: function() {
@@ -176,6 +176,7 @@
 			}
 
 		});
+
 	});
 </script>
 
@@ -238,7 +239,9 @@
 		// Submit form
 		$('#book_order_form').submit(function(event) {
 			event.preventDefault();
-
+			// disable submit button when ordered
+			$('#submit-btn').attr('disabled',true);
+			
 			var vendorId = $('select[name="vendor_id"]').val();
 			var productItems = [];
 

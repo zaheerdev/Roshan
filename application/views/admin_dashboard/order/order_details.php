@@ -83,7 +83,7 @@
 	if (is_order_delivered($order_id)) : ?>
 		<button type="button" class="btn btn-danger" disabled>Delivered</button>
 	<?php else : ?>
-		<button type="submit" class="btn btn-primary">Deliver Order Now</button>
+		<button id="submit-btn" type="submit" class="btn btn-primary">Deliver Order Now</button>
 	<?php endif; ?>
 </div>
 
@@ -91,7 +91,12 @@
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
 	$(document).ready(function() {
-
+		// disable submit btn when delivered
+		$('#deliver_order_form').submit(function(e){
+			// e.preventDefault()
+			$('#submit-btn').attr('disabled',true);
+		});
+		
 		var orderDetails = <?php echo json_encode($order_details); ?>;
 		var totalInput = $("#total");
 		var paidAmountInput = $("#paid_amount");
