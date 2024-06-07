@@ -325,6 +325,7 @@ class Order extends CI_Controller
 		// add pay amount to collected amount
 		if ($paid_amount != 0) {
 			$collected = array(
+				'order_id' => $order_id,
 				'user_id' => $this->user_id,
 				'vendor_id' => $vendor_id,
 				'collected_amount' => $paid_amount

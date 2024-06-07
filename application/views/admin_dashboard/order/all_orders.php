@@ -86,7 +86,9 @@
 									<th scope="col">Product</th>
 									<th scope="col">Quantity</th>
 									<th scope="col">Total</th>
+									<?php if( $this->session->userdata('user_session')->role_id == 1 ): ?>
 									<th scope="col">Cancelled</th>
+									<?php endif;?>
 									<th scope="col">Action</th>
 									
 								</tr>
@@ -104,7 +106,9 @@
 											<td><?= $order->product_name ?></td>
 											<td><?= $order->quantity ?></td>
 											<td><?= $order->total ?></td>
+											<?php if( $this->session->userdata('user_session')->role_id == 1 ): ?>
 											<td><?= $order->c_id ? 'cancelled on<br>'.$order->c_time: ''; ?></td>
+											<?php endif;?>
 											<td>
 												<?php if( $this->session->userdata('user_session')->role_id == 1 ): ?>
 												<?php if($order->c_id != ''): ?>

@@ -58,8 +58,32 @@ class Order_model extends CI_Model
 	// delete cancelled order
 	public function delete_cancelled_order($order_id)
 	{
+		$order_quantity = null;
+		// $item_quantity = null;
+		// for adding asinging quantity back to user 
+		$user_id = null;
+		$product_id = null;
+		$quantity = null;
+
 
 		$this->db->trans_start();
+
+		$orders = $this->get_order_by_id($order_id);
+		foreach($orders as $order){
+			$user_id = $order->user_id;
+			$product_id = $order->product_id;
+			$quantity = $order->quantity;
+			// update seller stock
+			$this->db->set('quantity', 'quantity + ' . (int)$quantity, FALSE);
+        	$this->db->where('user_id', (int)$user_id);
+        	$this->db->where('product_id', (int)$product_id);
+        	$this->db->update('seller_stock');
+			// update product quantity
+			$this->db->set('quantity', 'quantity + ' . (int)$quantity, FALSE);
+        	$this->db->where('id', (int)$product_id);
+        	$this->db->update('product_items');
+		}
+		
 
 		$this->db->where('order_id', $order_id);
 		$this->db->delete('orders');
@@ -69,6 +93,9 @@ class Order_model extends CI_Model
 
 		$this->db->where('order_id', $order_id);
 		$this->db->delete('cancel_order');
+
+		$this->db->where('order_id', $order_id);
+		$this->db->delete('seller_collected_amount');
 
 		$this->db->trans_complete();
 
