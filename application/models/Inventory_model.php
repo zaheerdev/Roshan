@@ -33,11 +33,11 @@ class Inventory_model extends CI_Model
         $query = $this->db->get('raw_materials');
 
         if ($query->num_rows() > 0) {
-            $row = $query->row();
-            $new_quantity = $row->quantity + $inventory['quantity'];
+            // $row = $query->row();
+            // $new_quantity = $row->quantity + $inventory['quantity'];
 
             $this->db->where('id', $material_id);
-            return $this->db->update('raw_materials', array('quantity' => $new_quantity));
+            return $this->db->update('raw_materials', array('quantity' => $inventory['quantity']));
         } else {
             $inventory['id'] = $material_id;
             return $this->db->insert('raw_materials', $inventory);

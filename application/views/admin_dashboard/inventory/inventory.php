@@ -151,7 +151,7 @@
 														<td>
 															<div class="form-group">
 																<label for="quantity">Quantity</label>
-																<input type="number" class="form-control quantity" name="quantity">
+																<input type="text" inputmode="decimal" id="float-input" pattern="[0-9]*[.,]?[0-9]*" class="form-control quantity" name="quantity">
 															</div>
 														</td>
 													</tr>
