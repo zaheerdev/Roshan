@@ -203,11 +203,27 @@
 			$(this).closest('tr').remove();
 		});
 
+		// storing products in jquery
+		let products = <?=json_encode($product_items)?>;
+
 		$(document).on('change', '.item_select', function() {
 			var selectedPrice = parseFloat($(this).find('option:selected').data('price'));
 			$(this).closest('tr').find('.price_input').val(selectedPrice);
 			var total = selectedPrice;
 			$(this).closest('tr').find('.total input').val(total);
+			// adding assinged quantity placeholder on input chnaged
+			
+			var valueofitem = $(this).find('option:selected').val();
+			for(let i=0;i<products.length;i++){
+				if(products[i].id == valueofitem){
+					if(products[i].asinged_quantity){
+						$(this).closest('tr').find('.quantity').attr('placeholder',products[i].asinged_quantity);
+					}else{
+						$(this).closest('tr').find('.quantity').attr('placeholder',products[i].quantity);
+					}
+					
+				}
+			}
 		});
 
 		$('#items-table').on('change', 'input.quantity', function() {

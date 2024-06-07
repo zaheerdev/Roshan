@@ -79,6 +79,7 @@
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
+									<th scope="col">ID</th>
 									<th scope="col">Order ID</th>
 									<th scope="col">Seller</th>
 									<th scope="col">Dukandar</th>
@@ -96,6 +97,7 @@
 									
 									<?php foreach ($orders as $order) : ?>
 										<tr>
+											<td><?= $order->id ?></td>
 											<td><?= $order->order_id ?></td>
 											<td><?= $order->seller_name ?></td>
 											<td><?= $order->vendor_name ?></td>

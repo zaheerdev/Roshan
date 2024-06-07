@@ -8,7 +8,7 @@ class Order_model extends CI_Model
 	{
 		$user_role = $this->session->userdata('user_session')->role_id;
 		$user_id = $this->session->userdata('user_session')->id;
-		$this->db->select("o.order_id,o.user_id,u.name as seller_name,v.vendor_name,p.product_name,o.quantity,o.total,co.order_id as c_id,co.created_at as c_time");
+		$this->db->select("o.id,o.order_id,o.user_id,u.name as seller_name,v.vendor_name,p.product_name,o.quantity,o.total,co.order_id as c_id,co.created_at as c_time");
 		$this->db->from("orders o");
 		$this->db->join("users u", 'u.id = o.user_id');
 		$this->db->join("vendors v", 'v.id = o.vendor_id');
@@ -84,7 +84,17 @@ class Order_model extends CI_Model
 	// Getting product items 
 	public function get_product_items()
 	{
-		return $this->db->get('product_items')->result_array();
+		if($this->session->userdata('user_session')->role_id == 2){
+			$this->db->select('pi.id,pi.product_name,pi.price,pi.quantity,ss.quantity as asinged_quantity')->from('product_items pi');
+			$this->db->join('seller_stock ss'," ss.product_id = pi.id");
+			return $this->db->get()->result_array();
+		}else{
+			return $this->db->select('*')->from('product_items pi')->get()->result_array();
+		}
+		
+		
+		
+		
 	} // function ends
 
 	/**

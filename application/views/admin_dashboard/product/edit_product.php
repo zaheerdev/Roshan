@@ -66,7 +66,7 @@
 							</div>
 							<div class="form-group w-sm-100 w-lg-50">
 								<label for="exampleInputEmail1">Quantity</label>
-								<input type="number" min="1" name="quantity" value="<?= $product->quantity ?>" class="form-control" placeholder="Price">
+								<input type="number" min="0" name="quantity" value="<?= $product->quantity ?>" class="form-control" placeholder="Price">
 
 							</div>
 							
