@@ -20,10 +20,6 @@
 			</div>
 		</div>
 		<div class="cancel">
-		<div>
-			<a class="btn btn-danger" href="<?= BASE_URL . 'order/cancel_order/' . $order_details[0]->user_id . '/' . $order_details[0]->order_id; ?>">Cancel Order</a>
-		</div>
-		</div>
 
 	<?php
 	endif; ?>

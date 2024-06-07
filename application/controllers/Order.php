@@ -48,6 +48,7 @@ class Order extends CI_Controller
 		// dd($result);
 	}
 	// edit product
+	// not using this yet.......
 	public function edit_order($order_user_id, $order_id)
 	{
 		if ($this->user_role == 1) {
@@ -85,20 +86,21 @@ class Order extends CI_Controller
 			$this->session->set_flashdata('cancel', 'Order cancelled successfully');
 			return redirect(BASE_URL . 'order/all_orders');
 		} else {
-			$result = $this->order_model->seller_cancel_confrim($user_id,$order_id);
+			return redirect(BASE_URL.'dashboard');
+			// $result = $this->order_model->seller_cancel_confrim($user_id,$order_id);
 			
-			if (!empty($result)) {
-				$order = array(
-					'user_id' => $this->user_id,
-					'order_id' => $order_id,
-					'created_at' => $date
-				);
-				$this->order_model->cancel_order($order);
-				$this->session->set_flashdata('cancel', 'Order cancelled successfully');
-				return redirect(BASE_URL . 'order/all_orders');
-			} else {
-				return redirect(BASE_URL . 'dashboard');
-			}
+			// if (!empty($result)) {
+			// 	$order = array(
+			// 		'user_id' => $this->user_id,
+			// 		'order_id' => $order_id,
+			// 		'created_at' => $date
+			// 	);
+			// 	$this->order_model->cancel_order($order);
+			// 	$this->session->set_flashdata('cancel', 'Order cancelled successfully');
+			// 	return redirect(BASE_URL . 'order/all_orders');
+			// } else {
+			// 	return redirect(BASE_URL . 'dashboard');
+			// }
 		}
 	}
 	// delete cancelled order

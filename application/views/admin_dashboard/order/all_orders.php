@@ -106,12 +106,15 @@
 											<td><?= $order->total ?></td>
 											<td><?= $order->c_id ? 'cancelled on<br>'.$order->c_time: ''; ?></td>
 											<td>
-												
+												<?php if( $this->session->userdata('user_session')->role_id == 1 ): ?>
 												<?php if($order->c_id != ''): ?>
-												<a class="btn btn-danger mt-1" href="<?=BASE_URL.'order/delete_cancelled/'.$order->order_id;?>" onclick="return confirm('are you sure to delete order no:<?= $order->order_id ?>')">Delete Cancelled Order</a>
+												<a class="btn btn-sm btn-danger mt-1" href="<?=BASE_URL.'order/delete_cancelled/'.$order->order_id;?>" onclick="return confirm('are you sure to delete order no:<?= $order->order_id ?>')">Delete Cancelled Order</a>
 												<?php else:?>
-													<a class="btn btn-danger mt-1" href="<?=BASE_URL.'order/cancel_order/'.$order->user_id.'/'.$order->order_id;?>" onclick="return confirm('are you sure to cancel order no: <?= $order->order_id ?>')">Cancel Order</a>
+													<a class="btn btn-sm btn-danger mt-1" href="<?=BASE_URL.'order/cancel_order/'.$order->user_id.'/'.$order->order_id;?>" onclick="return confirm('are you sure to cancel order no: <?= $order->order_id ?>')">Cancel Order</a>
 												<?php endif;?>
+												<?php endif;?>
+												
+												<a href="<?=BASE_URL.'order/preview_deliver_order/'.$order->order_id ?>" class="btn btn-sm btn-primary mt-1">Preview Order</a>
 											</td>
 										</tr>
 									<?php endforeach; ?>

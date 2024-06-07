@@ -87,6 +87,7 @@ class Order_model extends CI_Model
 		if($this->session->userdata('user_session')->role_id == 2){
 			$this->db->select('pi.id,pi.product_name,pi.price,pi.quantity,ss.quantity as asinged_quantity')->from('product_items pi');
 			$this->db->join('seller_stock ss'," ss.product_id = pi.id");
+			$this->db->where('ss.user_id',$this->session->userdata('user_session')->id);
 			return $this->db->get()->result_array();
 		}else{
 			return $this->db->select('*')->from('product_items pi')->get()->result_array();
