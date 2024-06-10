@@ -158,8 +158,11 @@ class Sellers extends CI_Controller
 				$data['id'] = $id;
 				$data['page_title'] = "Roshan | Seller Paid Amount Details";
 				$data['user_role'] = $this->user_role;
-				$paid_amount = $this->seller_model->get_paid_details($id, $filter);
-				$data['paid_amount'] = $paid_amount;
+				// not using yet
+				// $paid_amount = $this->seller_model->get_paid_details($id, $filter);
+				// $data['paid_amount'] = $paid_amount;
+				$daily_orders = $this->seller_model->daily_delivered_orders($id, $filter);
+				$data['daily_orders'] = $daily_orders;
 				$data['filter'] = $filter;
 				$data['collected_amount'] = $this->seller_model->get_collected_amount($id, $filter);
 				$this->load->view('admin_dashboard/seller/paid_amount', $data);
@@ -167,8 +170,11 @@ class Sellers extends CI_Controller
 				$data['id'] = $id;
 				$data['user_role'] = $this->user_role;
 				$data['page_title'] = "Roshan | Seller Paid Amount Details";
-				$paid_amount = $this->seller_model->get_paid_details($id, $filter);
-				$data['paid_amount'] = $paid_amount;
+				// not using this yet
+				// $paid_amount = $this->seller_model->get_paid_details($id, $filter);
+				// $data['paid_amount'] = $paid_amount;
+				$daily_orders = $this->seller_model->daily_delivered_orders($id, $filter);
+				$data['daily_orders'] = $daily_orders;
 				$data['collected_amount'] = $this->seller_model->get_collected_amount($id, null);
 				$this->load->view('admin_dashboard/seller/paid_amount', $data);
 			}
@@ -181,8 +187,11 @@ class Sellers extends CI_Controller
 				$data['id'] = $id;
 				$data['page_title'] = "Roshan | Seller Paid Amount Details";
 				$data['user_role'] = $this->user_role;
-				$paid_amount = $this->seller_model->get_paid_details($this->user_id, $filter);
-				$data['paid_amount'] = $paid_amount;
+				// not using this yet
+				// $paid_amount = $this->seller_model->get_paid_details($this->user_id, $filter);
+				// $data['paid_amount'] = $paid_amount;
+				$daily_orders = $this->seller_model->daily_delivered_orders($this->user_id, $filter);
+				$data['daily_orders'] = $daily_orders;
 				$data['filter'] = $filter;
 				$data['collected_amount'] = $this->seller_model->get_collected_amount($this->user_id, $filter);
 				$this->load->view('admin_dashboard/seller/paid_amount', $data);
@@ -190,8 +199,11 @@ class Sellers extends CI_Controller
 				$data['id'] = $id;
 				$data['user_role'] = $this->user_role;
 				$data['page_title'] = "Roshan | Seller Paid Amount Details";
-				$paid_amount = $this->seller_model->get_paid_details($this->user_id, $filter);
-				$data['paid_amount'] = $paid_amount;
+				// not using yet
+				// $paid_amount = $this->seller_model->get_paid_details($this->user_id, $filter);
+				// $data['paid_amount'] = $paid_amount;
+				$daily_orders = $this->seller_model->daily_delivered_orders($this->user_id, $filter);
+				$data['daily_orders'] = $daily_orders;
 				$data['collected_amount'] = $this->seller_model->get_collected_amount($this->user_id, null);
 				$this->load->view('admin_dashboard/seller/paid_amount', $data);
 			}

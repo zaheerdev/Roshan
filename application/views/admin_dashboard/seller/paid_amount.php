@@ -110,23 +110,33 @@
 							<table id="example1" class="table table-bordered table-striped">
 								<thead>
 									<tr>
-										<th scope="col">Name</th>
-										<th scope="col">Paid Amount</th>
-										<th scope="col">Due Amount</th>
+										<th scope="col">Seller Name</th>
+										<th scope="col">Order id</th>
+										<th scope="col">Dukandar</th>
+										<th scope="col">Sub total</th>
+										<th scope="col">Discount</th>
+										<th scope="col">Net total</th>
+										<th scope="col">Paid amount</th>
+										<th scope="col">Due amount</th>
 										<th scope="col">Date</th>
 									</tr>
 								</thead>
 								<tbody>
-
-									<?php if (!empty($paid_amount)) : ?>
+									
+									<?php if (!empty($daily_orders)) : ?>
 										<!-- if record found -->
-										<?php foreach ($paid_amount as $amount) : ?>
+										<?php foreach ($daily_orders as $order) : ?>
 											<tr>
-												<?php if ($amount->name) : ?>
-													<td><?= $amount->name ?></td>
-													<td><?= round($amount->paid_amount) ?></td>
-													<td><?= round($amount->due_amount) ?></td>
-													<td><?= $filter ?? $amount->created_at ?></td>
+												<?php if ($order->name) : ?>
+													<td><?= $order->name ?></td>
+													<td><?= $order->order_id ?></td>
+													<td><?= $order->vendor_name ?><br>Address: <?=$order->address?></td>
+													<td><?= round($order->sub_total) ?></td>
+													<td><?= round($order->discount) ?></td>
+													<td><?= round($order->net_total) ?></td>
+													<td><?= round($order->paid_amount) ?></td>
+													<td><?= round($order->due_amount) ?></td>
+													<td><?= $filter ?? $order->created_at ?></td>
 												<?php else : ?>
 													<td>No Record Found. You can apply date filter.</td>
 												<?php endif; ?>

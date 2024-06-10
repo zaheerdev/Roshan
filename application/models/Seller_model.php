@@ -80,7 +80,8 @@ class Seller_model extends CI_Model
 			->get()->row();
 		return $check_email;
 	}
-	// daily sale paid amount and due amount
+	// daily sale paid amount and due amount 
+	// not using yet this function yet.
 	public function get_paid_details($id, $filter)
 	{
 		date_default_timezone_set('Asia/Karachi');
@@ -90,6 +91,31 @@ class Seller_model extends CI_Model
 		$this->db->select_sum('od.paid_amount');
 		$this->db->from('orders_delivered od');
 		$this->db->join('users u', 'u.id = od.user_id');
+		$this->db->where('od.user_id', $id);
+		if ($filter !== null) {
+			$filterdate = explode("-to-",$filter);
+			$start_date = $filterdate[0];
+			$end_date = $filterdate[1];
+			$this->db->where('DATE(od.created_at) >=', $start_date);
+			$this->db->where('DATE(od.created_at) <=', $end_date);
+		}else{
+			$this->db->where('DATE(od.created_at) >=', $date);
+		}
+		
+		// dd($this->db->get()->result());
+		return $this->db->get()->result();
+		
+	}
+	public function daily_delivered_orders($id, $filter)
+	{
+		date_default_timezone_set('Asia/Karachi');
+		$date = date('Y-m-d');
+		$this->db->select('u.name,od.order_id,od.created_at,v.vendor_name,v.address,od.sub_total,od.discount,od.net_total,od.paid_amount,od.due_amount');
+		$this->db->from('orders_delivered od');
+		$this->db->join('users u', 'u.id = od.user_id');
+		$this->db->join('orders o', 'o.order_id = od.order_id');
+		$this->db->join('vendors v', 'v.id = o.vendor_id');
+		
 		$this->db->where('od.user_id', $id);
 		if ($filter !== null) {
 			$filterdate = explode("-to-",$filter);
