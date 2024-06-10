@@ -73,12 +73,14 @@ class Records_model extends CI_Model
         $this->db->from("orders_delivered od");
         $this->db->join('orders or', 'or.order_id = od.order_id');
         $this->db->where("or.vendor_id", $vendor_id);
+        $this->db->group_by("od.order_id");
         $query = $this->db->get();
         if ($query->num_rows() > 0) {
             $result = $query->result();
         } else {
             $result = null;
         }
+		// dd($result);
         return $result;
     } //function ends
 

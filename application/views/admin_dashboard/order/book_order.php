@@ -145,11 +145,11 @@
 							itemQuantity = parseInt(response);
 							if (itemQuantity >= selectedQuantity) {
 								$('#book_order_form button[type="submit"]').prop('disabled', false);
-								
+
 							} else {
 								$('#book_order_form button[type="submit"]').prop('disabled', true);
 								alert("Out of stock or invalid quantity");
-								
+
 							}
 						}.bind(this),
 						error: function() {
@@ -204,24 +204,38 @@
 		});
 
 		// storing products in jquery
-		let products = <?=json_encode($product_items)?>;
+		let products = <?= json_encode($product_items) ?>;
 
 		$(document).on('change', '.item_select', function() {
 			var selectedPrice = parseFloat($(this).find('option:selected').data('price'));
 			$(this).closest('tr').find('.price_input').val(selectedPrice);
 			var total = selectedPrice;
 			$(this).closest('tr').find('.total input').val(total);
-			// adding assinged quantity placeholder on input chnaged
-			
-			var valueofitem = $(this).find('option:selected').val();
-			for(let i=0;i<products.length;i++){
-				if(products[i].id == valueofitem){
-					if(products[i].asinged_quantity){
-						$(this).closest('tr').find('.quantity').attr('placeholder',products[i].asinged_quantity);
+
+			// hide selected option from other rows.
+			var selected_option = $(this).find('option:selected');
+			var selected_item_value = selected_option.val();
+			$('#items-table').find('select').each(function() {
+				$(this).find('option').each(function() {
+					if ($(this).val() === selected_item_value) {
+						$(this).hide();
 					}else{
-						$(this).closest('tr').find('.quantity').attr('placeholder',products[i].quantity);
+						// $(this).show();
 					}
-					
+				})
+
+			});
+			// adding assinged quantity placeholder on input chnaged
+
+			var valueofitem = $(this).find('option:selected').val();
+			for (let i = 0; i < products.length; i++) {
+				if (products[i].id == valueofitem) {
+					if (products[i].asinged_quantity) {
+						$(this).closest('tr').find('.quantity').attr('placeholder', products[i].asinged_quantity);
+					} else {
+						$(this).closest('tr').find('.quantity').attr('placeholder', products[i].quantity);
+					}
+
 				}
 			}
 		});
@@ -236,6 +250,7 @@
 		$('#cancel-button').click(function() {
 			$('#book_order_form')[0].reset();
 			$('#items-table tbody tr:not(:first)').remove();
+			$('.item_select option').show();
 		});
 
 		// Initialize Toastr
