@@ -126,6 +126,7 @@ class Seller_model extends CI_Model
 		}else{
 			$this->db->where('DATE(od.created_at) >=', $date);
 		}
+		$this->db->group_by('od.order_id');
 		
 		// dd($this->db->get()->result());
 		return $this->db->get()->result();
