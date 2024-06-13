@@ -17,10 +17,10 @@ class Order_model extends CI_Model
 
 		if ($user_role == 2) {
 			$this->db->where("o.user_id", $user_id);
-			$this->db->group_by("o.order_id");
+			// $this->db->group_by("o.order_id");
 			return $this->db->get()->result();
 		} else {
-			$this->db->group_by("o.order_id");
+			// $this->db->group_by("o.order_id");
 			return $this->db->get()->result();
 		}
 	}
