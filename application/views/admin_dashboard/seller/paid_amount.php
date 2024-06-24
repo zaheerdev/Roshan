@@ -127,8 +127,12 @@
 								<tbody>
 									
 									<?php if (!empty($daily_orders)) : ?>
+										<?php $total_paid = 0; $total_due = 0; ?>
 										<!-- if record found -->
 										<?php foreach ($daily_orders as $order) : ?>
+											<!-- sum of paid and due -->
+											 <?php $total_paid = $total_paid + round($order->paid_amount); ?>
+											 <?php $total_due = $total_due + round($order->due_amount); ?>
 											<tr>
 												<?php if ($order->name) : ?>
 													<td><?= $order->name ?></td>
@@ -145,6 +149,18 @@
 												<?php endif; ?>
 											</tr>
 										<?php endforeach; ?>
+										<tr>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td>Total Paid: <?= $total_paid;?></td>
+											<td>Total Due: <?= $total_due;?></td>
+											
+											<td></td>
+										</tr>
 									<?php else : ?>
 										<tr>
 											<td>Nothing found for today. You can apply date filter.</td>
