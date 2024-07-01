@@ -55,8 +55,8 @@
     			if (typeof data.text === 'undefined') {
     				return null;
     			}
-				var param = params.term.toLowerCase();
-				var text = data.text.toLowerCase();
+    			var param = params.term.toLowerCase();
+    			var text = data.text.toLowerCase();
     			// `params.term` should be the term that is used for searching
     			// `data.text` is the text that is displayed for the data object
     			if (text.indexOf(param) === 0) {
@@ -82,10 +82,10 @@
     		});
     	});
     </script>
-    <!-- datatable with custom searching  -->
-    <!-- <script>
+    <!-- datatable with custom searching for records table -->
+    <script>
     	$(document).ready(function() {
-    		var table = $('#example0').DataTable({
+    		var table = $('#records').DataTable({
     			"paging": true,
     			"lengthChange": false,
     			"searching": true,
@@ -96,11 +96,15 @@
     			"info": true,
     			"autoWidth": false,
     			"responsive": true,
+    			dom: 'Bfrtip',
+    			buttons: [
+    				'csv'
+    			]
     		});
 
     		// Add search input fields outside the table
-    		$('#example0').before('<div class="my-2 form-inline" id="searchInputs"></div>');
-    		var columnsToSearch = [1, 4]; // Specify the columns to add search fields to
+    		$('#records').before('<div class="my-2 form-inline" id="searchInputs"></div>');
+    		var columnsToSearch = [2]; // Specify the columns to add search fields to
     		columnsToSearch.forEach(function(index) {
     			var title = table.column(index).header().innerText;
     			$('#searchInputs').append('<input class="mr-2 form-control" type="text" placeholder="Search ' + title + '" id="searchInput_' + index + '" />');
@@ -113,14 +117,16 @@
     			table.column(columnIndex).search('^' + val, true, false).draw();
     		});
     		// disable default searchbar
-    		$('#example0_filter').hide()
+    		$('#records_filter').hide()
+			// csv button text change.
+			$('.buttons-csv span').text('Download CSV');
 
     	});
-    </script> -->
+    </script>
     <!-- datatable  -->
     <script>
     	$(function() {
-    		$('table').DataTable({
+    		$('#example1,#example2').DataTable({
     			"paging": true,
     			"lengthChange": false,
     			"searching": true,

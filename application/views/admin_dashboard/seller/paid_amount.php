@@ -173,7 +173,7 @@
 							</div>
 							<!-- collected amount -->
 							<!-- Table start -->
-							<table id="example1" class="table table-bordered table-striped">
+							<table id="example2" class="table table-bordered table-striped">
 								<thead>
 									<tr>
 										<th scope="col">Seller Name</th>
