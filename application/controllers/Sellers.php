@@ -119,7 +119,7 @@ class Sellers extends CI_Controller
 				$seller = array(
 					"name" => trim(html_escape($this->input->post('name', TRUE))),
 					"email" => trim(html_escape(trim($this->input->post('email', TRUE)))),
-					"password" => md5(trim(html_escape($this->input->post('address', TRUE)))),
+					"password" => md5(trim(html_escape($this->input->post('password', TRUE)))),
 				);
 				if ($this->seller_model->update($seller, $id)) {
 					$this->session->set_flashdata('updated', "Seller Updated Successfully");

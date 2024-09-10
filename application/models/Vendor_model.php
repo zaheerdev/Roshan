@@ -56,4 +56,17 @@ class Vendor_model extends CI_Model
 			return false;
 		}
 	} // function ends
+
+
+	// transfer dukandar to other seller user
+	public function transfer_vendor($ids,$data){
+		$this->db->where_in('id', $ids);
+		$query = $this->db->update('vendors', $data);
+		if ($query) {
+			return true;
+		} else {
+			return false;
+		}
+		//return $this->db->select('*')->from('vendors')->where_in('id',$ids)->get()->result();
+	}
 }

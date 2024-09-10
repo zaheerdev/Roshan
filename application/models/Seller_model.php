@@ -200,4 +200,9 @@ class Seller_model extends CI_Model
 		}
 		// return $this->db->select('*')->from('seller_stock')->where('id',$id)->get()->row();
 	}
+
+	// get all sellers 
+	public function all_sellers(){
+		return $this->db->select('*')->from('users')->where('role_id',2)->get()->result();
+	}
 }

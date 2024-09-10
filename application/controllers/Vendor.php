@@ -14,7 +14,7 @@ class Vendor extends CI_Controller
 	function __construct()
 	{
 		parent::__construct();
-
+		$this->load->model('seller_model');
 		if (!$this->session->userdata('user_session')->logged_in) {
 			redirect(BASE_URL . 'auth/login');
 		}
@@ -117,6 +117,48 @@ class Vendor extends CI_Controller
 			}
 		} else {
 			return redirect(BASE_URL . 'vendor/all_vendors');
+		}
+	}
+
+	// transfer duakandar view
+	public function transfer_vendor($id)
+	{
+		$data['page_title'] = "Roshan | Transfer Vendor";
+		if ($this->user_role == 1) {
+			$data['sellers'] = $this->seller_model->all_sellers();
+			$data['vendors'] = $this->vendor_model->get_vendors($id);
+			$this->load->view('admin_dashboard/vendor/transfer_vendor', $data);
+		} else {
+			return redirect(BASE_URL . 'dashboard');
+		}
+	}
+	// save transfered vendor
+	public function save_transfer()
+	{
+		$this->form_validation->set_rules('transfer_to', 'Name of seller', 'required');
+		if ($this->form_validation->run() == FALSE) {
+			$errors['errors'] = validation_errors();
+			$this->session->set_flashdata($errors);
+			return redirect(BASE_URL . 'sellers/all_sellers');
+		} else {
+			$transfer_to = $this->input->post('transfer_to');
+			$vendor_ids = $this->input->post('id_array');
+			if (empty($vendor_ids)) {
+				$errors['errors'] = "Please select dukandar you want to transfer";
+				$this->session->set_flashdata($errors);
+				return redirect(BASE_URL . 'sellers/all_sellers');
+			} else {
+				$data = array(
+					"user_id" => $transfer_to
+				);
+				if ($this->vendor_model->transfer_vendor($vendor_ids, $data)) {
+					$this->session->set_flashdata('transfer', "Vendor transfered successfully ");
+					return redirect(BASE_URL . 'sellers/all_sellers');
+				} else {
+					$this->session->set_flashdata('transfer_fail', "Vendor transfered failed ");
+					return redirect(BASE_URL . 'sellers/all_sellers');
+				}
+			}
 		}
 	}
 }

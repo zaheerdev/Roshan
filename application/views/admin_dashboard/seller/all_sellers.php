@@ -47,6 +47,15 @@
 							</button>
 						</div>
 					<?php endif; ?>
+					<!-- errors -->
+					<?php if ($this->session->flashdata('errors')) : ?>
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<?= $this->session->flashdata('errors') ?>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					<?php endif; ?>
 					<!-- seller not found -->
 					<?php if ($this->session->flashdata('seller404')) : ?>
 						<div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -69,6 +78,24 @@
 					<?php if ($this->session->flashdata('delete')) : ?>
 						<div class="alert alert-success alert-dismissible fade show" role="alert">
 							<?= $this->session->flashdata('delete') ?>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					<?php endif; ?>
+					<!-- vendor transfer successfully -->
+					<?php if ($this->session->flashdata('transfer')) : ?>
+						<div class="alert alert-success alert-dismissible fade show" role="alert">
+							<?= $this->session->flashdata('transfer') ?>
+							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+								<span aria-hidden="true">&times;</span>
+							</button>
+						</div>
+					<?php endif; ?>
+					<!-- vendor transfer failed -->
+					<?php if ($this->session->flashdata('transfer_fail')) : ?>
+						<div class="alert alert-danger alert-dismissible fade show" role="alert">
+							<?= $this->session->flashdata('transfer_fail') ?>
 							<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 								<span aria-hidden="true">&times;</span>
 							</button>
@@ -114,7 +141,9 @@
 													<?php endif;?>
 													<a class="btn btn-primary " href="<?= BASE_URL . "sellers/paid_amount/" . $seller->id ?>">View Paid Amount</a>
 													<a class="btn btn-primary " href="<?= BASE_URL . "sellers/getstockdetail/" . $seller->id ?>">View Stock</a>
-
+													<?php if($this->session->userdata('user_session')->role_id == 1):?>
+													<a class="btn btn-primary " href="<?= BASE_URL . "vendor/transfer_vendor/" . $seller->id ?>">Transfer Dukandar</a>
+													<?php endif;?>	
 												</td>
 											</tr>
 										<?php endforeach; ?>
