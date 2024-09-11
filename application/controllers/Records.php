@@ -44,6 +44,16 @@ class Records extends CI_Controller
 			$this->load->view('admin_dashboard/record/records', $data);
 		}
 	}
+	public function collected_records(){
+		if($this->user_role == 1){
+			$data['page_title'] = "Roshan Tea| Records by Route";
+			$data['records'] = $this->records_model->route_records();
+			$this->load->view('admin_dashboard/record/records_by_route', $data);
+		}else{
+			return redirect(BASE_URL);
+		}
+		
+	}
 
 	public function due_payment($vendor_id)
 	{
