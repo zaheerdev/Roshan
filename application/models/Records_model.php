@@ -56,20 +56,26 @@ class Records_model extends CI_Model
 	// function for records of vendor and seller with their paid/due amount amount collected by sellers
 	public function route_records()
 	{
-
 		// Subquery to get the latest collected_amount and created_at for each vendor_id
 		$subquery = "
-        SELECT vendor_id, collected_amount, created_at
-        FROM seller_collected_amount
-        WHERE id IN (
-            SELECT MAX(id)
-            FROM seller_collected_amount
-            GROUP BY vendor_id
-        )
-    ";
+			SELECT sca.vendor_id, sca.collected_amount, sca.created_at
+			FROM seller_collected_amount sca
+			WHERE sca.id IN (
+				SELECT MAX(sca2.id)
+				FROM seller_collected_amount sca2
+				GROUP BY sca2.vendor_id
+			)
+		";
 
-		// Select required columns
-		$this->db->select('o.vendor_id, v.vendor_name,v.address, u.name as user_name');
+		// Subquery to get the route of each vendor
+		$subquery2 = "
+			SELECT rv.vendor_id, rv.route_id, r.route
+			FROM route_vendor rv
+			JOIN routes r ON r.id = rv.route_id
+		";
+
+		// Select required columns from the main query
+		$this->db->select('o.vendor_id, v.vendor_name, v.address, u.name as user_name, rv.route');
 		$this->db->select_sum('od.sub_total', 'total_sub_total');
 		$this->db->select_sum('od.discount', 'total_discount');
 		$this->db->select_sum('od.net_total', 'total_net_total');
@@ -85,10 +91,12 @@ class Records_model extends CI_Model
 		$this->db->join('vendors v', 'v.id = o.vendor_id');
 		$this->db->join('users u', 'u.id = od.user_id');
 		$this->db->join("($subquery) AS sca", 'sca.vendor_id = v.id', 'left');
+		$this->db->join("($subquery2) AS rv", 'rv.vendor_id = v.id', 'left');
 
 		// Group by vendor_id
 		$this->db->group_by('o.vendor_id');
 		$this->db->order_by('o.vendor_id', 'ASC');
+
 		// Execute the query
 		$query = $this->db->get();
 
@@ -96,11 +104,11 @@ class Records_model extends CI_Model
 		if ($query) {
 			// Return the result set as an array of associative arrays
 			$result = $query->result();
-			// dd($result);
 		} else {
 			// Query failed, return an empty array or handle the error accordingly
 			$result = null;
 		}
+
 		return $result;
 	}
 
